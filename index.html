@@ -467,6 +467,23 @@ input.searchinput{background:#0a130f;border:1px solid var(--line);color:var(--ch
 .freshness-box summary::before{content:'▸ ';}
 .freshness-box[open] summary::before{content:'▾ ';}
 .freshness-box .freshness{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+.sync-box .freshness{display:block;font-family:'Inter',sans-serif;font-size:12.5px;line-height:1.6;color:var(--chalk-dim);}
+.sync-state{display:flex;flex-wrap:wrap;gap:16px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--chalk-faint);}
+.sync-state b{color:var(--chalk-dim);}
+.sync-msg{margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;min-height:16px;}
+.sync-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px;}
+.sync-actions input{flex:1 1 320px;background:var(--panel-2);border:1px solid var(--line);color:var(--chalk);
+  padding:11px 14px;border-radius:20px;font-family:'IBM Plex Mono',monospace;font-size:12px;min-width:0;}
+.sync-actions input:focus{outline:none;border-color:var(--gold-dim);}
+.sync-actions button.primary{padding:11px 22px;font-size:13px;}
+button.ghost.danger{color:var(--red);border-color:rgba(200,80,70,.35);}
+button.ghost.danger:hover{border-color:var(--red);color:var(--red);}
+.sync-note{margin:14px 0 0;font-size:12px;line-height:1.65;color:var(--chalk-faint);max-width:70ch;}
+.sync-note b{color:var(--chalk-dim);}
+.sync-box a{color:var(--gold);}
+.sync-note a{color:var(--gold);}
+@media(max-width:680px){ .sync-actions{flex-direction:column;align-items:stretch;}
+  .sync-actions button,.sync-actions input{width:100%;} }
 </style>
 </head>
 <body>
@@ -478,12 +495,17 @@ input.searchinput{background:#0a130f;border:1px solid var(--line);color:var(--ch
       <h1>FANTASY <span>INSIDER</span></h1>
       <p>One screen for every Sleeper league you manage.</p>
     </div>
-    <div class="tag">LIVE DATA · SLEEPER API<br><span style="opacity:.6;font-size:9px">build 2026-10-13-r34</span></div>
+    <div class="tag">LIVE DATA · SLEEPER API<br><span style="opacity:.6;font-size:9px">build 2026-10-19-r35</span></div>
   </div>
 
   <details class="freshness-box" id="freshnessBox" style="display:none">
     <summary>Data Sources &amp; Freshness</summary>
     <div class="freshness" id="freshnessContent"></div>
+  </details>
+
+  <details class="freshness-box sync-box" id="syncBox">
+    <summary>Your Notes &amp; Value History — device sync</summary>
+    <div class="freshness" id="syncContent"></div>
   </details>
 
   <div class="setup" id="setupCard">
@@ -573,7 +595,7 @@ input.searchinput{background:#0a130f;border:1px solid var(--line);color:var(--ch
      than assuming any external written summary is complete or current.
    ============================================================================ */
 
-const APP_BUILD = "2026-10-13-r34 (overview week toggle: past weeks render as results, with a weekly recap)";
+const APP_BUILD = "2026-10-19-r35 (cross-device sync: notes and value history merge through a private gist, plus file export/import)";
 const API = "https://api.sleeper.app/v1";
 const SLEEPER_WEB_BASE = "https://sleeper.com/leagues/";
 function sleeperLeagueURL(leagueId){ return SLEEPER_WEB_BASE + leagueId + '/matchup'; }
@@ -1147,6 +1169,9 @@ async function boot(){
     showDashboard();
     startLiveAutoRefresh();
     startNoteCollapsing();
+    /* Pull whatever the other device recorded before anything here is edited. Deliberately not
+       awaited: sync is never allowed to hold up the dashboard. */
+    if(syncEnabled()) syncNow('boot');
 
   }catch(err){
     console.error(err);
@@ -1432,9 +1457,606 @@ function renderFreshnessPanel(){
   box.style.display = 'block';
 }
 
-function noteKey(pid){ return 'fi_note_' + pid; }
-function getNote(pid){ try{ return localStorage.getItem(noteKey(pid)) || ''; }catch(e){ return ''; } }
-function setNote(pid, val){ try{ localStorage.setItem(noteKey(pid), val); }catch(e){} }
+/* ============================================================================
+   SYNC — the same notes and the same value history on every device
+   ----------------------------------------------------------------------------
+   Everything this app remembers about YOU (player notes, and the value history
+   it accumulates week by week) has always lived in localStorage. That is per
+   browser and per device: the phone and the laptop each built their own, and
+   neither could see the other's. Clearing site data lost both.
+
+   This section fixes that without introducing a server, an account, or a bill.
+   There are three levels, and the app is fully usable at every one:
+
+     1. LOCAL (default, zero setup) — exactly the old behaviour.
+     2. FILE   — export the whole store as one JSON file, import it anywhere.
+                 No account, no network. Also the backup.
+     3. GIST   — two-way sync through a *secret* GitHub Gist. Free, unlimited,
+                 and already part of this app's world (the app is served from
+                 GitHub Pages). A token scoped to Gists only is pasted once per
+                 device and never leaves that device except to api.github.com.
+
+   WHY A GIST AND NOT A DATABASE
+   A free database tier is a bill waiting to happen and a service waiting to be
+   discontinued. A gist is a text file in a git repo: no quota worth worrying
+   about for a few hundred KB of JSON, full revision history for free, and it
+   will outlive any hobby backend. The cost is the one-time token paste.
+
+   THE MERGE IS THE WHOLE PROBLEM
+   Two devices can both be edited while offline, so "last writer wins on the
+   whole document" would silently throw away a day's work. Instead the merge is
+   per key and the rules are chosen so that merging is COMMUTATIVE and
+   IDEMPOTENT — merge(a,b) === merge(b,a), and merging twice changes nothing.
+   That is what makes it safe to sync in any order, from any device, after any
+   amount of time offline:
+
+     - Notes carry their own edit timestamp; the newer edit wins. Clearing a
+       note stores an empty string with a fresh timestamp, so a DELETE also
+       propagates instead of being resurrected by the other device.
+     - Value history is append-only by nature — one point per player per day —
+       so the merge is a union keyed by day. Two devices that each recorded a
+       different week end up with both weeks.
+     - Where the two sides disagree on the SAME day, the document written more
+       recently wins, and an exact tie is broken deterministically so both
+       devices land on the same answer without talking to each other.
+
+   Nothing here is allowed to break the page. Every read, write and request is
+   wrapped: a failed sync leaves the local data exactly as it was and says so
+   in the panel. ========================================================== */
+
+const SYNC_FMT          = 'fantasy-insider-sync';
+const SYNC_DOC_VERSION  = 1;
+const SYNC_FILENAME     = 'fantasy-insider-sync.json';
+const SYNC_CFG_KEY      = 'fi_sync_cfg_v1';
+const SYNC_DEBOUNCE_MS  = 4000;
+const SYNC_IDLE_MS      = 5 * 60 * 1000;   // on refocus, only re-sync if this stale
+const SYNC_TOMBSTONE_MS = 90 * 86400000;   // forget a cleared note after ~3 months
+const GH_API            = 'https://api.github.com';
+
+/* Built as a function, not a const: VALUE_HISTORY_VERSION is declared further down the file and
+   would be in its temporal dead zone if this were evaluated at load time. */
+function histPrefix(){ return 'fi_valhist_v' + VALUE_HISTORY_VERSION + '_'; }
+
+let SYNC_TIMER = null;
+let SYNC_RUNNING = false;
+let SYNC_LAST_RESULT = null;   // { ok, at, msg, pulled, pushed }
+
+/* ---- config ------------------------------------------------------------- */
+
+function syncCfg(){
+  try {
+    const raw = localStorage.getItem(SYNC_CFG_KEY);
+    const p = raw ? JSON.parse(raw) : null;
+    return (p && typeof p === 'object') ? p : {};
+  } catch(e){ return {}; }
+}
+function saveSyncCfg(patch){
+  try {
+    const next = Object.assign(syncCfg(), patch);
+    localStorage.setItem(SYNC_CFG_KEY, JSON.stringify(next));
+    return next;
+  } catch(e){ return syncCfg(); }
+}
+function syncEnabled(){ const c = syncCfg(); return !!(c.token && c.gistId); }
+
+/* ---- notes: one timestamped store, migrated from the old per-player keys --- */
+
+const NOTES_KEY = 'fi_notes_v2';
+const NOTES_MIGRATED_KEY = 'fi_notes_v2_migrated';
+let NOTES = null;
+
+/* The original store was one localStorage key per player holding a bare string, with no record of
+   when it was written. That cannot be merged — two devices with different text and no timestamps
+   have no way to tell which is current. So notes move to a single keyed store with an edit time.
+   The old keys are READ once and then left alone rather than deleted: if this migration is ever
+   re-run against a half-written store, the originals are still there. */
+function migrateLegacyNotes(into){
+  let found = 0;
+  try {
+    if(localStorage.getItem(NOTES_MIGRATED_KEY)) return 0;
+    for(let i = 0; i < localStorage.length; i++){
+      const k = localStorage.key(i);
+      if(!k || k.indexOf('fi_note_') !== 0) continue;
+      const pid = k.slice('fi_note_'.length);
+      if(!pid || Object.prototype.hasOwnProperty.call(into, pid)) continue;
+      const t = localStorage.getItem(k);
+      if(t == null || t === '') continue;
+      /* Timestamp 1, not Date.now(): a migrated note is older than every real edit, so any later
+         edit on any device wins over it. 1 rather than 0 keeps it distinguishable from "unset". */
+      into[pid] = { t: t, at: 1 };
+      found++;
+    }
+    localStorage.setItem(NOTES_MIGRATED_KEY, String(Date.now()));
+  } catch(e){ /* private mode or a locked store: notes simply start empty */ }
+  return found;
+}
+
+function allNotes(){
+  if(NOTES) return NOTES;
+  let store = {};
+  try {
+    const raw = localStorage.getItem(NOTES_KEY);
+    const p = raw ? JSON.parse(raw) : null;
+    if(p && typeof p === 'object') store = p;
+  } catch(e){ store = {}; }
+  const migrated = migrateLegacyNotes(store);
+  NOTES = store;
+  if(migrated) persistNotes();
+  return NOTES;
+}
+function persistNotes(){
+  try { localStorage.setItem(NOTES_KEY, JSON.stringify(NOTES || {})); return true; }
+  catch(e){ return false; }
+}
+
+function getNote(pid){
+  const n = allNotes()[pid];
+  return (n && typeof n.t === 'string') ? n.t : '';
+}
+function setNote(pid, val){
+  const store = allNotes();
+  const t = (val == null) ? '' : String(val);
+  const prev = store[pid];
+  if(prev && prev.t === t) return;          // no edit, no timestamp bump, no sync
+  store[pid] = { t: t, at: Date.now() };
+  persistNotes();
+  syncQueue();
+}
+
+/* ---- the portable document ----------------------------------------------- */
+
+function collectSyncDoc(){
+  const history = {};
+  const pfx = histPrefix();
+  try {
+    for(let i = 0; i < localStorage.length; i++){
+      const k = localStorage.key(i);
+      if(!k || k.indexOf(pfx) !== 0) continue;
+      try {
+        const p = JSON.parse(localStorage.getItem(k));
+        if(p && typeof p === 'object') history[k.slice(pfx.length)] = p;
+      } catch(e){ /* a corrupt league series is skipped, not fatal */ }
+    }
+  } catch(e){ /* no storage at all */ }
+  return {
+    fmt: SYNC_FMT,
+    v: SYNC_DOC_VERSION,
+    updated: new Date().toISOString(),
+    notes: allNotes(),
+    history: history
+  };
+}
+
+function isSyncDoc(d){
+  return !!(d && typeof d === 'object' && d.fmt === SYNC_FMT && d.notes && d.history);
+}
+
+/* Drop cleared notes once they are old enough that every device has certainly seen the deletion.
+   Without this the store only ever grows: a cleared note is still a key.
+
+   The trade-off is real but narrow: a device that stays offline for longer than this window and
+   then syncs will re-introduce its own copy of a note deleted elsewhere, because the record of the
+   deletion is gone. Three months is far longer than any gap between opening this app during a
+   season, and the failure mode is a stale note reappearing — not data being lost. */
+function pruneTombstones(notes, now){
+  const cutoff = (now || Date.now()) - SYNC_TOMBSTONE_MS;
+  Object.keys(notes).forEach(pid => {
+    const n = notes[pid];
+    if(n && n.t === '' && (n.at || 0) < cutoff) delete notes[pid];
+  });
+  return notes;
+}
+
+/* ---- the merge ------------------------------------------------------------ */
+
+/* Newer edit wins. On an exact timestamp tie the two sides must still agree without talking to
+   each other, so the tie is broken on the text itself — longer first, then lexicographic. Both
+   devices run the same comparison on the same pair and reach the same answer. */
+function pickNote(x, y){
+  if(!x) return y;
+  if(!y) return x;
+  const ax = x.at || 0, ay = y.at || 0;
+  if(ax !== ay) return ax > ay ? x : y;
+  if(x.t === y.t) return x;
+  if(x.t.length !== y.t.length) return x.t.length > y.t.length ? x : y;
+  return x.t > y.t ? x : y;
+}
+
+/* Union of two series keyed by day. `aWins` decides only the case where both sides recorded the
+   same day with different values, which happens when two devices were open on the same day. */
+function mergeSeries(sa, sb, aWins){
+  const A = {}, B = {};
+  (Array.isArray(sa) ? sa : []).forEach(p => { if(p && p.d != null && isFinite(p.v)) A[p.d] = p.v; });
+  (Array.isArray(sb) ? sb : []).forEach(p => { if(p && p.d != null && isFinite(p.v)) B[p.d] = p.v; });
+  const days = Object.keys(A).concat(Object.keys(B).filter(d => !Object.prototype.hasOwnProperty.call(A, d)));
+  days.sort();   // YYYY-MM-DD sorts lexicographically into chronological order
+  const out = days.map(d => {
+    const inA = Object.prototype.hasOwnProperty.call(A, d);
+    const inB = Object.prototype.hasOwnProperty.call(B, d);
+    let v;
+    if(inA && inB) v = (A[d] === B[d]) ? A[d] : (aWins ? A[d] : B[d]);
+    else v = inA ? A[d] : B[d];
+    return { d: d, v: v };
+  });
+  /* Same cap the local writer uses, so a merge can never grow a series past what the app trims to
+     on its next save — otherwise history would oscillate in size on every sync. */
+  return out.length > VALUE_HISTORY_MAX_POINTS ? out.slice(-VALUE_HISTORY_MAX_POINTS) : out;
+}
+
+function mergeSyncDocs(a, b){
+  const A = isSyncDoc(a) ? a : { notes:{}, history:{}, updated:'' };
+  const B = isSyncDoc(b) ? b : { notes:{}, history:{}, updated:'' };
+  const aNewer = String(A.updated || '') >= String(B.updated || '');
+
+  const notes = {};
+  Object.keys(A.notes).forEach(pid => { notes[pid] = A.notes[pid]; });
+  Object.keys(B.notes).forEach(pid => { notes[pid] = pickNote(notes[pid], B.notes[pid]); });
+  pruneTombstones(notes);
+
+  const history = {};
+  const leagues = Object.keys(A.history).concat(
+    Object.keys(B.history).filter(l => !Object.prototype.hasOwnProperty.call(A.history, l)));
+  leagues.forEach(lg => {
+    const ha = A.history[lg] || {}, hb = B.history[lg] || {};
+    const merged = {};
+    const pids = Object.keys(ha).concat(Object.keys(hb).filter(p => !Object.prototype.hasOwnProperty.call(ha, p)));
+    pids.forEach(pid => {
+      const s = mergeSeries(ha[pid], hb[pid], aNewer);
+      if(s.length) merged[pid] = s;
+    });
+    if(Object.keys(merged).length) history[lg] = merged;
+  });
+
+  return {
+    fmt: SYNC_FMT,
+    v: SYNC_DOC_VERSION,
+    updated: (String(A.updated||'') > String(B.updated||'') ? A.updated : B.updated) || new Date().toISOString(),
+    notes: notes,
+    history: history
+  };
+}
+
+/* A stable fingerprint of the parts that matter, used to tell "the merge changed something" from
+   "the merge was a no-op". `updated` is deliberately excluded — it changes on every collect. */
+function syncDocFingerprint(doc){
+  if(!isSyncDoc(doc)) return '';
+  const notes = Object.keys(doc.notes).sort()
+    .map(p => p + '=' + (doc.notes[p].at||0) + ':' + doc.notes[p].t).join('|');
+  const hist = Object.keys(doc.history).sort().map(lg => {
+    const h = doc.history[lg];
+    return lg + '{' + Object.keys(h).sort()
+      .map(p => p + ':' + h[p].map(pt => pt.d + '@' + pt.v).join(',')).join(';') + '}';
+  }).join('|');
+  return notes + '##' + hist;
+}
+
+/* ---- applying a merged document back to this device ----------------------- */
+
+function applySyncDoc(doc){
+  if(!isSyncDoc(doc)) return { ok:false, notes:0, leagues:0 };
+  let leagues = 0;
+  NOTES = doc.notes;
+  persistNotes();
+  const pfx = histPrefix();
+  Object.keys(doc.history).forEach(lg => {
+    try { localStorage.setItem(pfx + lg, JSON.stringify(doc.history[lg])); leagues++; }
+    catch(e){ /* quota: the league keeps whatever it already had */ }
+  });
+  /* The open league's series is held in a module global for speed, so it has to be re-read or the
+     page would keep rendering the pre-merge history until the next league switch. */
+  if(ACTIVE_LEAGUE_ID && doc.history[ACTIVE_LEAGUE_ID]) VALUE_HISTORY = doc.history[ACTIVE_LEAGUE_ID];
+  return { ok:true, notes:Object.keys(doc.notes).length, leagues:leagues };
+}
+
+/* ---- GitHub Gist transport ------------------------------------------------ */
+
+async function ghRequest(path, opts){
+  const cfg = syncCfg();
+  const o = opts || {};
+  const res = await fetch(GH_API + path, {
+    method: o.method || 'GET',
+    headers: Object.assign({
+      'Accept': 'application/vnd.github+json',
+      'Authorization': 'Bearer ' + cfg.token,
+      'X-GitHub-Api-Version': '2022-11-28'
+    }, o.body ? { 'Content-Type': 'application/json' } : {}),
+    body: o.body ? JSON.stringify(o.body) : undefined
+  });
+  if(res.status === 401) throw new Error('GitHub rejected the token (401). It may have expired or been revoked.');
+  if(res.status === 403) throw new Error('GitHub refused the request (403). The token is probably missing the Gists permission.');
+  if(res.status === 404) throw new Error('The sync gist was not found (404). It may have been deleted — disconnect and connect again.');
+  if(!res.ok) throw new Error('GitHub returned HTTP ' + res.status + '.');
+  return res.json();
+}
+
+/* Finds this app's gist among the account's existing ones, so a second device connected with the
+   same token joins the same store automatically instead of starting a rival one. */
+async function findSyncGist(){
+  for(let page = 1; page <= 3; page++){
+    const list = await ghRequest('/gists?per_page=100&page=' + page);
+    if(!Array.isArray(list) || !list.length) break;
+    const hit = list.find(g => g && g.files && g.files[SYNC_FILENAME]);
+    if(hit) return hit.id;
+    if(list.length < 100) break;
+  }
+  return null;
+}
+
+async function createSyncGist(doc){
+  const made = await ghRequest('/gists', { method:'POST', body:{
+    description: 'Fantasy Insider — notes and player value history (private sync store)',
+    public: false,
+    files: { [SYNC_FILENAME]: { content: JSON.stringify(doc, null, 1) } }
+  }});
+  return made.id;
+}
+
+async function readSyncGist(gistId){
+  const g = await ghRequest('/gists/' + gistId);
+  const f = g && g.files && g.files[SYNC_FILENAME];
+  if(!f) return null;
+  let text = f.content;
+  /* GitHub inlines file content only up to ~1MB and then sets `truncated`, handing back a raw URL
+     instead. A few seasons of history across ten leagues can reach that, so follow the URL rather
+     than silently syncing a cut-off document. */
+  if(f.truncated && f.raw_url){
+    const r = await fetch(f.raw_url);
+    if(!r.ok) throw new Error('Could not read the full sync file (HTTP ' + r.status + ').');
+    text = await r.text();
+  }
+  try { return JSON.parse(text); } catch(e){ throw new Error('The sync file is not readable JSON.'); }
+}
+
+async function writeSyncGist(gistId, doc){
+  await ghRequest('/gists/' + gistId, { method:'PATCH', body:{
+    files: { [SYNC_FILENAME]: { content: JSON.stringify(doc, null, 1) } }
+  }});
+}
+
+/* ---- the sync itself ------------------------------------------------------ */
+
+async function syncNow(reason){
+  if(SYNC_RUNNING) return SYNC_LAST_RESULT;
+  const cfg = syncCfg();
+  if(!cfg.token || !cfg.gistId){
+    SYNC_LAST_RESULT = { ok:false, at:Date.now(), msg:'Not connected.' };
+    renderSyncPanel();
+    return SYNC_LAST_RESULT;
+  }
+  SYNC_RUNNING = true;
+  renderSyncPanel('Syncing…');
+  try {
+    const local  = collectSyncDoc();
+    const remote = await readSyncGist(cfg.gistId);
+    const merged = mergeSyncDocs(local, remote);
+
+    const fpLocal  = syncDocFingerprint(local);
+    const fpRemote = isSyncDoc(remote) ? syncDocFingerprint(remote) : null;
+    const fpMerged = syncDocFingerprint(merged);
+
+    let pulled = false, pushed = false;
+    if(fpMerged !== fpLocal){ applySyncDoc(merged); pulled = true; }
+    if(fpMerged !== fpRemote){ await writeSyncGist(cfg.gistId, merged); pushed = true; }
+
+    saveSyncCfg({ lastSync: Date.now() });
+    SYNC_LAST_RESULT = { ok:true, at:Date.now(), pulled:pulled, pushed:pushed,
+      msg: (!pulled && !pushed) ? 'Already up to date.'
+         : (pulled && pushed)   ? 'Merged changes from both sides.'
+         : pulled               ? 'Pulled changes from your other device.'
+                                : 'Pushed this device\'s changes.' };
+    if(pulled) repaintAfterSync();
+  } catch(err){
+    SYNC_LAST_RESULT = { ok:false, at:Date.now(), msg: err.message || String(err) };
+  } finally {
+    SYNC_RUNNING = false;
+    renderSyncPanel();
+  }
+  return SYNC_LAST_RESULT;
+}
+
+/* Writes are bursty — typing a note fires one per keystroke-group — so pushes are coalesced.
+   Nothing is lost by waiting: the local store is already written before this is called. */
+function syncQueue(){
+  if(!syncEnabled()) return;
+  if(SYNC_TIMER) clearTimeout(SYNC_TIMER);
+  SYNC_TIMER = setTimeout(() => { SYNC_TIMER = null; syncNow('queued'); }, SYNC_DEBOUNCE_MS);
+}
+
+/* After pulling someone else's edits the open view is stale. Re-rendering the whole league is
+   expensive and would scroll the page away, so only the two things sync can change are redrawn. */
+function repaintAfterSync(){
+  try {
+    document.querySelectorAll('[data-note-pid]').forEach(inp => {
+      const v = getNote(inp.dataset.notePid);
+      if(document.activeElement !== inp && inp.value !== v) inp.value = v;
+    });
+  } catch(e){}
+  try {
+    if(typeof refreshValueHistoryView === 'function') refreshValueHistoryView();
+  } catch(e){}
+}
+
+async function connectSync(token){
+  const t = (token || '').trim();
+  if(!t) return { ok:false, msg:'Paste a token first.' };
+  saveSyncCfg({ token: t });
+  renderSyncPanel('Connecting…');
+  try {
+    let gistId = await findSyncGist();
+    if(!gistId) gistId = await createSyncGist(collectSyncDoc());
+    saveSyncCfg({ gistId: gistId, connectedAt: Date.now() });
+    const r = await syncNow('connect');
+    return r.ok ? { ok:true, msg:'Connected. ' + r.msg } : { ok:false, msg:r.msg };
+  } catch(err){
+    saveSyncCfg({ token: null, gistId: null });
+    SYNC_LAST_RESULT = { ok:false, at:Date.now(), msg: err.message || String(err) };
+    renderSyncPanel();
+    return { ok:false, msg: SYNC_LAST_RESULT.msg };
+  }
+}
+
+/* Forgets the token on THIS device only. The gist and its contents are left untouched, so the
+   other devices keep working and reconnecting here restores everything. */
+function disconnectSync(){
+  saveSyncCfg({ token: null, gistId: null, lastSync: null });
+  SYNC_LAST_RESULT = { ok:true, at:Date.now(), msg:'Disconnected on this device. Your data is still here, and the gist was left alone.' };
+  renderSyncPanel();
+}
+
+/* ---- export / import: the level that needs no account at all -------------- */
+
+function exportSyncFile(){
+  const doc = collectSyncDoc();
+  const blob = new Blob([JSON.stringify(doc, null, 1)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'fantasy-insider-backup-' + todayStamp() + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  const n = Object.keys(doc.notes).length, l = Object.keys(doc.history).length;
+  SYNC_LAST_RESULT = { ok:true, at:Date.now(), msg:'Exported ' + n + ' note(s) and history for ' + l + ' league(s).' };
+  renderSyncPanel();
+}
+
+/* Import MERGES rather than replaces. Replacing would make restoring an old backup destroy
+   everything recorded since, which is exactly when someone reaches for a backup. */
+function importSyncText(text){
+  let incoming;
+  try { incoming = JSON.parse(text); }
+  catch(e){ return { ok:false, msg:'That file is not valid JSON.' }; }
+  if(!isSyncDoc(incoming)) return { ok:false, msg:'That file is not a Fantasy Insider backup.' };
+  const merged = mergeSyncDocs(collectSyncDoc(), incoming);
+  applySyncDoc(merged);
+  repaintAfterSync();
+  syncQueue();
+  const n = Object.keys(merged.notes).length, l = Object.keys(merged.history).length;
+  SYNC_LAST_RESULT = { ok:true, at:Date.now(), msg:'Merged. Now holding ' + n + ' note(s) and history for ' + l + ' league(s).' };
+  renderSyncPanel();
+  return { ok:true };
+}
+
+/* ---- panel ---------------------------------------------------------------- */
+
+function syncStoreSummary(){
+  const doc = collectSyncDoc();
+  const notes = Object.keys(doc.notes).filter(p => doc.notes[p].t).length;
+  const leagues = Object.keys(doc.history).length;
+  let points = 0;
+  Object.keys(doc.history).forEach(lg => Object.keys(doc.history[lg]).forEach(p => { points += doc.history[lg][p].length; }));
+  return { notes, leagues, points, bytes: JSON.stringify(doc).length };
+}
+
+function relTime(ts){
+  if(!ts) return 'never';
+  const s = Math.round((Date.now() - ts)/1000);
+  if(s < 60) return 'just now';
+  if(s < 3600) return Math.round(s/60) + ' min ago';
+  if(s < 86400) return Math.round(s/3600) + ' h ago';
+  return Math.round(s/86400) + ' d ago';
+}
+
+function renderSyncPanel(busyMsg){
+  const el = document.getElementById('syncContent');
+  if(!el) return;
+  const cfg = syncCfg();
+  const on = syncEnabled();
+  const s = syncStoreSummary();
+  const kb = (s.bytes/1024).toFixed(s.bytes > 1024*100 ? 0 : 1);
+
+  const status = busyMsg
+    ? `<span style="color:var(--gold)"><span class="spinner"></span>${busyMsg}</span>`
+    : SYNC_LAST_RESULT
+      ? `<span style="color:${SYNC_LAST_RESULT.ok ? 'var(--green)' : 'var(--red)'}">${SYNC_LAST_RESULT.msg}</span>`
+      : on ? '<span style="color:var(--chalk-faint)">Connected.</span>'
+           : '<span style="color:var(--chalk-faint)">This device only.</span>';
+
+  el.innerHTML = `
+    <div class="sync-state">
+      <span><b>Status:</b> ${on ? '<span style="color:var(--green)">Syncing via GitHub Gist</span>' : '<span style="color:var(--chalk-faint)">Local to this device</span>'}</span>
+      <span><b>Last sync:</b> ${on ? relTime(cfg.lastSync) : '—'}</span>
+      <span><b>Holding:</b> ${s.notes} note(s) · ${s.points} value point(s) across ${s.leagues} league(s) · ${kb} KB</span>
+    </div>
+    <div class="sync-msg">${status}</div>
+
+    ${on ? `
+      <div class="sync-actions">
+        <button class="primary" id="syncNowBtn">Sync now</button>
+        <button class="ghost" id="syncExportBtn">Download a backup</button>
+        <button class="ghost" id="syncImportBtn">Restore from a file</button>
+        <button class="ghost danger" id="syncDisconnectBtn">Disconnect this device</button>
+      </div>
+      <p class="sync-note">Open this page on your phone, paste the same token, and it will find this
+      same store on its own — there is nothing else to set up. The token lives only in this
+      browser; it is sent to api.github.com and nowhere else.</p>
+    ` : `
+      <div class="sync-actions">
+        <input id="syncTokenInput" type="password" placeholder="Paste a GitHub token with Gists access" autocomplete="off" spellcheck="false">
+        <button class="primary" id="syncConnectBtn">Connect</button>
+      </div>
+      <p class="sync-note">
+        <b>What this does.</b> Keeps your notes and your accumulated value history identical on every
+        device you open this page on — phone, laptop, anywhere — and gives you an off-device backup.
+        It is free: the data is a few hundred KB of JSON in a <i>secret</i> gist on your own GitHub
+        account. No server, no subscription, nothing to maintain.<br><br>
+        <b>Setting it up, once.</b> Go to
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>,
+        give it any name, and under <b>Account permissions</b> set <b>Gists</b> to
+        <b>Read and write</b>. Leave every other permission alone — a token scoped this way cannot
+        touch your repositories, so the worst case if it ever leaked is someone reading your fantasy
+        notes. Copy the token and paste it above.<br><br>
+        <b>Prefer no account at all?</b> Use the file instead — it needs nothing and no network.
+      </p>
+      <div class="sync-actions">
+        <button class="ghost" id="syncExportBtn">Download a backup</button>
+        <button class="ghost" id="syncImportBtn">Restore from a file</button>
+      </div>
+    `}
+    <input type="file" id="syncFileInput" accept="application/json,.json" style="display:none">
+  `;
+
+  const byId = id => document.getElementById(id);
+  const on_ = (id, fn) => { const b = byId(id); if(b) b.addEventListener('click', fn); };
+
+  on_('syncNowBtn', () => syncNow('manual'));
+  on_('syncExportBtn', exportSyncFile);
+  on_('syncDisconnectBtn', () => { if(confirm('Forget the sync token on this device? Your data stays, and the gist is left alone.')) disconnectSync(); });
+  on_('syncImportBtn', () => { const f = byId('syncFileInput'); if(f) f.click(); });
+  on_('syncConnectBtn', async () => {
+    const inp = byId('syncTokenInput');
+    const btn = byId('syncConnectBtn');
+    if(!inp) return;
+    if(btn) btn.disabled = true;
+    await connectSync(inp.value);
+  });
+
+  const tokenInput = byId('syncTokenInput');
+  if(tokenInput) tokenInput.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){ e.preventDefault(); const b = byId('syncConnectBtn'); if(b) b.click(); }
+  });
+
+  const file = byId('syncFileInput');
+  if(file) file.addEventListener('change', () => {
+    const f = file.files && file.files[0];
+    if(!f) return;
+    const rd = new FileReader();
+    rd.onload = () => importSyncText(String(rd.result || ''));
+    rd.onerror = () => { SYNC_LAST_RESULT = { ok:false, at:Date.now(), msg:'Could not read that file.' }; renderSyncPanel(); };
+    rd.readAsText(f);
+  });
+}
+
+/* Sync when the tab comes back to the front after sitting idle — that is almost always the moment
+   the other device has been used. Cheap: one conditional request, and only when actually stale. */
+function startSyncWatch(){
+  try {
+    document.addEventListener('visibilitychange', () => {
+      if(document.visibilityState !== 'visible' || !syncEnabled()) return;
+      const last = syncCfg().lastSync || 0;
+      if(Date.now() - last > SYNC_IDLE_MS) syncNow('refocus');
+    });
+  } catch(e){}
+}
 function noteInputHTML(pid){
   const val = getNote(pid);
   return `<input class="note-input" data-note-pid="${pid}" placeholder="e.g. WR8 this wk" value="${val.replace(/"/g,'&quot;')}">`;
@@ -3235,6 +3857,7 @@ function renderLeague(data){
     renderIDPRankings(league, allRosteredIds, myRoster, rosters, rosterNameById);
     /* Snapshot only once real values are available, so history is not seeded with floors. */
     recordValueSnapshot(league, rosters);
+    syncQueue();   // today's new points are worth getting off this device
     renderValueHistory(league, rosters, myRoster, allRosteredIds, rosterNameById);
   })();
   const effWindow = effectiveWindow(league.league_id, headlineAnalysis.windowLabel);
@@ -3996,7 +4619,15 @@ function valueTrendChip(pid, days){
 }
 
 /* ---------- Value History view ---------- */
+let LAST_VALUE_HISTORY_ARGS = null;
+/* Re-runs the last render of this panel. Used after a sync pull brings in points this device
+   never recorded, so the chart reflects them without reloading the whole league. */
+function refreshValueHistoryView(){
+  if(!LAST_VALUE_HISTORY_ARGS) return;
+  try { renderValueHistory.apply(null, LAST_VALUE_HISTORY_ARGS); } catch(e){}
+}
 function renderValueHistory(league, rosters, myRoster, allRosteredIds, rosterNameById){
+  LAST_VALUE_HISTORY_ARGS = [league, rosters, myRoster, allRosteredIds, rosterNameById];
   const panel = document.getElementById('panel-history');
   if(!panel) return;
 
@@ -6464,6 +7095,17 @@ function renderElenco(players, starterIds, myRoster, league){
 
   renderContent();
 }
+
+/* ---------------------------------------------------------------------------
+   Page init runs LAST, at the foot of the script, deliberately. The sync panel
+   reads the notes store as it draws, and that store is a top-level let declared
+   partway down this file — calling the renderer from higher up puts it in the
+   temporal dead zone and the panel silently fails to appear. Nothing here needs
+   a DOMContentLoaded wrapper: this script is the last thing in <body>, so every
+   element it touches already exists.
+   --------------------------------------------------------------------------- */
+renderSyncPanel();
+startSyncWatch();
 </script>
 </body>
 </html>
