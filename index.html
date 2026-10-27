@@ -495,7 +495,7 @@ button.ghost.danger:hover{border-color:var(--red);color:var(--red);}
       <h1>FANTASY <span>INSIDER</span></h1>
       <p>One screen for every Sleeper league you manage.</p>
     </div>
-    <div class="tag">LIVE DATA · SLEEPER API<br><span style="opacity:.6;font-size:9px">build 2026-10-19-r35</span></div>
+    <div class="tag">LIVE DATA · SLEEPER API<br><span style="opacity:.6;font-size:9px">build 2026-10-27-r37</span></div>
   </div>
 
   <details class="freshness-box" id="freshnessBox" style="display:none">
@@ -595,7 +595,7 @@ button.ghost.danger:hover{border-color:var(--red);color:var(--red);}
      than assuming any external written summary is complete or current.
    ============================================================================ */
 
-const APP_BUILD = "2026-10-19-r35 (cross-device sync: notes and value history merge through a private gist, plus file export/import)";
+const APP_BUILD = "2026-10-27-r37 (Trade Lab crash fixed; trade offers priced against the asking price they are graded on; projected-lineup and production reads say unavailable instead of guessing)";
 const API = "https://api.sleeper.app/v1";
 const SLEEPER_WEB_BASE = "https://sleeper.com/leagues/";
 function sleeperLeagueURL(leagueId){ return SLEEPER_WEB_BASE + leagueId + '/matchup'; }
@@ -1053,7 +1053,7 @@ function resolveActiveWeek(){
 }
 
 /* Single source of truth for "what week are we operating on" — use everywhere instead of
-   activeWeek() so the whole app moves together when the week finally rolls over. */
+   NFL_STATE.week so the whole app moves together when the week finally rolls over. */
 function activeWeek(){ return ACTIVE_WEEK != null ? ACTIVE_WEEK : (NFL_STATE?.__rawWeek ?? null); }
 
 function gameStatusForPlayer(pid){
@@ -1663,8 +1663,14 @@ function pickNote(x, y){
 }
 
 /* Union of two series keyed by day. `aWins` decides only the case where both sides recorded the
-   same day with different values, which happens when two devices were open on the same day. */
-function mergeSeries(sa, sb, aWins){
+   same day with different values, which happens when two devices were open on the same day.
+   `tied` covers the case `aWins` cannot. When both documents carry the SAME `updated` stamp there
+   is no newer side to defer to, and "whichever one was passed first" is not an answer the other
+   device would give: each would keep its own number, merge would stop being commutative, and the
+   two would never converge. So the tie is broken on the value itself — the same trick pickNote
+   uses on the text — because both devices must run the identical comparison on the identical pair
+   and reach the identical answer without talking to each other. */
+function mergeSeries(sa, sb, aWins, tied){
   const A = {}, B = {};
   (Array.isArray(sa) ? sa : []).forEach(p => { if(p && p.d != null && isFinite(p.v)) A[p.d] = p.v; });
   (Array.isArray(sb) ? sb : []).forEach(p => { if(p && p.d != null && isFinite(p.v)) B[p.d] = p.v; });
@@ -1674,7 +1680,7 @@ function mergeSeries(sa, sb, aWins){
     const inA = Object.prototype.hasOwnProperty.call(A, d);
     const inB = Object.prototype.hasOwnProperty.call(B, d);
     let v;
-    if(inA && inB) v = (A[d] === B[d]) ? A[d] : (aWins ? A[d] : B[d]);
+    if(inA && inB) v = (A[d] === B[d]) ? A[d] : (tied ? Math.max(A[d], B[d]) : (aWins ? A[d] : B[d]));
     else v = inA ? A[d] : B[d];
     return { d: d, v: v };
   });
@@ -1686,7 +1692,9 @@ function mergeSeries(sa, sb, aWins){
 function mergeSyncDocs(a, b){
   const A = isSyncDoc(a) ? a : { notes:{}, history:{}, updated:'' };
   const B = isSyncDoc(b) ? b : { notes:{}, history:{}, updated:'' };
-  const aNewer = String(A.updated || '') >= String(B.updated || '');
+  const ua = String(A.updated || ''), ub = String(B.updated || '');
+  const aNewer = ua >= ub;
+  const sameStamp = ua === ub;   // no newer side to defer to — see mergeSeries
 
   const notes = {};
   Object.keys(A.notes).forEach(pid => { notes[pid] = A.notes[pid]; });
@@ -1701,7 +1709,7 @@ function mergeSyncDocs(a, b){
     const merged = {};
     const pids = Object.keys(ha).concat(Object.keys(hb).filter(p => !Object.prototype.hasOwnProperty.call(ha, p)));
     pids.forEach(pid => {
-      const s = mergeSeries(ha[pid], hb[pid], aNewer);
+      const s = mergeSeries(ha[pid], hb[pid], aNewer, sameStamp);
       if(s.length) merged[pid] = s;
     });
     if(Object.keys(merged).length) history[lg] = merged;
@@ -3841,6 +3849,9 @@ function renderLeague(data){
      are never empty while it loads. */
   renderIDPRankings(league, allRosteredIds, myRoster, rosters, rosterNameById);
   renderValueHistory(league, rosters, myRoster, allRosteredIds, rosterNameById);
+  /* Declared before the async block below so the continuation can read it without sitting in a
+     temporal dead zone — the same trap that hid the sync panel in r35. */
+  const effWindow = effectiveWindow(league.league_id, headlineAnalysis.windowLabel);
   (async () => {
     try {
       if(!PLAYER_WEEKLY || !Object.keys(PLAYER_WEEKLY).length){
@@ -3855,12 +3866,15 @@ function renderLeague(data){
     Object.keys(PROD_VALUE_CACHE).forEach(k => { if(k.indexOf(league.league_id+':')===0) delete PROD_VALUE_CACHE[k]; });
     clearUsageCache();
     renderIDPRankings(league, allRosteredIds, myRoster, rosters, rosterNameById);
+    /* Sell High and Buy Low read PLAYER_WEEKLY too. Without this repaint they ran on the
+       synchronous first pass only, when it was still empty, so they silently fell back to the
+       48h community add/drop list on every league open and said there was not enough data. */
+    renderTrocas(players, league, allRosteredIds, data, effWindow);
     /* Snapshot only once real values are available, so history is not seeded with floors. */
     recordValueSnapshot(league, rosters);
     syncQueue();   // today's new points are worth getting off this device
     renderValueHistory(league, rosters, myRoster, allRosteredIds, rosterNameById);
   })();
-  const effWindow = effectiveWindow(league.league_id, headlineAnalysis.windowLabel);
   renderTrocas(players, league, allRosteredIds, data, effWindow);
   renderWaiver(players, league, posNeeds, allRosteredIds, effWindow, data);
   renderConfronto(data);
@@ -5375,6 +5389,14 @@ function computeOfferForTarget(targetValue, tradeablePlayers, pickAssets, window
   const stance = windowStance(theirWindow);
   const futures = league ? hasFutureValue(league) : false;
   const worth = a => perceivedValue(a, theirWindow, league);
+  /* Search against what they will ACTUALLY demand, not the chart price. offerToHTML reports the
+     package as a percentage of this same asking price, so the two have to be the same number:
+     building against the chart value while grading against the ask made the reported percentage
+     contradict the package the search had deliberately chosen — a rebuilder's young player
+     (ask 1.35x chart) came back as "76% of their asking price, the most your assets can reach"
+     when the search had never looked above 1.05x chart. In redraft askingPrice() returns the
+     chart value unchanged, so nothing moves there. */
+  const ask = askingPrice(targetValue, ctx && ctx.targetPlayer, theirWindow, league) ?? targetValue;
 
   const isRebuild = windowLabel && windowLabel.includes('REBUILD');
   const isContend = windowLabel && windowLabel.includes('CONTENDER');
@@ -5382,13 +5404,13 @@ function computeOfferForTarget(targetValue, tradeablePlayers, pickAssets, window
   /* Redraft, or no counterparty context: fall back to the original one-sided behaviour, which is
      correct there because neither youth premiums nor picks exist. */
   if(!futures){
-    if(isRebuild) return buildTradeOffer(tradeablePlayers, targetValue);
+    if(isRebuild) return buildTradeOffer(tradeablePlayers, ask);
     if(isContend){
-      const pickOnly = buildTradeOffer(pickAssets, targetValue);
+      const pickOnly = buildTradeOffer(pickAssets, ask);
       if(pickOnly) return pickOnly;
-      return buildTradeOffer([...pickAssets, ...tradeablePlayers], targetValue);
+      return buildTradeOffer([...pickAssets, ...tradeablePlayers], ask);
     }
-    return buildTradeOffer([...tradeablePlayers, ...pickAssets], targetValue);
+    return buildTradeOffer([...tradeablePlayers, ...pickAssets], ask);
   }
 
   if(stance === 'rebuild'){
@@ -5408,11 +5430,11 @@ function computeOfferForTarget(targetValue, tradeablePlayers, pickAssets, window
     /* Take the BEST of these rather than the first that clears the bar. Stopping early tends to
        return a picks-only package sitting at 80-something percent when adding a young player would
        have landed the deal — and a combination is usually what the situation calls for. */
-    const bestFit = pickBestFit(attempts, targetValue, worth);
+    const bestFit = pickBestFit(attempts, ask, worth);
     if(bestFit) return bestFit;
     /* Nothing they want covers it. Returning the best of everything would suggest a trade that
        will simply be declined, so say so instead — handled by offerToHTML. */
-    const fallback = buildTradeOffer([...pickAssets, ...tradeablePlayers], targetValue, worth);
+    const fallback = buildTradeOffer([...pickAssets, ...tradeablePlayers], ask, worth);
     return fallback ? { ...fallback, shortOfCurrency: true } : null;
   }
 
@@ -5421,18 +5443,18 @@ function computeOfferForTarget(targetValue, tradeablePlayers, pickAssets, window
        veterans and prime-age players; picks are only a sweetener, never the core. */
     const winNow = tradeablePlayers.filter(a => ageBandFor(a.position, a.age) !== 'young');
     const attempts = [ winNow, tradeablePlayers, [...tradeablePlayers, ...pickAssets] ];
-    const bestFit = pickBestFit(attempts, targetValue, worth);
+    const bestFit = pickBestFit(attempts, ask, worth);
     if(bestFit) return bestFit;
-    return buildTradeOffer([...tradeablePlayers, ...pickAssets], targetValue, worth);
+    return buildTradeOffer([...tradeablePlayers, ...pickAssets], ask, worth);
   }
 
   /* Neutral counterparty: my own posture decides what I would rather spend. */
-  if(isRebuild) return buildTradeOffer(tradeablePlayers, targetValue, worth);
+  if(isRebuild) return buildTradeOffer(tradeablePlayers, ask, worth);
   if(isContend){
-    const pickOnly = buildTradeOffer(pickAssets, targetValue, worth);
+    const pickOnly = buildTradeOffer(pickAssets, ask, worth);
     if(pickOnly) return pickOnly;
   }
-  return buildTradeOffer([...tradeablePlayers, ...pickAssets], targetValue, worth);
+  return buildTradeOffer([...tradeablePlayers, ...pickAssets], ask, worth);
 }
 
 /* Renders the offer against the ASKING price rather than the chart price, and shows both sides of
@@ -5566,9 +5588,10 @@ function sellLikelihood(windowLabel, targetPlayer, league){
 
    Both are measured against the player's OWN season baseline rather than a positional average, so
    a consistent elite producer never gets flagged as a sell just for scoring a lot. Everything runs
-   off PLAYER_WEEKLY, which is already in this league's scoring. Requires a real sample — four
-   played weeks minimum, with at least two in the recent window — and returns null otherwise so the
-   UI can fall back to the community-trend view instead of inventing a signal. */
+   off PLAYER_WEEKLY, which is already in this league's scoring. Requires a real sample — five
+   played weeks minimum, so that at least two sit before the three-week recent window — and returns
+   null otherwise so the UI can fall back to the community-trend view instead of inventing a
+   signal. (Four played weeks leaves only one week before the window and is rejected.) */
 const HOT_COLD_WINDOW = 3;
 
 function productionTrend(pid, uptoWeek){
@@ -5597,20 +5620,24 @@ function productionTrend(pid, uptoWeek){
   };
 }
 
-/* My players whose recent form is inflating their perceived value. */
+/* My players whose recent form is inflating their perceived value.
+   Returns null ONLY when there is no weekly production data at all, and an empty array when the
+   data is there but nobody cleared the bar. Collapsing both into null made the UI announce
+   "Not enough played weeks yet for a production read" in Week 8 with eight weeks of data loaded,
+   purely because no player happened to be running hot. */
 function sellHighCandidates(myPlayers, uptoWeek){
-  if(!PLAYER_WEEKLY) return null;
+  if(!PLAYER_WEEKLY || !Object.keys(PLAYER_WEEKLY).length) return null;
   const out = myPlayers.map(p => ({ p, t: productionTrend(p.player_id, uptoWeek) }))
     .filter(x => x.t && x.t.delta >= 1.35 && x.t.absSwing >= 3.5)
     .map(x => ({ ...x.p, trend: x.t }))
     .sort((a,b) => b.trend.absSwing - a.trend.absSwing)
     .slice(0,5);
-  return out.length ? out : null;
+  return out;
 }
 
 /* Other teams' players whose season-long production says the cold stretch is the outlier. */
 function buyLowCandidates(myIds, uptoWeek, league){
-  if(!PLAYER_WEEKLY) return null;
+  if(!PLAYER_WEEKLY || !Object.keys(PLAYER_WEEKLY).length) return null;
   const out = Object.keys(PLAYER_WEEKLY)
     .filter(pid => !myIds.has(pid))
     .map(pid => ({ p: playerInfo(pid), t: productionTrend(pid, uptoWeek) }))
@@ -5621,7 +5648,7 @@ function buyLowCandidates(myIds, uptoWeek, league){
     .map(x => ({ ...x.p, trend: x.t }))
     .sort((a,b) => (b.trend.season - a.trend.season))
     .slice(0,6);
-  return out.length ? out : null;
+  return out;
 }
 
 function trendTrail(t){
@@ -5667,19 +5694,19 @@ function renderTrocas(players, league, allRosteredIds, data, windowLabel){
      because they answer different questions and should never be mistaken for each other. */
   const upto = activeWeek();
   const sellProd = sellHighCandidates(players, upto);
-  const sellHigh = sellProd || players
+  const sellHigh = sellProd != null ? sellProd : players
     .filter(p => addCounts[p.player_id])
     .sort((a,b) => (addCounts[b.player_id]||0)-(addCounts[a.player_id]||0))
     .slice(0,5);
-  const sellBasis = sellProd ? 'production' : 'trend';
+  const sellBasis = sellProd != null ? 'production' : 'trend';
 
   const buyProd = buyLowCandidates(myIds, upto, league);
-  const buyLowTargets = buyProd || TRENDING_DROP
+  const buyLowTargets = buyProd != null ? buyProd : TRENDING_DROP
     /* posTier ran on search_rank, so "starter tier" meant "well known". Gate on real value. */
     .filter(t => !myIds.has(t.player_id) && assetValue(t.player_id, league) >= 600)
     .slice(0,6)
     .map(t => ({...playerInfo(t.player_id), dropCount: t.count}));
-  const buyBasis = buyProd ? 'production' : 'trend';
+  const buyBasis = buyProd != null ? 'production' : 'trend';
 
   /* Three cost tiers so there's always an option regardless of what you have to spend — each tier
      surfaces the best REALISTICALLY-GETTABLE target at QB/RB/WR/TE: candidates whose owning team
@@ -5798,7 +5825,7 @@ function renderTrocas(players, league, allRosteredIds, data, windowLabel){
           return `
             <div class="p-row">
               <div>${playerHead(player, sf, league)}</div>
-              <div class="p-side">${pos}${playerInfo(player.player_id).age?` · ${playerInfo(player.player_id).age}y`:''} · ${teamNameFor(player.player_id)} · #${player.search_rank}${byeNote(player)}${ownerNote ? `<br><span class="p-meta">${ownerNote}</span>` : ''}</div>
+              <div class="p-side">${pos}${playerInfo(player.player_id).age?` · ${playerInfo(player.player_id).age}y`:''} · ${teamNameFor(player.player_id)}${(player.search_rank && player.search_rank > 0) ? ` · #${player.search_rank}` : ''}${byeNote(player)}${ownerNote ? `<br><span class="p-meta">${ownerNote}</span>` : ''}</div>
             </div>
             <div class="offer-line" id="offer-${tier.key}-${pos}" style="padding:0 0 14px;font-size:12.5px;line-height:1.6;">${offerToHTML(offer, targetValue, targetIsLive, offerCtx)}</div>
           `;
@@ -6588,16 +6615,26 @@ const EVAL_CAPITAL_CACHE = {};
 
 /* Optimal-lineup projected points for an arbitrary set of players — this is what measures the real
    before/after starting-lineup impact of a proposed trade on both teams. */
+/* Returns null — never 0 — when this week's projections cannot cover the lineup. A zero here is
+   indistinguishable from "a lineup worth no points", and the Trade Evaluator printed it as
+   "0.0 -> 0.0 (+0.0)" on both cards whenever Sleeper's unofficial projections endpoint was down,
+   which reads as a verified finding ("this trade changes nothing") rather than as missing data.
+   The coverage gate is the same 60%-of-slots rule computeTeamPower already uses.
+   The slot map must also match the one in computeTeamPower: without the defensive slots, and
+   without matching on idpGroupFor(), every IDP spot went unfilled here while the power-rankings
+   optimiser filled it — so the two disagreed about the same roster. */
 function projectedStarterPoints(league, playerIds){
   const rp = (league.roster_positions||[]).filter(p=>!['BN','TAXI','IR'].includes(p));
-  const elig = { FLEX:['RB','WR','TE'], WRRB_FLEX:['RB','WR'], REC_FLEX:['WR','TE'], SUPER_FLEX:['QB','RB','WR','TE'] };
+  const elig = { FLEX:['RB','WR','TE'], WRRB_FLEX:['RB','WR'], REC_FLEX:['WR','TE'], SUPER_FLEX:['QB','RB','WR','TE'],
+    DL:['DL'], LB:['LB'], DB:['DB'], IDP_FLEX:['DL','LB','DB'], IDP:['DL','LB','DB'],
+    DE:['DL'], DT:['DL'], CB:['DB'], S:['DB'], EDGE:['DL'] };
   const players = playerIds.map(playerInfo);
   const slots = rp.map((s,i)=>({slot:s, idx:i, eligible: elig[s]||[s]}));
   const order = [...slots].sort((a,b)=>a.eligible.length-b.eligible.length);
   const used = new Set();
-  let total = 0;
+  let total = 0, projCount = 0;
   order.forEach(s => {
-    const cands = players.filter(p => !used.has(p.player_id) && s.eligible.includes(p.position))
+    const cands = players.filter(p => !used.has(p.player_id) && s.eligible.includes(idpGroupFor(p) || p.position))
       .sort((a,b)=>{
         const pa = projPoints(a.player_id, league), pb = projPoints(b.player_id, league);
         if(pa!=null && pb!=null) return pb-pa;
@@ -6608,9 +6645,11 @@ function projectedStarterPoints(league, playerIds){
     if(cands.length){
       used.add(cands[0].player_id);
       const pj = projPoints(cands[0].player_id, league);
-      if(pj!=null) total += pj;
+      if(pj!=null){ total += pj; projCount++; }
     }
   });
+  const slotCount = rp.length || 1;
+  if(!PROJECTIONS || projCount < Math.ceil(slotCount*0.6)) return null;
   return total;
 }
 
@@ -6743,7 +6782,9 @@ function evaluateTradeHTML({ league, data, rival, give, get, dynasty }){
   const myAfter = projectedStarterPoints(league, myIdsAfter);
   const theirBefore = projectedStarterPoints(league, theirIdsBefore);
   const theirAfter = projectedStarterPoints(league, theirIdsAfter);
-  const myDelta = myAfter - myBefore, theirDelta = theirAfter - theirBefore;
+  /* null means "no projection coverage this session", not zero — see projectedStarterPoints. */
+  const myDelta = (myBefore!=null && myAfter!=null) ? myAfter - myBefore : null;
+  const theirDelta = (theirBefore!=null && theirAfter!=null) ? theirAfter - theirBefore : null;
 
   /* A deal that looks fine on value but leaves you unable to field a position is worth flagging. */
   const myPosAfter = positionGroups(myIdsAfter.map(playerInfo));
@@ -6771,6 +6812,11 @@ function evaluateTradeHTML({ league, data, rival, give, get, dynasty }){
   else { accept = `They give up far more than they get back (${theirPct}%). Add to your side or ask for less.`; acceptClass='red'; acceptTag='UNLIKELY'; }
 
   const fmtDelta = (d) => `${d>=0?'+':''}${d.toFixed(1)}`;
+  /* One line of the lineup card, or an honest "unavailable" when this week's projections could
+     not be loaded — rather than 0.0 -> 0.0 (+0.0), which reads as a real finding. */
+  const projLine = (before, after, delta) => (before==null || after==null || delta==null)
+    ? `This week projected: <span class="cell-meta">unavailable — this week\u2019s projections could not be loaded</span>`
+    : `This week projected: <strong>${before.toFixed(1)}</strong> \u2192 <strong style="color:${delta>=0?'var(--green)':'var(--red)'}">${after.toFixed(1)} (${fmtDelta(delta)})</strong>`;
   const sideBlock = (label, arr, total) => `
     <div style="flex:1;min-width:190px">
       <div class="p-meta" style="margin-bottom:6px">${label}</div>
@@ -6794,12 +6840,12 @@ function evaluateTradeHTML({ league, data, rival, give, get, dynasty }){
     <div class="grid2" style="margin-bottom:16px">
       <div class="card">
         <h3 style="margin:0 0 10px;font-size:13px;color:var(--gold)">Your starting lineup</h3>
-        <div style="font-size:13px;line-height:1.9">This week projected: <strong>${myBefore.toFixed(1)}</strong> → <strong style="color:${myDelta>=0?'var(--green)':'var(--red)'}">${myAfter.toFixed(1)} (${fmtDelta(myDelta)})</strong></div>
+        <div style="font-size:13px;line-height:1.9">${projLine(myBefore, myAfter, myDelta)}</div>
         ${holes.length?`<p class="p-meta" style="color:var(--red);margin:10px 0 0">Warning: this leaves you with zero ${holes.join(' and ')} on the roster.</p>`:''}
       </div>
       <div class="card">
         <h3 style="margin:0 0 10px;font-size:13px;color:var(--gold)">Their starting lineup</h3>
-        <div style="font-size:13px;line-height:1.9">This week projected: <strong>${theirBefore.toFixed(1)}</strong> → <strong style="color:${theirDelta>=0?'var(--green)':'var(--red)'}">${theirAfter.toFixed(1)} (${fmtDelta(theirDelta)})</strong></div>
+        <div style="font-size:13px;line-height:1.9">${projLine(theirBefore, theirAfter, theirDelta)}</div>
       </div>
     </div>
 
@@ -6911,20 +6957,25 @@ function buildReciprocalTradeProposals(myPlayers, rivalPlayers, rivalName, sf, l
   return proposals;
 }
 
-function tradeProposalHTML(prop, sf){
+function tradeProposalHTML(prop, league){
   const pct = (prop.giveValue!=null && prop.getValue) ? Math.round((prop.giveValue/prop.getValue)*100) : null;
   let framing = 'value data unavailable for a precise read';
   if(pct != null){
     if(pct <= 97) framing = `you give ${pct}% of what you get back — favors you`;
     else if(pct <= 105) framing = `${pct}% — a fair, even swap`;
-    else framing = `you'd be giving ${pct}% — slightly more than you get, worth countering`;
+    /* The pairing search has a fallback that takes the best rival asset BELOW the band when
+       nothing lands inside it, so `pct` is not bounded near parity — it can run into the
+       hundreds. Calling a 1000% gap "slightly more than you get" is a confidently wrong
+       reading of the app's own number, so anything past a real overpay says so plainly. */
+    else if(pct <= 130) framing = `you'd be giving ${pct}% — slightly more than you get, worth countering`;
+    else framing = `you'd be giving ${pct}% — badly lopsided against you; nothing on their roster matches this piece cleanly`;
   }
   return `
     <div class="p-row">
       <div>
-        <span class="p-meta">You give</span> <strong>${prop.give.full_name}</strong> (${prop.givePos})${valueChip(prop.give.player_id, data.league)}
+        <span class="p-meta">You give</span> <strong>${prop.give.full_name}</strong> (${prop.givePos})${valueChip(prop.give.player_id, league)}
         <span style="color:var(--chalk-faint);margin:0 8px">for</span>
-        <span class="p-meta">you get</span> <strong>${prop.get.full_name}</strong> (${prop.get.position})${valueChip(prop.get.player_id, data.league)}
+        <span class="p-meta">you get</span> <strong>${prop.get.full_name}</strong> (${prop.get.position})${valueChip(prop.get.player_id, league)}
       </div>
       <span class="p-side">${framing}</span>
     </div>`;
@@ -6964,7 +7015,7 @@ function buildTradeLabHTML(myPlayers, rivalPlayers, rivalName, sf, league){
     </div>
     <h3 style="font-size:14px;margin:0 0 10px">Suggested Trade Proposals</h3>
     <div class="card">
-      ${proposals.length ? proposals.map(p => tradeProposalHTML(p, sf)).join('') : '<div class="empty">No clear overlap between needs and surpluses right now — the two rosters may be well-balanced or need the same positions.</div>'}
+      ${proposals.length ? proposals.map(p => tradeProposalHTML(p, league)).join('') : '<div class="empty">No clear overlap between needs and surpluses right now — the two rosters may be well-balanced or need the same positions.</div>'}
     </div>
   `;
 }
