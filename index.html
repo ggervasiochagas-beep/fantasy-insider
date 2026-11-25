@@ -421,6 +421,61 @@ input.searchinput{background:#0a130f;border:1px solid var(--line);color:var(--ch
 .viewtoggle{display:inline-flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:3px;margin-bottom:18px;}
 .viewtoggle button{background:none;border:none;color:var(--chalk-dim);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:7px 16px;border-radius:16px;cursor:pointer;}
 .viewtoggle button.active{background:var(--gold);color:#0e1a12;font-weight:700;}
+.pt-you{font-family:'IBM Plex Mono',monospace;font-size:9px;background:var(--gold);color:#0e1a12;padding:1px 5px;border-radius:20px;vertical-align:middle;}
+.tm-cap{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--chalk-faint);letter-spacing:.4px;}
+.tm-good{color:var(--green);} .tm-bad{color:var(--red);} .tm-neutral{color:var(--chalk-dim);}
+.tm-head{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0;}
+.tm-side{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;}
+.tm-side .tm-cap{display:block;margin-bottom:10px;}
+.tm-mini{display:inline-block;background:var(--panel-2);border:1px solid var(--line);border-radius:16px;
+  color:var(--chalk-dim);font-family:'IBM Plex Mono',monospace;font-size:10.5px;padding:5px 10px;margin:0 6px 6px 0;cursor:pointer;}
+.tm-mini.up{color:var(--green);} .tm-mini.down{color:var(--red);}
+.tm-mini:hover{border-color:var(--gold-dim);}
+.tm-controls{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:16px 0;}
+button.ghost.tmbtn{padding:6px 12px;font-size:11px;}
+button.ghost.tmbtn.active{border-color:var(--gold);color:var(--gold);}
+.dvp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:14px;}
+.dvp-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;}
+.dvp-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;}
+.dvp-lbl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;margin-bottom:6px;}
+.dvp-lbl.good{color:var(--green);} .dvp-lbl.bad{color:var(--red);}
+.dvp-row{display:block;font-size:12px;padding:2px 0;}
+tr.h2h-live td{background:rgba(214,168,60,.07);}
+.mg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:14px;}
+.mg-card.mg-here{border-left:3px solid var(--gold);}
+.mg-bar{height:4px;background:var(--panel-2);border-radius:3px;overflow:hidden;margin:4px 0 6px;}
+.mg-fill{height:100%;background:var(--gold);}
+.mg-line{font-size:12.5px;line-height:1.6;color:var(--chalk-dim);padding-left:14px;position:relative;}
+.mg-line:before{content:'•';position:absolute;left:2px;}
+.mg-line.good{color:var(--green);} .mg-line.bad{color:var(--red);}
+.mt-extra{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.mt-extra .selinput{flex:1 1 220px;min-width:0;}
+.mt-card{margin-bottom:14px;}
+.mt-leg{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line-soft);font-size:13px;}
+.mt-leg:last-of-type{border-bottom:none;}
+.mt-from,.mt-to{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--chalk-faint);}
+.mt-arrow{color:var(--gold-dim);}
+.mt-player{font-weight:600;}
+.mt-bals{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;}
+.cmp-pickers{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px;}
+.cmp-sel{flex:1 1 240px;background:var(--panel-2);border:1px solid var(--line);color:var(--chalk);
+  padding:10px 14px;border-radius:20px;font-size:13px;min-width:0;}
+.cmp-sel:focus{outline:none;border-color:var(--gold-dim);}
+table.cmp{width:100%;border-collapse:collapse;font-size:13px;background:var(--panel);
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+table.cmp th{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--chalk-faint);
+  text-transform:uppercase;letter-spacing:.3px;padding:10px 14px;text-align:center;background:var(--panel-2);}
+table.cmp thead th{color:var(--gold);font-size:12px;text-transform:none;}
+table.cmp td{padding:10px 14px;text-align:center;border-bottom:1px solid var(--line-soft);width:38%;}
+table.cmp td.cmp-win{color:var(--gold);font-weight:700;}
+@media(max-width:680px){ .tm-head,.dvp-split{grid-template-columns:1fr;} .cmp-pickers{flex-direction:column;align-items:stretch;} }
+.favstar{background:none;border:none;cursor:pointer;color:var(--chalk-faint);font-size:14px;line-height:1;padding:0 4px;vertical-align:middle;}
+.favstar:hover{color:var(--gold);}
+.favstar.on{color:var(--gold);}
+.mchip{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;padding:1px 6px;border-radius:9px;
+  border:1px solid var(--line);color:var(--chalk-faint);margin-left:5px;white-space:nowrap;vertical-align:middle;}
+.mchip.good{color:var(--green);border-color:rgba(90,170,110,.45);}
+.mchip.bad{color:var(--red);border-color:rgba(200,80,70,.4);}
 .subtabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:18px;}
 .subtab{background:none;border:none;color:var(--chalk-dim);padding:9px 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;cursor:pointer;border-bottom:2px solid transparent;}
 .subtab.active{color:var(--gold);border-bottom-color:var(--gold);}
@@ -495,7 +550,7 @@ button.ghost.danger:hover{border-color:var(--red);color:var(--red);}
       <h1>FANTASY <span>INSIDER</span></h1>
       <p>One screen for every Sleeper league you manage.</p>
     </div>
-    <div class="tag">LIVE DATA · SLEEPER API<br><span style="opacity:.6;font-size:9px">build 2026-10-27-r37</span></div>
+    <div class="tag">LIVE DATA · SLEEPER API<br><span style="opacity:.6;font-size:9px">build 2026-11-25-r42</span></div>
   </div>
 
   <details class="freshness-box" id="freshnessBox" style="display:none">
@@ -571,9 +626,11 @@ button.ghost.danger:hover{border-color:var(--red);color:var(--red);}
      — player + pick dynasty values, fetched as CSV via jsDelivr (falls back
      to raw.githubusercontent.com). Column names were never 100% confirmed
      (couldn't get a live sample), so parsing is fuzzy/defensive. If DynastyProcess
-     values genuinely can't be matched for a player/pick, a rank-based ESTIMATE
-     is used instead and marked "(est.)" in the UI — nothing ever silently
-     shows as worth zero. See playerValueOrEstimate/pickValueOrEstimate.
+     values genuinely can't be matched, an ESTIMATE is used instead and marked
+     "(est.)" in the UI — nothing ever silently shows as worth zero. For a PLAYER
+     that estimate is his actual production in this league's scoring where there is
+     any, and the search-rank curve only as a cold start; for a PICK it is a
+     round-based approximation. See assetValue/playerValueOrEstimate/pickValueOrEstimate.
    - 2026 NFL bye weeks are HARDCODED (BYE_WEEKS_2026) — sourced from nfl.com,
      not live. Will need updating for future seasons.
    - Sleeper has NO write API. Lineups cannot be edited from here — the
@@ -595,7 +652,7 @@ button.ghost.danger:hover{border-color:var(--red);color:var(--red);}
      than assuming any external written summary is complete or current.
    ============================================================================ */
 
-const APP_BUILD = "2026-10-27-r37 (Trade Lab crash fixed; trade offers priced against the asking price they are graded on; projected-lineup and production reads say unavailable instead of guessing)";
+const APP_BUILD = "2026-11-25-r42 (measured NFL usage replaces the scoring-based role guess; defence-vs-position; a trade market built from your own leagues with real return comps; head-to-head records; manager profiles; simulated draft-slot projections; watchlist; player compare; three- and four-team trades)";
 const API = "https://api.sleeper.app/v1";
 const SLEEPER_WEB_BASE = "https://sleeper.com/leagues/";
 function sleeperLeagueURL(leagueId){ return SLEEPER_WEB_BASE + leagueId + '/matchup'; }
@@ -687,6 +744,10 @@ let PLAYERS = null;
 let NFL_STATE = null;
 let TRENDING_ADD = [];
 let TRENDING_DROP = [];
+/* Whether each trending feed actually answered, so the freshness panel can say so instead of the
+   Waiver tab quietly rendering as though nobody is being added anywhere. */
+let TRENDING_ADD_OK = true;
+let TRENDING_DROP_OK = true;
 let USER = null;
 let LEAGUES = [];
 let ACTIVE_LEAGUE_ID = null;
@@ -876,7 +937,11 @@ function computeDefenseAllowed(league, uptoWeek){
 function playoffWeeks(league){
   const start = league.settings?.playoff_week_start;
   if(!start) return [];
-  const teams = league.settings?.playoff_teams || 6;
+  /* Same default as playoffPicture, simulateSeasonOdds and the trade grader: half the league,
+     rounded up. A flat 6 disagreed with all three whenever playoff_teams was unset in a league
+     that was not 10 or 12 teams, so the same league could be told its playoffs run a different
+     number of weeks depending on which surface was asking. */
+  const teams = league.settings?.playoff_teams || Math.ceil((league.total_rosters || 12)/2);
   const rounds = Math.ceil(Math.log2(Math.max(2, teams)));
   const weeks = [];
   for(let i=0; i<rounds; i++) weeks.push(start + i);
@@ -936,6 +1001,13 @@ function courseCorrection({league, rosters, myRoster, players, windowLabel, week
 
   const qual = `Top ${pic.playoffTeams} of ${pic.totalTeams} make the playoffs; ${pic.gamesLeft} game${pic.gamesLeft===1?'':'s'} left before Week ${pic.lastRegWeek+1}.`;
 
+  /* Declared before the first branch that reads it. It used to sit below the deadline branch, which
+     referenced it from inside a template string — a temporal dead zone that threw a ReferenceError
+     the moment a league's deadline passed while the roster was out of it. The throw escaped
+     renderDashboard's unguarded forEach and took the whole overview down with "Check the username
+     and your connection", which is the third time this trap has bitten this file. */
+  const myLosses = myRoster.settings?.losses ?? 0;
+
   /* Once the deadline passes, every "sell now" alert is telling you to do something the league no
      longer permits. Replace the whole trade-shaped branch rather than issuing advice that cannot
      be followed. */
@@ -949,7 +1021,6 @@ function courseCorrection({league, rosters, myRoster, players, windowLabel, week
      eliminated in week 7, but it is losing the argument every week — and if the core is old, the
      assets it would sell are depreciating the entire time. Waiting for mathematical elimination is
      precisely the expensive mistake this alert exists to prevent. */
-  const myLosses = myRoster.settings?.losses ?? 0;
   const gp = pic.myWins + myLosses;
   const winRate = gp > 0 ? pic.myWins / gp : null;
   const strugglingBadly = winRate != null && gp >= 4 && winRate <= 0.35;
@@ -1144,16 +1215,31 @@ async function boot(){
     PLAYERS = await getJSON(`${API}/players/nfl`);
 
     setStatus('<span class="spinner"></span>Loading waiver trends and DynastyProcess dynasty values...');
-    try{
-      TRENDING_ADD = await getJSON(`${API}/players/nfl/trending/add?lookback_hours=48&limit=150`);
-      TRENDING_DROP = await getJSON(`${API}/players/nfl/trending/drop?lookback_hours=48&limit=150`);
-    }catch(e){ TRENDING_ADD=[]; TRENDING_DROP=[]; }
+    /* Fetched separately, and each failure recorded. One shared try meant a failure on the drop
+       list threw away an add list that had already arrived; and the whole thing was the only catch
+       in the boot path with no warning and no status row, so a dead trending feed just made the
+       Waiver Wire Targets section disappear with nothing to distinguish it from "no free agent is
+       trending in this league". */
+    try{ TRENDING_ADD = await getJSON(`${API}/players/nfl/trending/add?lookback_hours=48&limit=150`); TRENDING_ADD_OK = true; }
+    catch(e){ TRENDING_ADD=[]; TRENDING_ADD_OK=false; console.warn('Trending adds feed failed', e); }
+    try{ TRENDING_DROP = await getJSON(`${API}/players/nfl/trending/drop?lookback_hours=48&limit=150`); TRENDING_DROP_OK = true; }
+    catch(e){ TRENDING_DROP=[]; TRENDING_DROP_OK=false; console.warn('Trending drops feed failed', e); }
     await loadDynastyMarketData();
     await loadPickValues();
 
     setStatus('<span class="spinner"></span>Loading weekly point projections...');
     await loadGameStatuses();   // resolves the active week first
     await loadProjections();    // ...so projections are fetched for the week actually being played
+
+    /* Real NFL usage, and the defence-vs-position table built from it. Both are league-independent,
+       so they are fetched once here rather than per league. Failures are swallowed on purpose:
+       every consumer degrades to the behaviour that came before this data existed. */
+    setStatus('<span class="spinner"></span>Loading NFL usage and matchup data...');
+    try {
+      await loadNFLSchedule(NFL_STATE.season);
+      await loadNflUsage(NFL_STATE.season, activeWeek());
+      buildDvp(NFL_STATE.season);
+    } catch(e){ /* optional: usage falls back to the points-based read, matchups simply hide */ }
 
     for(let i=0;i<LEAGUES.length;i++){
       const lg = LEAGUES[i];
@@ -1208,9 +1294,19 @@ async function refreshLiveScores(){
        moved. Re-pull each league in full rather than just repainting stale rosters. */
     if(weekBefore != null && activeWeek() !== weekBefore){
       console.log('Week rolled', weekBefore, '->', activeWeek(), '— reloading rosters');
+      /* A new week means a new set of box scores, so the usage store and everything built from it
+         are stale. Rebuilt rather than patched: the cost is one pass over weeks already cached. */
+      try { await loadNflUsage(NFL_STATE.season, activeWeek()); buildDvp(NFL_STATE.season); }
+      catch(e){ console.warn('NFL usage refresh failed on week rollover', e); }
       await Promise.all(LEAGUES.map(lg => loadLeagueCore(lg, true).catch(()=>{})));
-      try{ TRENDING_ADD = await getJSON(`${API}/players/nfl/trending/add?lookback_hours=48&limit=150`); }catch(e){}
-      try{ TRENDING_DROP = await getJSON(`${API}/players/nfl/trending/drop?lookback_hours=48&limit=150`); }catch(e){}
+      /* These flags are what the freshness panel reports about the feeds, so they have to move in
+         both directions here as they do in boot. Swallowing the failure left the previous week's
+         add/drop list on screen under a "Loaded" label — a stale list is worse than none, because
+         the week that just rolled over is precisely what the 48-hour window no longer describes. */
+      try{ TRENDING_ADD = await getJSON(`${API}/players/nfl/trending/add?lookback_hours=48&limit=150`); TRENDING_ADD_OK = true; }
+      catch(e){ TRENDING_ADD=[]; TRENDING_ADD_OK=false; console.warn('Trending adds feed failed on week rollover', e); }
+      try{ TRENDING_DROP = await getJSON(`${API}/players/nfl/trending/drop?lookback_hours=48&limit=150`); TRENDING_DROP_OK = true; }
+      catch(e){ TRENDING_DROP=[]; TRENDING_DROP_OK=false; console.warn('Trending drops feed failed on week rollover', e); }
     }
     LAST_LIVE_REFRESH = new Date();
 
@@ -1447,8 +1543,16 @@ function renderFreshnessPanel(){
 
   const rows = [
     { label: 'Sleeper API (rosters, matchups, transactions)', status: 'Live', ok: true },
+    { label: 'Sleeper 48h add/drop trends (waiver targets)',
+      status: (TRENDING_ADD_OK && TRENDING_DROP_OK)
+        ? `Loaded (${TRENDING_ADD.length} adds, ${TRENDING_DROP.length} drops)`
+        : (!TRENDING_ADD_OK && !TRENDING_DROP_OK ? 'Unavailable this session — waiver targets cannot be listed'
+                                                 : (TRENDING_ADD_OK ? 'Drops unavailable this session' : 'Adds unavailable this session — waiver targets cannot be listed')),
+      ok: TRENDING_ADD_OK && TRENDING_DROP_OK },
     { label: 'DynastyProcess player values', status: DYNASTY_MARKET ? `Loaded (${Object.keys(DYNASTY_MARKET).length} players)` : 'Unavailable this session', ok: !!DYNASTY_MARKET },
     { label: 'DynastyProcess pick values', status: pickValuesStatus, ok: !!PICK_VALUES },
+    { label: 'NFL usage (targets, carries, red zone)', status: NFL_USAGE_STATUS === 'ready' ? `Loaded (${NFL_USAGE_WEEKS.length} week(s))` : 'Unavailable — roles fall back to scoring-based estimate', ok: NFL_USAGE_STATUS === 'ready' },
+    { label: 'Defence vs position', status: DVP ? `Built from ${NFL_USAGE_WEEKS.length} week(s)` : 'Unavailable this session', ok: !!DVP },
     { label: 'Sleeper weekly projections (unofficial)', status: PROJECTIONS ? `Loaded (${Object.keys(PROJECTIONS).length} players)` : 'Unavailable this session', ok: !!PROJECTIONS },
     { label: 'NFL game status (live/final detection)', status: GAME_STATUS_BY_TEAM ? `Loaded (${Object.keys(GAME_STATUS_BY_TEAM).length} teams this week)` : 'Unavailable — projections used as a floor instead', ok: !!GAME_STATUS_BY_TEAM }
   ];
@@ -1623,6 +1727,7 @@ function collectSyncDoc(){
     v: SYNC_DOC_VERSION,
     updated: new Date().toISOString(),
     notes: allNotes(),
+    favs: allFavs(),
     history: history
   };
 }
@@ -1630,6 +1735,9 @@ function collectSyncDoc(){
 function isSyncDoc(d){
   return !!(d && typeof d === 'object' && d.fmt === SYNC_FMT && d.notes && d.history);
 }
+/* Documents written before the watchlist existed have no favs key. Reading it through here means
+   an old backup restores cleanly instead of being rejected for a field it could not have had. */
+function docFavs(d){ return (d && d.favs && typeof d.favs === 'object') ? d.favs : {}; }
 
 /* Drop cleared notes once they are old enough that every device has certainly seen the deletion.
    Without this the store only ever grows: a cleared note is still a key.
@@ -1701,6 +1809,24 @@ function mergeSyncDocs(a, b){
   Object.keys(B.notes).forEach(pid => { notes[pid] = pickNote(notes[pid], B.notes[pid]); });
   pruneTombstones(notes);
 
+  /* The watchlist merges by exactly the same rule as notes: each star carries the moment it was
+     set, the later decision wins, and un-starring is a decision rather than an absence — so it
+     propagates instead of being undone by the other device's stale star. A star that has been off
+     long enough that every device has seen it is dropped, for the same reason cleared notes are. */
+  const favs = {};
+  const fa = docFavs(A), fb = docFavs(B);
+  Object.keys(fa).forEach(pid => { favs[pid] = fa[pid]; });
+  Object.keys(fb).forEach(pid => {
+    const x = favs[pid], y = fb[pid];
+    if(!x){ favs[pid] = y; return; }
+    const ax = x.at || 0, ay = y.at || 0;
+    if(ax !== ay){ favs[pid] = ax > ay ? x : y; return; }
+    /* Identical timestamps: on beats off, deterministically, so both devices agree. */
+    favs[pid] = (x.on || y.on) ? (x.on ? x : y) : x;
+  });
+  const favCutoff = Date.now() - SYNC_TOMBSTONE_MS;
+  Object.keys(favs).forEach(pid => { const f = favs[pid]; if(f && !f.on && (f.at||0) < favCutoff) delete favs[pid]; });
+
   const history = {};
   const leagues = Object.keys(A.history).concat(
     Object.keys(B.history).filter(l => !Object.prototype.hasOwnProperty.call(A.history, l)));
@@ -1720,6 +1846,7 @@ function mergeSyncDocs(a, b){
     v: SYNC_DOC_VERSION,
     updated: (String(A.updated||'') > String(B.updated||'') ? A.updated : B.updated) || new Date().toISOString(),
     notes: notes,
+    favs: favs,
     history: history
   };
 }
@@ -1730,12 +1857,14 @@ function syncDocFingerprint(doc){
   if(!isSyncDoc(doc)) return '';
   const notes = Object.keys(doc.notes).sort()
     .map(p => p + '=' + (doc.notes[p].at||0) + ':' + doc.notes[p].t).join('|');
+  const favs = Object.keys(docFavs(doc)).sort()
+    .map(p => p + '=' + (doc.favs[p].at||0) + ':' + (doc.favs[p].on?1:0)).join('|');
   const hist = Object.keys(doc.history).sort().map(lg => {
     const h = doc.history[lg];
     return lg + '{' + Object.keys(h).sort()
       .map(p => p + ':' + h[p].map(pt => pt.d + '@' + pt.v).join(',')).join(';') + '}';
   }).join('|');
-  return notes + '##' + hist;
+  return notes + '##' + favs + '##' + hist;
 }
 
 /* ---- applying a merged document back to this device ----------------------- */
@@ -1745,6 +1874,8 @@ function applySyncDoc(doc){
   let leagues = 0;
   NOTES = doc.notes;
   persistNotes();
+  FAVS = docFavs(doc);
+  persistFavs();
   const pfx = histPrefix();
   Object.keys(doc.history).forEach(lg => {
     try { localStorage.setItem(pfx + lg, JSON.stringify(doc.history[lg])); leagues++; }
@@ -1878,6 +2009,12 @@ function repaintAfterSync(){
       const v = getNote(inp.dataset.notePid);
       if(document.activeElement !== inp && inp.value !== v) inp.value = v;
     });
+    document.querySelectorAll('[data-fav-pid]').forEach(b => {
+      const on = isFav(b.dataset.favPid);
+      b.textContent = on ? '\u2605' : '\u2606';
+      b.classList.toggle('on', on);
+    });
+    if(typeof refreshWatchlistView === 'function') refreshWatchlistView();
   } catch(e){}
   try {
     if(typeof refreshValueHistoryView === 'function') refreshValueHistoryView();
@@ -1949,10 +2086,11 @@ function importSyncText(text){
 function syncStoreSummary(){
   const doc = collectSyncDoc();
   const notes = Object.keys(doc.notes).filter(p => doc.notes[p].t).length;
+  const favs = Object.keys(docFavs(doc)).filter(p => doc.favs[p].on).length;
   const leagues = Object.keys(doc.history).length;
   let points = 0;
   Object.keys(doc.history).forEach(lg => Object.keys(doc.history[lg]).forEach(p => { points += doc.history[lg][p].length; }));
-  return { notes, leagues, points, bytes: JSON.stringify(doc).length };
+  return { notes, favs, leagues, points, bytes: JSON.stringify(doc).length };
 }
 
 function relTime(ts){
@@ -1983,7 +2121,7 @@ function renderSyncPanel(busyMsg){
     <div class="sync-state">
       <span><b>Status:</b> ${on ? '<span style="color:var(--green)">Syncing via GitHub Gist</span>' : '<span style="color:var(--chalk-faint)">Local to this device</span>'}</span>
       <span><b>Last sync:</b> ${on ? relTime(cfg.lastSync) : '—'}</span>
-      <span><b>Holding:</b> ${s.notes} note(s) · ${s.points} value point(s) across ${s.leagues} league(s) · ${kb} KB</span>
+      <span><b>Holding:</b> ${s.notes} note(s) · ${s.favs} starred · ${s.points} value point(s) across ${s.leagues} league(s) · ${kb} KB</span>
     </div>
     <div class="sync-msg">${status}</div>
 
@@ -2281,14 +2419,49 @@ function teamHadGame(team, season, week){
   return !(bye != null && bye === week);
 }
 
+/* Which weeks of this league's season have actually been scored.
+   fetchSeasonPPG deliberately skips any week whose matchups report no points — "week not played
+   yet" — so PLAYER_WEEKLY simply has no row for it. playerUsage, though, walks a week RANGE from 1
+   to the active week rather than the store, and counted every non-bye week in that range as a game
+   the player's team played. The active week is the UPCOMING one from the Tuesday rollover until its
+   kickoff, so for several days every week every player in the league took a phantom zero: one extra
+   team game he produced nothing in, and a guaranteed miss inside the four-week recency window that
+   weighs 60% of the role read. A player who had started the last four weeks dropped from 'starter'
+   to 'rotational' — a 35% value haircut in dynasty, 45% in redraft — and recovered it on Sunday.
+   An empty set with weekly data present means a caller filled PLAYER_WEEKLY directly (the test
+   suites do), so the old count-every-week behaviour stands there. */
+let PLAYER_WEEKLY_SCORED_WEEKS = new Set();
+function weekWasScored(w){
+  if(PLAYER_WEEKLY_SCORED_WEEKS.size) return PLAYER_WEEKLY_SCORED_WEEKS.has(w);
+  return !!(PLAYER_WEEKLY && Object.keys(PLAYER_WEEKLY).length);
+}
+
 /* The core role read. Returns null when there is not enough season played to say anything, so
    callers fall back rather than acting on noise in Week 1. */
 function playerUsage(pid, league, uptoWeek){
-  if(!PLAYER_WEEKLY || !league) return null;
+  if(!league) return null;
   const wk = uptoWeek ?? activeWeek();
   if(!wk || wk < 2) return null;
   const key = 'use:' + league.league_id + ':' + wk + ':' + pid;
   if(key in USAGE_CACHE) return USAGE_CACHE[key];
+
+  /* Measured opportunity first. realUsage reads the actual box score — targets, carries, red-zone
+     work — and is league-independent, so it is both more accurate and the same answer in every
+     league. It returns null when the feed is missing or the sample is too thin, and only then does
+     the older points-based inference below run. That fallback is the reason losing this feed
+     degrades the app rather than breaking it.
+
+     This runs BEFORE the PLAYER_WEEKLY guard below, and the ordering is the whole point. That
+     store is this league's own scored matchups, harvested when a league is opened; the measured
+     read needs none of it. Leaving the guard first — as the first cut of this change did — meant
+     the dashboard, and any league whose matchup harvest had failed, fell back to no role at all
+     while a perfectly good measurement sat unread. */
+  const measured = realUsage(pid, wk, ROLE_RECENT_WEEKS);
+  if(measured){ USAGE_CACHE[key] = measured; return measured; }
+
+  /* The inference below is entirely built on this league's scored weeks, so without them there is
+     nothing to infer from. */
+  if(!PLAYER_WEEKLY) return null;
 
   const info = playerInfo(pid);
   const pos = idpGroupFor(info) || info.position;
@@ -2299,6 +2472,7 @@ function playerUsage(pid, league, uptoWeek){
   let teamGames = 0, playedWeeks = 0, points = 0;
   const recent = [];
   for(let w = 1; w <= wk; w++){
+    if(!weekWasScored(w)) continue;                           // not played yet: not a missed game
     if(!teamHadGame(info.team, league.season, w)) continue;   // bye: not a missed opportunity
     teamGames++;
     const v = typeof series[w] === 'number' ? series[w] : 0;
@@ -2374,6 +2548,954 @@ function roleLabel(usage){
        : usage.role === 'bench' ? 'BACKUP' : 'NOT PLAYING';
 }
 
+/* ===================== MEASURED NFL USAGE (Sleeper stats endpoint) =====================
+   Everything the app says about a player's ROLE used to be inferred from one thing: how many
+   fantasy points he scored in this league's settings, compared against a positional bar. That is a
+   proxy for usage, not usage, and it fails in both directions. A back who gets 14 carries and
+   scores 6 points reads as a non-starter; a receiver who catches one 70-yard touchdown on two
+   targets reads as a starter. Role drives a multiplier of up to 5x on a player's value, so the
+   proxy's errors were expensive.
+
+   Sleeper publishes the actual box score at /v1/stats/nfl/regular/<season>/<week> — the same host
+   and the same no-key, no-login terms as every other endpoint here. Per player per week it carries
+   targets, receptions, red-zone targets, air yards, carries, red-zone carries, pass attempts,
+   games played, and the player's real positional finish that week. That is opportunity, which is
+   what role actually means, and it is the same number whatever a league's scoring says.
+
+   WHAT THIS BUYS
+   - Opportunity share: a player's targets plus carries as a fraction of what his whole team got.
+     This is the standard measure of who the offence is actually feeding.
+   - Red-zone share, separately, because goal-line work is where touchdowns — and therefore fantasy
+     value — are actually distributed, and it is often held by a different player.
+   - A trend: share over the last few weeks against share across the season, which is how a job
+     changing hands is detected weeks before the points catch up.
+
+   WHAT IT DOES NOT BUY
+   Snap counts are not in this feed. Opportunity share is a close substitute for skill positions
+   and the one that matters more for fantasy, but a blocking tight end or a two-down back will read
+   lower here than his snap count would suggest. Routes run, separations and charting metrics are
+   not available at any price without a commercial licence, and nothing here pretends to estimate
+   them.
+
+   ONE KNOWN APPROXIMATION, STATED PLAINLY
+   Team assignment comes from Sleeper's player record, which holds a player's CURRENT team. A
+   player traded mid-season therefore has his earlier weeks attributed to his new team when shares
+   are computed. Across a roster this is a rounding error; for the handful of players who changed
+   teams it slightly misstates both clubs' denominators. Fixing it would need a per-week team feed
+   that no free source publishes. It is noted here so nobody later mistakes it for a bug.
+   ====================================================================================== */
+
+const USAGE_STATS_CACHE_PREFIX = 'fi_nflusage_v1_';
+let NFL_USAGE = null;          // { [pid]: { [week]: slim row } }
+let NFL_USAGE_WEEKS = [];      // weeks that actually returned data
+let NFL_USAGE_SEASON = null;
+let NFL_USAGE_TEAM = null;     // { [team]: { [week]: { tgt, car, rzTgt, rzCar, patt } } }
+let NFL_USAGE_STATUS = 'idle'; // idle | loading | ready | unavailable
+
+/* Rows are slimmed on arrival. The raw feed is ~480 KB a week and most of it is kicking, punting
+   and team-level fields this app has no use for; keeping all of it for eighteen weeks would be
+   several megabytes of live objects for no gain. */
+function slimUsageRow(r){
+  if(!r) return null;
+  const n = k => (typeof r[k] === 'number' && isFinite(r[k])) ? r[k] : 0;
+  const out = {
+    t: n('rec_tgt'), rc: n('rec'), c: n('rush_att'),
+    zt: n('rec_rz_tgt'), zc: n('rush_rz_att'),
+    a: n('rec_air_yd'), pa: n('pass_att'), pz: n('pass_rz_att'),
+    p: n('pts_ppr'), g: n('gp')
+  };
+  const pr = n('pos_rank_ppr');
+  if(pr > 0 && pr < 900) out.pr = pr;
+  /* A row with no opportunity of any kind and no points tells us only that the player appeared in
+     the feed, which every rostered player does. Dropping those keeps the store to players who
+     actually did something. */
+  if(!out.t && !out.c && !out.pa && !out.p && !out.g) return null;
+  return out;
+}
+
+async function loadNflUsage(season, uptoWeek){
+  if(NFL_USAGE && NFL_USAGE_SEASON === season && NFL_USAGE_WEEKS.length >= Math.max(0, uptoWeek-1)) return NFL_USAGE;
+  if(!season || !uptoWeek || uptoWeek < 1){ NFL_USAGE_STATUS = 'unavailable'; return null; }
+  NFL_USAGE_STATUS = 'loading';
+
+  const weeks = [];
+  for(let w = 1; w <= Math.min(uptoWeek, 18); w++) weeks.push(w);
+
+  /* Completed weeks never change, so they are cached. The current week is deliberately NOT cached:
+     it is still being played and a stale copy would freeze a player's usage mid-week. */
+  const store = {}, got = [];
+  const fetchWeek = async (w) => {
+    const key = USAGE_STATS_CACHE_PREFIX + season + '_' + w;
+    const cacheable = w < uptoWeek;
+    if(cacheable){
+      try { const c = localStorage.getItem(key); if(c) return { w, rows: JSON.parse(c) }; } catch(e){}
+    }
+    try {
+      const raw = await getJSON(`${API}/stats/nfl/regular/${season}/${w}`);
+      if(!raw || typeof raw !== 'object') return { w, rows: null };
+      const rows = {};
+      Object.keys(raw).forEach(pid => { const s = slimUsageRow(raw[pid]); if(s) rows[pid] = s; });
+      if(cacheable){ try { localStorage.setItem(key, JSON.stringify(rows)); } catch(e){ /* quota */ } }
+      return { w, rows };
+    } catch(e){ return { w, rows: null }; }
+  };
+
+  /* Six at a time. All eighteen at once is a burst Sleeper has no reason to welcome, and the gain
+     over a windowed run is a second at most. */
+  const results = [];
+  for(let i = 0; i < weeks.length; i += 6){
+    results.push(...await Promise.all(weeks.slice(i, i+6).map(fetchWeek)));
+  }
+  results.forEach(({ w, rows }) => {
+    if(!rows) return;
+    got.push(w);
+    Object.keys(rows).forEach(pid => { (store[pid] = store[pid] || {})[w] = rows[pid]; });
+  });
+
+  if(!got.length){ NFL_USAGE = null; NFL_USAGE_WEEKS = []; NFL_USAGE_STATUS = 'unavailable'; return null; }
+
+  NFL_USAGE = store;
+  NFL_USAGE_WEEKS = got.sort((a,b)=>a-b);
+  NFL_USAGE_SEASON = season;
+  NFL_USAGE_TEAM = buildTeamUsageTotals(store, NFL_USAGE_WEEKS);
+  NFL_USAGE_STATUS = 'ready';
+  clearUsageCache();
+  return NFL_USAGE;
+}
+
+/* Team denominators. Every share in this section is a player's opportunity over his team's, so
+   these have to be summed from the same rows the numerators come from — taking them from any other
+   source would let the two drift and produce shares above 100%. */
+function buildTeamUsageTotals(store, weeks){
+  const team = {};
+  Object.keys(store).forEach(pid => {
+    const info = playerInfo(pid);
+    const t = info && info.team;
+    if(!t) return;
+    const byWeek = team[t] = team[t] || {};
+    weeks.forEach(w => {
+      const r = store[pid][w];
+      if(!r) return;
+      const slot = byWeek[w] = byWeek[w] || { tgt:0, car:0, rzTgt:0, rzCar:0, patt:0 };
+      slot.tgt += r.t; slot.car += r.c; slot.rzTgt += r.zt; slot.rzCar += r.zc; slot.patt += r.pa;
+    });
+  });
+  return team;
+}
+
+/* Per-game opportunity that marks a full-time role, by position. These are the volumes a starter
+   actually sees, not round numbers: a lead back is at ten-plus touches, a every-down receiver at
+   five-plus targets, a starting tight end at three-plus, a starting quarterback at twenty-plus
+   dropbacks. They are used together with share, so a player on a run-heavy or pass-heavy team is
+   judged against his own team's volume as well as against the league. */
+const STARTER_OPPORTUNITY = { QB:20, RB:10, WR:4.5, TE:3, K:0, DEF:0 };
+const STARTER_SHARE       = { QB:0.55, RB:0.16, WR:0.15, TE:0.11, K:0, DEF:0 };
+
+function usagePosition(pid){
+  const info = playerInfo(pid);
+  const p = info && info.position;
+  return (p === 'QB' || p === 'RB' || p === 'WR' || p === 'TE') ? p : null;
+}
+
+/* The measured read. Returns null when there is no feed, no position this applies to, or too few
+   games to say anything — callers then fall back to the inference that came before it, so a loss
+   of this data degrades the app to its previous behaviour rather than breaking it. */
+function realUsage(pid, uptoWeek, recentWeeks){
+  if(!NFL_USAGE || !NFL_USAGE_WEEKS.length) return null;
+  const pos = usagePosition(pid);
+  if(!pos) return null;
+  const info = playerInfo(pid);
+  const team = info && info.team;
+  if(!team || !NFL_USAGE_TEAM || !NFL_USAGE_TEAM[team]) return null;
+
+  const wkCap = uptoWeek || NFL_USAGE_WEEKS[NFL_USAGE_WEEKS.length-1];
+  const look = recentWeeks || 4;
+  const series = NFL_USAGE[pid] || {};
+  const weeks = NFL_USAGE_WEEKS.filter(w => w <= wkCap);
+  if(!weeks.length) return null;
+
+  let opp = 0, rz = 0, teamOpp = 0, teamRz = 0, played = 0, teamGames = 0, pts = 0;
+  let rOpp = 0, rTeamOpp = 0, rPlayed = 0, rTeamGames = 0;
+  const ranks = [];
+
+  weeks.forEach(w => {
+    const tw = NFL_USAGE_TEAM[team][w];
+    if(!tw) return;                       // the team did not play that week (bye)
+    const tOpp = pos === 'QB' ? tw.patt : (tw.tgt + tw.car);
+    if(tOpp <= 0) return;
+    teamGames++;
+    teamOpp += tOpp;
+    teamRz += (tw.rzTgt + tw.rzCar);
+    const r = series[w];
+    const mine = r ? (pos === 'QB' ? r.pa : (r.t + r.c)) : 0;
+    const mineRz = r ? (r.zt + r.zc + (pos === 'QB' ? r.pz : 0)) : 0;
+    opp += mine; rz += mineRz;
+    if(r){ pts += r.p; if(r.pr) ranks.push(r.pr); }
+    if(mine > 0) played++;
+    if(w > wkCap - look){
+      rTeamGames++; rTeamOpp += tOpp; rOpp += mine;
+      if(mine > 0) rPlayed++;
+    }
+  });
+
+  if(teamGames < 2) return null;
+
+  const share       = teamOpp  ? opp  / teamOpp  : 0;
+  const rzShare     = teamRz   ? rz   / teamRz   : 0;
+  const recentShare = rTeamOpp ? rOpp / rTeamOpp : share;
+  const perGame     = teamGames  ? opp  / teamGames  : 0;
+  const recentPerGame = rTeamGames ? rOpp / rTeamGames : perGame;
+
+  /* Recent weighted ahead of season, for the same reason the older inference did it: a job that
+     changed hands three weeks ago is the current truth, and the season average is history. */
+  const blendShare   = share * 0.35 + recentShare * 0.65;
+  const blendPerGame = perGame * 0.35 + recentPerGame * 0.65;
+
+  const barOpp   = STARTER_OPPORTUNITY[pos] ?? 0;
+  const barShare = STARTER_SHARE[pos] ?? 0;
+  /* Either test can carry a player. A receiver on a team that throws 40 times a game clears the
+     volume bar without a big share; one on a run-heavy team can own the passing game with modest
+     volume. Requiring both would punish players for their offence's identity. */
+  const startish = (blendPerGame >= barOpp) || (blendShare >= barShare);
+  const halfish  = (blendPerGame >= barOpp * 0.45) || (blendShare >= barShare * 0.5);
+
+  let role;
+  if(startish) role = 'starter';
+  else if(halfish) role = 'rotational';
+  else if(played > 0) role = 'bench';
+  else role = 'inactive';
+
+  const st = (info.injury_status || '').toLowerCase();
+  const hurt = st === 'ir' || st === 'out' || st === 'doubtful';
+  /* Same rule as the inference path: a player who held the job and is now hurt is an injured
+     starter, not a backup. Injury is priced once, elsewhere. */
+  if(hurt && share >= barShare * 0.6 && role !== 'starter') role = 'injured-starter';
+
+  ranks.sort((a,b)=>a-b);
+  const medRank = ranks.length ? ranks[Math.floor(ranks.length/2)] : null;
+
+  return {
+    measured: true, pos, role,
+    share, recentShare, rzShare, blended: blendShare,
+    perGame, recentPerGame,
+    opportunities: opp, redZone: rz,
+    teamGames, playedWeeks: played,
+    seasonPPG: teamGames ? pts / teamGames : 0,
+    ppgWhenPlayed: played ? pts / played : 0,
+    medianPosRank: medRank,
+    /* Positive means the player is being fed more than he was: the single most useful early signal
+       of a job changing hands, and the thing a points-based read sees last. */
+    trend: recentShare - share,
+    hurt
+  };
+}
+
+/* A short, honest sentence about what the player is actually getting. Used in the UI wherever a
+   role is shown, so the label is never a bare assertion the reader cannot check. */
+function usageDetail(u){
+  if(!u || !u.measured) return null;
+  const pct = x => (x*100).toFixed(0) + '%';
+  const bits = [];
+  if(u.pos === 'QB') bits.push(u.perGame.toFixed(0) + ' att/g');
+  else bits.push(u.perGame.toFixed(1) + (u.pos === 'RB' ? ' touches/g' : ' tgt/g'));
+  bits.push(pct(u.share) + ' of team');
+  if(u.rzShare > 0.01) bits.push(pct(u.rzShare) + ' of red zone');
+  if(Math.abs(u.trend) >= 0.04) bits.push((u.trend > 0 ? 'up ' : 'down ') + pct(Math.abs(u.trend)) + ' last 4wk');
+  return bits.join(' · ');
+}
+
+/* ===================== DEFENCE VS POSITION =====================
+   Fantasy points each defence has allowed per game to each position, and its rank among the 32.
+   Built from the same weekly rows as usage, with the opponent taken from the schedule the app
+   already loads, so it costs no extra request.
+
+   Why it is here: every weekly call this app makes — start/sit, waiver pickups, which of two
+   flex options to play — was being made on projection alone, with no view of who the player is
+   facing. A projection that already contains the matchup would make this redundant; Sleeper's
+   does not reliably, and a defence that has given up the most points to tight ends all season is
+   a real, usable edge in exactly the decisions this app exists to make.
+
+   Same team-drift approximation as usage, and one more: a defence's season average mixes the
+   offences it happened to face. Ten games is enough to be worth knowing and not enough to be
+   certain, which is why the UI shows the rank and the sample rather than a verdict. */
+
+let DVP = null;        // { [scoringKey]: { [defTeam]: { [pos]: {pts, games, ppg, rank} } } }
+let DVP_SEASON = null;
+
+function dvpScoringKey(league){
+  const rec = league && league.scoring_settings ? Number(league.scoring_settings.rec || 0) : 1;
+  if(rec >= 0.75) return 'ppr';
+  if(rec >= 0.25) return 'half';
+  return 'std';
+}
+
+/* The feed gives points in all three formats, but only pts_ppr survived slimming — the other two
+   are a fixed function of receptions, so they are reconstructed rather than stored three times. */
+function pointsInFormat(row, key){
+  if(!row) return 0;
+  if(key === 'ppr') return row.p;
+  if(key === 'half') return row.p - 0.5 * row.rc;
+  return row.p - row.rc;
+}
+
+function buildDvp(season){
+  if(!NFL_USAGE || !NFL_USAGE_WEEKS.length || !NFL_SCHEDULE) return null;
+  const keys = ['ppr','half','std'];
+  const out = {}; keys.forEach(k => out[k] = {});
+  const gamesSeen = {};   // defTeam -> Set(weeks)
+
+  Object.keys(NFL_USAGE).forEach(pid => {
+    const pos = usagePosition(pid);
+    if(!pos) return;
+    const info = playerInfo(pid);
+    const team = info && info.team;
+    if(!team) return;
+    NFL_USAGE_WEEKS.forEach(w => {
+      const row = NFL_USAGE[pid][w];
+      if(!row) return;
+      const sched = NFL_SCHEDULE[w] && NFL_SCHEDULE[w][team];
+      const def = sched && sched.opp;
+      if(!def) return;
+      (gamesSeen[def] = gamesSeen[def] || new Set()).add(w);
+      keys.forEach(k => {
+        const bucket = out[k][def] = out[k][def] || {};
+        const slot = bucket[pos] = bucket[pos] || { pts:0, games:0 };
+        slot.pts += pointsInFormat(row, k);
+      });
+    });
+  });
+
+  keys.forEach(k => {
+    Object.keys(out[k]).forEach(def => {
+      const g = gamesSeen[def] ? gamesSeen[def].size : 0;
+      Object.keys(out[k][def]).forEach(pos => {
+        const s = out[k][def][pos];
+        s.games = g;
+        s.ppg = g ? s.pts / g : 0;
+      });
+    });
+    /* Rank 1 = most generous, which is the direction a fantasy manager reads it in: rank 1 is the
+       defence you want your player facing. */
+    ['QB','RB','WR','TE'].forEach(pos => {
+      const rows = Object.keys(out[k]).filter(d => out[k][d][pos]).map(d => ({ d, ppg: out[k][d][pos].ppg }));
+      rows.sort((a,b) => b.ppg - a.ppg);
+      rows.forEach((r,i) => { out[k][r.d][pos].rank = i+1; });
+    });
+  });
+
+  DVP = out; DVP_SEASON = season;
+  return out;
+}
+
+function dvpFor(defTeam, pos, league){
+  if(!DVP || !defTeam || !pos) return null;
+  const k = dvpScoringKey(league);
+  const row = DVP[k] && DVP[k][defTeam] && DVP[k][defTeam][pos];
+  if(!row || !row.games) return null;
+  return row;
+}
+
+/* The matchup a specific player faces this week, ready to show. Null whenever anything is missing
+   — no schedule, a bye, an unknown defence — so a caller can simply omit the chip. */
+function matchupFor(pid, week, league){
+  const pos = usagePosition(pid);
+  if(!pos || !NFL_SCHEDULE || !NFL_SCHEDULE[week]) return null;
+  const info = playerInfo(pid);
+  const sched = info && info.team ? NFL_SCHEDULE[week][info.team] : null;
+  if(!sched || !sched.opp) return null;
+  const d = dvpFor(sched.opp, pos, league);
+  if(!d) return { opp: sched.opp, home: sched.home, rank: null, ppg: null, total: null, pos };
+  const total = Object.keys(DVP[dvpScoringKey(league)]).filter(t => DVP[dvpScoringKey(league)][t][pos]).length;
+  return { opp: sched.opp, home: sched.home, rank: d.rank, ppg: d.ppg, games: d.games, total, pos };
+}
+
+/* Green when the defence is in the most generous third against this position, red in the stingiest
+   third, neutral in between. Deliberately coarse: the underlying sample does not support finer. */
+function matchupTone(rank, total){
+  if(!rank || !total) return 'neutral';
+  if(rank <= total/3) return 'good';
+  if(rank > total*2/3) return 'bad';
+  return 'neutral';
+}
+
+function matchupChipHTML(pid, week, league){
+  const m = matchupFor(pid, week, league);
+  if(!m) return '';
+  const where = m.home ? 'vs ' : '@ ';
+  if(!m.rank) return `<span class="mchip neutral">${where}${m.opp}</span>`;
+  const tone = matchupTone(m.rank, m.total);
+  const title = `${m.opp} has allowed ${m.ppg.toFixed(1)} pts/g to ${m.pos}s — ${ordinal(m.rank)} most generous of ${m.total}, over ${m.games} games`;
+  return `<span class="mchip ${tone}" title="${title}">${where}${m.opp} · ${ordinal(m.rank)}</span>`;
+}
+
+/* ===================== THE TRADE MARKET IN YOUR OWN LEAGUES =====================
+   Public dynasty trade indexes tell you what the national market is doing. That is interesting,
+   but it is not the market you trade in. Across ten-plus leagues a season there are hundreds of
+   real trades between the people who will actually answer your offers, and this app already pulls
+   every one of them for the transaction grader. They were being read once, per league, and thrown
+   away.
+
+   This builds one index out of all of them and answers three questions the app could not answer
+   before:
+
+     1. WHAT HAS HE ACTUALLY GONE FOR. Not a calculator's opinion — the real returns, with the
+        league, the date and both sides. A trade comp settles an argument that a value chart only
+        starts.
+     2. WHO IS BEING ACCUMULATED. Counting every trade twice over (someone bought, someone sold)
+        nets to zero by construction, so a direction needs a reference set. The one this app can
+        actually measure is roster strength: net acquisitions by the strongest third of rosters in
+        each league. The UI says that in those words rather than calling them "sharps", because
+        the strongest roster and the sharpest manager are not the same claim and only one of them
+        is observable here.
+     3. HOW OFTEN HE MOVES AT ALL. Volume is direction-free and needs no reference set, and a
+        player nobody trades is a different proposition from one who changes hands weekly.
+
+   The same pass also profiles every manager, because it is the same data read along the other
+   axis, and a second pass would be a second round of requests for nothing.
+   =============================================================================== */
+
+const TRADE_WINDOWS = [7, 14, 30];
+let TRADE_SCAN = null;          // { builtAt, week, leagues, trades, byPid, byUser, refSet }
+let TRADE_SCAN_STATUS = 'idle'; // idle | loading | ready | empty | error
+let TRADE_SCAN_ERROR = null;
+const LEAGUE_TXN_CACHE = {};    // { 'leagueId:week': transactions[] }
+
+/* Roster strength, summed from the values the rest of the app already uses, so the reference set
+   is consistent with every other number on screen. Returns the set of roster_ids in the strongest
+   third — at least one team, so a tiny league still has a reference. */
+function strongRosterIds(entry){
+  const lg = entry.league, rosters = entry.rosters || [];
+  const scored = rosters.map(r => ({
+    id: r.roster_id,
+    v: (r.players || []).reduce((s, pid) => s + (assetValue(pid, lg) || 0), 0)
+  })).sort((a,b) => b.v - a.v);
+  const take = Math.max(1, Math.round(scored.length / 3));
+  return new Set(scored.slice(0, take).map(x => x.id));
+}
+
+async function fetchLeagueTransactions(leagueId, uptoWeek){
+  const weeks = [];
+  for(let w = 1; w <= uptoWeek; w++) weeks.push(w);
+  const out = [];
+  /* Four leagues' worth of weeks in flight at a time. Ten leagues times fourteen weeks is 140
+     requests; firing them all at once is rude to the API and no faster in practice. */
+  for(let i = 0; i < weeks.length; i += 4){
+    const batch = await Promise.all(weeks.slice(i, i+4).map(async w => {
+      const key = leagueId + ':' + w;
+      if(key in LEAGUE_TXN_CACHE) return LEAGUE_TXN_CACHE[key];
+      try {
+        const t = await getJSON(`${API}/league/${leagueId}/transactions/${w}`);
+        const rows = Array.isArray(t) ? t.map(x => ({ ...x, __week: w })) : [];
+        LEAGUE_TXN_CACHE[key] = rows;
+        return rows;
+      } catch(e){ LEAGUE_TXN_CACHE[key] = []; return []; }
+    }));
+    batch.forEach(r => out.push(...r));
+  }
+  return out;
+}
+
+/* One trade, turned into what each side got and gave. Sleeper reports a trade as flat add/drop
+   maps keyed by player, plus a list of picks, so the per-team view has to be assembled. */
+function splitTradeSides(t){
+  const sides = {};
+  const side = id => sides[id] = sides[id] || { rosterId:id, got:[], gave:[], gotPicks:[], gavePicks:[] };
+  (t.roster_ids || []).forEach(side);
+  Object.keys(t.adds || {}).forEach(pid => { const r = t.adds[pid]; if(r != null) side(r).got.push(pid); });
+  Object.keys(t.drops || {}).forEach(pid => { const r = t.drops[pid]; if(r != null) side(r).gave.push(pid); });
+  (t.draft_picks || []).forEach(dp => {
+    if(dp.owner_id != null) side(dp.owner_id).gotPicks.push(dp);
+    if(dp.previous_owner_id != null) side(dp.previous_owner_id).gavePicks.push(dp);
+  });
+  return Object.values(sides);
+}
+
+function tradeAgeDays(t, now){
+  const ts = t.status_updated || t.created || 0;
+  if(!ts) return null;
+  return Math.max(0, (now - ts) / 86400000);
+}
+
+async function buildTradeScan(uptoWeek, onProgress){
+  if(TRADE_SCAN_STATUS === 'loading') return TRADE_SCAN;
+  TRADE_SCAN_STATUS = 'loading'; TRADE_SCAN_ERROR = null;
+  const now = Date.now();
+  const byPid = {}, byUser = {}, trades = [];
+  const leaguesScanned = [];
+
+  try {
+    const entries = (LEAGUES || []).map(lg => LEAGUE_CACHE[lg.league_id]).filter(Boolean);
+    for(let i = 0; i < entries.length; i++){
+      const entry = entries[i];
+      if(onProgress) onProgress(i, entries.length, entry.league.name);
+      const strong = strongRosterIds(entry);
+      const ownerOf = {};
+      (entry.rosters || []).forEach(r => { ownerOf[r.roster_id] = r.owner_id; });
+
+      const txns = await fetchLeagueTransactions(entry.league.league_id, uptoWeek);
+      leaguesScanned.push(entry.league.name);
+
+      txns.filter(t => t.status === 'complete').forEach(t => {
+        const uid = r => ownerOf[r] || ('roster' + r);
+        const prof = r => {
+          const u = uid(r);
+          return byUser[u] = byUser[u] || {
+            userId:u, name:null, leagues:new Set(), trades:0, waivers:0, lastTradeAt:0,
+            got:{QB:0,RB:0,WR:0,TE:0,other:0}, gave:{QB:0,RB:0,WR:0,TE:0,other:0},
+            gotPicks:0, gavePicks:0, ageGot:[], ageGave:[], valueGot:0, valueGave:0, partners:{}
+          };
+        };
+
+        if(t.type !== 'trade'){
+          (t.roster_ids || []).forEach(r => {
+            const p = prof(r); p.waivers++; p.leagues.add(entry.league.name);
+            if(!p.name) p.name = entry.rosterNameById ? entry.rosterNameById[r] : null;
+          });
+          return;
+        }
+
+        const sides = splitTradeSides(t);
+        const days = tradeAgeDays(t, now);
+        const record = {
+          leagueId: entry.league.league_id, league: entry.league.name,
+          week: t.__week, at: t.status_updated || t.created || 0, days,
+          horizon: leagueHorizon(entry.league), superflex: isSuperflex(entry.league),
+          sides: sides.map(s => ({
+            rosterId: s.rosterId, userId: uid(s.rosterId),
+            team: entry.rosterNameById ? entry.rosterNameById[s.rosterId] : ('Team ' + s.rosterId),
+            got: s.got, gave: s.gave, gotPicks: s.gotPicks, gavePicks: s.gavePicks,
+            strong: strong.has(s.rosterId)
+          }))
+        };
+        trades.push(record);
+
+        sides.forEach(s => {
+          const p = prof(s.rosterId);
+          p.trades++; p.leagues.add(entry.league.name);
+          if(!p.name) p.name = entry.rosterNameById ? entry.rosterNameById[s.rosterId] : null;
+          p.lastTradeAt = Math.max(p.lastTradeAt, t.status_updated || t.created || 0);
+          p.gotPicks += s.gotPicks.length; p.gavePicks += s.gavePicks.length;
+          sides.forEach(o => { if(o.rosterId !== s.rosterId) p.partners[uid(o.rosterId)] = (p.partners[uid(o.rosterId)]||0) + 1; });
+          const bucket = (pid, dir) => {
+            const info = playerInfo(pid);
+            const pos = ['QB','RB','WR','TE'].includes(info.position) ? info.position : 'other';
+            p[dir][pos]++;
+            if(typeof info.age === 'number') p[dir === 'got' ? 'ageGot' : 'ageGave'].push(info.age);
+            const v = assetValue(pid, entry.league) || 0;
+            if(dir === 'got') p.valueGot += v; else p.valueGave += v;
+          };
+          s.got.forEach(pid => bucket(pid, 'got'));
+          s.gave.forEach(pid => bucket(pid, 'gave'));
+
+          /* The per-player index. `strongNet` is the only directional figure here and it counts
+             only the reference set; everything else counts every side of every trade. */
+          const touch = (pid, dir) => {
+            const e = byPid[pid] = byPid[pid] || {
+              pid, vol:0, strongBuys:0, strongSells:0,
+              windows: TRADE_WINDOWS.reduce((o,d)=>(o[d]={vol:0,net:0},o),{}),
+              comps: []
+            };
+            e.vol++;
+            if(s.strong){ if(dir === 'got') e.strongBuys++; else e.strongSells++; }
+            if(days != null) TRADE_WINDOWS.forEach(d => {
+              if(days <= d){
+                e.windows[d].vol++;
+                if(s.strong) e.windows[d].net += (dir === 'got' ? 1 : -1);
+              }
+            });
+            /* The comp is recorded from the receiving side only, so it reads as "what it cost to
+               get him" rather than appearing twice from both directions. */
+            if(dir === 'got' && e.comps.length < 40){
+              e.comps.push({
+                league: entry.league.name, at: record.at, days, week: t.__week,
+                horizon: record.horizon, superflex: record.superflex,
+                to: record.sides.find(x => x.rosterId === s.rosterId)?.team,
+                alongside: s.got.filter(x => x !== pid),
+                cost: s.gave.slice(), costPicks: s.gavePicks.slice()
+              });
+            }
+          };
+          s.got.forEach(pid => touch(pid, 'got'));
+          s.gave.forEach(pid => touch(pid, 'gave'));
+        });
+      });
+    }
+
+    Object.keys(byPid).forEach(pid => {
+      const e = byPid[pid];
+      e.strongNet = e.strongBuys - e.strongSells;
+      e.comps.sort((a,b) => b.at - a.at);
+    });
+    Object.keys(byUser).forEach(u => {
+      const p = byUser[u];
+      p.leagues = Array.from(p.leagues);
+      const avg = a => a.length ? a.reduce((s,x)=>s+x,0)/a.length : null;
+      p.avgAgeGot = avg(p.ageGot); p.avgAgeGave = avg(p.ageGave);
+      p.youthLean = (p.avgAgeGot != null && p.avgAgeGave != null) ? p.avgAgeGave - p.avgAgeGot : null;
+      p.pickLean = p.gotPicks - p.gavePicks;
+      delete p.ageGot; delete p.ageGave;
+    });
+
+    trades.sort((a,b) => b.at - a.at);
+    TRADE_SCAN = { builtAt: now, week: uptoWeek, leagues: leaguesScanned, trades, byPid, byUser };
+    TRADE_SCAN_STATUS = trades.length ? 'ready' : 'empty';
+  } catch(err){
+    TRADE_SCAN_STATUS = 'error'; TRADE_SCAN_ERROR = err.message || String(err);
+  }
+  return TRADE_SCAN;
+}
+
+/* Plain-language read of a manager, built only from what he has actually done. Every clause is
+   tied to a count, because "likes young players" with nothing behind it is astrology. */
+function managerTendencies(p){
+  if(!p) return [];
+  const out = [];
+  if(p.trades === 0) out.push({ tone:'bad', text:'Has not completed a trade all season' });
+  else if(p.trades >= 8) out.push({ tone:'good', text:`Very active — ${p.trades} trades` });
+  else if(p.trades >= 3) out.push({ tone:'good', text:`Trades regularly — ${p.trades} this season` });
+  else out.push({ tone:'neutral', text:`${p.trades} trade${p.trades===1?'':'s'} this season` });
+
+  if(p.youthLean != null && Math.abs(p.youthLean) >= 1.2){
+    out.push(p.youthLean > 0
+      ? { tone:'neutral', text:`Buys younger — acquires players ${p.youthLean.toFixed(1)} yrs younger than he sends` }
+      : { tone:'neutral', text:`Buys older — acquires players ${Math.abs(p.youthLean).toFixed(1)} yrs older than he sends` });
+  }
+  if(p.pickLean >= 2) out.push({ tone:'neutral', text:`Accumulating picks (+${p.pickLean} net)` });
+  else if(p.pickLean <= -2) out.push({ tone:'neutral', text:`Spending picks (${p.pickLean} net)` });
+
+  const posGot = ['QB','RB','WR','TE'].map(k => [k, p.got[k]]).sort((a,b)=>b[1]-a[1]);
+  if(posGot[0] && posGot[0][1] >= 3 && posGot[0][1] > (posGot[1] ? posGot[1][1] : 0))
+    out.push({ tone:'neutral', text:`Mostly buys ${posGot[0][0]}s (${posGot[0][1]})` });
+
+  if(p.lastTradeAt){
+    const d = Math.round((Date.now() - p.lastTradeAt)/86400000);
+    if(d > 45) out.push({ tone:'bad', text:`Quiet lately — last trade ${d} days ago` });
+    else if(d <= 7) out.push({ tone:'good', text:`Traded in the last week` });
+  }
+  if(p.waivers >= 25) out.push({ tone:'neutral', text:`Works the wire hard (${p.waivers} moves)` });
+  return out;
+}
+
+/* How receptive a counterparty is likely to be, 0 to 1. Used to order Trade Lab targets so the
+   first suggestion is not a perfectly-priced offer to somebody who has never traded. */
+function managerReceptiveness(p){
+  if(!p) return 0.5;                       // unknown: neither promote nor bury
+  if(p.trades === 0) return 0.08;
+  const recency = p.lastTradeAt ? Math.max(0, 1 - (Date.now() - p.lastTradeAt)/(60*86400000)) : 0.3;
+  const volume = Math.min(1, p.trades / 6);
+  return Math.max(0.1, Math.min(1, 0.35 + 0.4*volume + 0.25*recency));
+}
+
+/* ===================== HEAD TO HEAD =====================
+   The same opponents recur across a ten-league portfolio, and until now the app had no memory of
+   them: each league's matchup was an isolated event. Sleeper keeps every week of every season, and
+   leagues chain backwards through previous_league_id, so a real record against each manager is
+   available — it just had to be assembled.
+
+   Current season is cheap and loads with the panel. Prior seasons walk the chain and cost one
+   round of requests per season per league, so they are opt-in behind a button rather than paid for
+   by everyone on every open. ===================================================== */
+
+let H2H = null;                 // { bySeason, byOpponent, seasons, leagues }
+let H2H_STATUS = 'idle';
+let H2H_INCLUDES_HISTORY = false;
+
+/* Pairs one week's matchup payload by matchup_id. Byes and odd team counts simply produce no pair
+   rather than a half-recorded game. */
+function pairMatchups(rows){
+  const byId = {};
+  (rows || []).forEach(m => { if(m && m.matchup_id != null) (byId[m.matchup_id] = byId[m.matchup_id] || []).push(m); });
+  return Object.values(byId).filter(g => g.length === 2);
+}
+
+async function collectLeagueH2H(leagueId, season, leagueName, myUserId, uptoWeek, acc){
+  let rosters, users;
+  try {
+    [rosters, users] = await Promise.all([
+      getJSON(`${API}/league/${leagueId}/rosters`),
+      getJSON(`${API}/league/${leagueId}/users`)
+    ]);
+  } catch(e){ return null; }
+  if(!Array.isArray(rosters)) return null;
+  const ownerOf = {}; rosters.forEach(r => { ownerOf[r.roster_id] = r.owner_id; });
+  const nameOf = {};
+  (users || []).forEach(u => { nameOf[u.user_id] = (u.metadata && u.metadata.team_name) || u.display_name || 'Unknown'; });
+  const mine = rosters.find(r => r.owner_id === myUserId);
+  if(!mine) return { rosters, users };
+
+  const weeks = [];
+  for(let w = 1; w <= uptoWeek; w++) weeks.push(w);
+  const payloads = [];
+  for(let i = 0; i < weeks.length; i += 5){
+    payloads.push(...await Promise.all(weeks.slice(i, i+5).map(w =>
+      getJSON(`${API}/league/${leagueId}/matchups/${w}`).then(m => ({ w, m })).catch(() => ({ w, m:null }))
+    )));
+  }
+
+  payloads.forEach(({ w, m }) => {
+    pairMatchups(m).forEach(([a, b]) => {
+      const me = a.roster_id === mine.roster_id ? a : (b.roster_id === mine.roster_id ? b : null);
+      if(!me) return;
+      const opp = me === a ? b : a;
+      /* A week with no points on either side has not been played. Recording it would invent a tie. */
+      if((me.points || 0) <= 0 && (opp.points || 0) <= 0) return;
+      const oppUser = ownerOf[opp.roster_id];
+      if(!oppUser) return;
+      const rec = acc[oppUser] = acc[oppUser] || {
+        userId: oppUser, name: nameOf[oppUser] || 'Unknown',
+        w:0, l:0, t:0, pf:0, pa:0, games:[], leagues:new Set(), seasons:new Set()
+      };
+      if(!rec.name || rec.name === 'Unknown') rec.name = nameOf[oppUser] || rec.name;
+      const mp = me.points || 0, op = opp.points || 0;
+      if(mp > op) rec.w++; else if(mp < op) rec.l++; else rec.t++;
+      rec.pf += mp; rec.pa += op;
+      rec.leagues.add(leagueName); rec.seasons.add(String(season));
+      rec.games.push({ season: String(season), league: leagueName, week: w, me: mp, opp: op, won: mp > op });
+    });
+  });
+  return { rosters, users };
+}
+
+async function buildHeadToHead(uptoWeek, includeHistory, onProgress){
+  H2H_STATUS = 'loading';
+  const acc = {};
+  const seasons = new Set(), leagues = new Set();
+  try {
+    const entries = (LEAGUES || []).map(lg => LEAGUE_CACHE[lg.league_id]).filter(Boolean);
+    for(let i = 0; i < entries.length; i++){
+      const e = entries[i];
+      if(onProgress) onProgress(i, entries.length, e.league.name);
+      leagues.add(e.league.name); seasons.add(String(e.league.season));
+      await collectLeagueH2H(e.league.league_id, e.league.season, e.league.name, USER.user_id, uptoWeek, acc);
+
+      if(includeHistory){
+        /* Walk back through the chain of previous seasons. Capped at five hops: beyond that the
+           league is usually a different set of people and the request cost stops being worth it. */
+        let prev = e.league.previous_league_id, hops = 0;
+        while(prev && hops < 5){
+          let lg = null;
+          try { lg = await getJSON(`${API}/league/${prev}`); } catch(err){ break; }
+          if(!lg || !lg.league_id) break;
+          seasons.add(String(lg.season)); leagues.add(lg.name);
+          /* A finished season is always 18 weeks at most; asking for more is wasted requests. */
+          await collectLeagueH2H(lg.league_id, lg.season, lg.name, USER.user_id, 18, acc);
+          prev = lg.previous_league_id; hops++;
+        }
+      }
+    }
+    Object.keys(acc).forEach(u => {
+      const r = acc[u];
+      r.leagues = Array.from(r.leagues); r.seasons = Array.from(r.seasons).sort();
+      r.played = r.w + r.l + r.t;
+      r.winPct = r.played ? r.w / r.played : 0;
+      r.avgFor = r.played ? r.pf / r.played : 0;
+      r.avgAgainst = r.played ? r.pa / r.played : 0;
+      r.margin = r.avgFor - r.avgAgainst;
+      r.games.sort((a,b) => (b.season.localeCompare(a.season)) || (b.week - a.week));
+    });
+    H2H = { byOpponent: acc, seasons: Array.from(seasons).sort(), leagues: Array.from(leagues), builtAt: Date.now() };
+    H2H_INCLUDES_HISTORY = !!includeHistory;
+    H2H_STATUS = Object.keys(acc).length ? 'ready' : 'empty';
+  } catch(err){
+    H2H_STATUS = 'error';
+  }
+  return H2H;
+}
+
+/* Who he faces this week, and in how many leagues at once — the thing a ten-league manager
+   actually wants on a Sunday morning. */
+function opponentsThisWeek(){
+  const out = {};
+  (LEAGUES || []).forEach(lg => {
+    const e = LEAGUE_CACHE[lg.league_id];
+    if(!e || !e.myRoster || !Array.isArray(e.matchups)) return;
+    const mine = e.matchups.find(m => m.roster_id === e.myRoster.roster_id);
+    if(!mine || mine.matchup_id == null) return;
+    const opp = e.matchups.find(m => m.matchup_id === mine.matchup_id && m.roster_id !== mine.roster_id);
+    if(!opp) return;
+    const r = (e.rosters || []).find(x => x.roster_id === opp.roster_id);
+    const uid = r ? r.owner_id : null;
+    if(!uid) return;
+    (out[uid] = out[uid] || { userId: uid, name: e.rosterNameById ? e.rosterNameById[opp.roster_id] : 'Opponent', leagues: [] })
+      .leagues.push(lg.name);
+  });
+  return out;
+}
+
+/* ===================== PROJECTED PICK SLOTS =====================
+   Rookie picks were priced from a round value nudged by a slot factor, and that factor came from
+   a blend of two current ranks: record and power. It is a reasonable point estimate and it has a
+   real blind spot — it knows nothing about the games still to be played. A team two games out with
+   the easiest remaining schedule and a team in the same position with the hardest were given the
+   same projected slot.
+
+   The season simulation already plays the rest of the year out hundreds of times and sorts the
+   final standings on every iteration. It was throwing that ordering away after reading the playoff
+   field off the top and the bottom three off the end. Keeping the whole distribution turns "proj.
+   early" into "projects 1.04, 1.02 to 1.07 in four fifths of runs", which is the number you
+   actually trade on, and it carries the remaining schedule and the variance with it.
+
+   One caveat, stated in the UI as well as here: draft order is assumed to be the reverse of the
+   final regular-season standings. Most dynasty leagues do that; some use a lottery, some order the
+   playoff teams by finish, some invert the toilet bowl. Where a league differs the slot is wrong
+   even though the finish is right, which is why the projection is always shown with its reasoning
+   rather than folded silently into a price.
+   ================================================================ */
+
+const SLOT_PROJECTION = {};   // { [leagueId]: { [rosterId]: { exp, p10, p90, dist, teams } } }
+
+/* Turns a finish-position distribution into a draft-slot projection. Finish 1 is the best record,
+   so the worst team (finish N) holds slot 1. */
+function slotProjectionFromFinish(finishDist, teams){
+  const total = finishDist.reduce((s,c)=>s+c, 0);
+  if(!total) return null;
+  const slots = [];
+  for(let finish = 1; finish <= teams; finish++){
+    const slot = teams - finish + 1;
+    slots[slot] = (slots[slot] || 0) + (finishDist[finish] || 0);
+  }
+  let acc = 0, p10 = null, p90 = null, expected = 0;
+  for(let s = 1; s <= teams; s++){
+    const c = slots[s] || 0;
+    expected += s * (c/total);
+    acc += c/total;
+    if(p10 === null && acc >= 0.10) p10 = s;
+    if(p90 === null && acc >= 0.90) p90 = s;
+  }
+  return { exp: expected, p10: p10 || 1, p90: p90 || teams, teams,
+           dist: slots.map(x => (x||0)/total) };
+}
+
+function recordSlotProjection(leagueId, odds, rosters){
+  if(!odds || !Array.isArray(rosters) || !rosters.length) return;
+  const teams = rosters.length;
+  const out = {};
+  rosters.forEach(r => {
+    const o = odds[r.roster_id];
+    if(!o || !o.finishDist) return;
+    const p = slotProjectionFromFinish(o.finishDist, teams);
+    if(p) out[r.roster_id] = p;
+  });
+  if(Object.keys(out).length) SLOT_PROJECTION[leagueId] = out;
+}
+
+/* A pick lands between the 1.01 value and the end-of-round value. DynastyProcess publishes values
+   by round, not by pick, so the within-round curve is modelled: picks are worth much more at the
+   top of a round than at the bottom, and the drop is steepest in the first few selections. The
+   exponent is chosen so slot 1 sits near 1.35x the round's average and the last slot near 0.65x,
+   which is where the previous rank-blend factors topped and bottomed out — the shape changes, the
+   overall scale does not, so values stay comparable with everything priced before this. */
+function slotFactorFor(slot, teams){
+  if(!slot || !teams || teams < 2) return 1;
+  const t = (slot - 1) / (teams - 1);         // 0 at the top of the round, 1 at the turn
+  return 1.35 - 0.70 * Math.pow(t, 0.85);
+}
+
+function projectedSlotFor(leagueId, rosterId){
+  const l = SLOT_PROJECTION[leagueId];
+  return l ? (l[rosterId] || null) : null;
+}
+
+/* "1.04" style. Round is the draft round, slot the position within it. Named for picks rather
+   than slots because slotLabel is already taken by the lineup-slot formatter. */
+function pickSlotName(round, slot){
+  return round + '.' + String(Math.max(1, Math.round(slot))).padStart(2, '0');
+}
+
+/* ===================== WATCHLIST =====================
+   A starred player follows you everywhere: across leagues, across devices, and into the sync
+   document alongside notes. Deliberately a flat set keyed by player rather than per league — the
+   question "am I watching this guy" is about the player, not about which of ten rosters he is on.
+   Stored with a timestamp for exactly the reason notes are: so two devices can disagree and the
+   later decision wins, and so un-starring propagates instead of being undone by the other device.
+   ====================================================== */
+
+const FAVS_KEY = 'fi_favs_v1';
+let FAVS = null;
+
+function allFavs(){
+  if(FAVS) return FAVS;
+  let store = {};
+  try { const raw = localStorage.getItem(FAVS_KEY); const p = raw ? JSON.parse(raw) : null; if(p && typeof p === 'object') store = p; }
+  catch(e){ store = {}; }
+  FAVS = store;
+  return FAVS;
+}
+function persistFavs(){ try { localStorage.setItem(FAVS_KEY, JSON.stringify(FAVS || {})); return true; } catch(e){ return false; } }
+function isFav(pid){ const f = allFavs()[pid]; return !!(f && f.on); }
+function setFav(pid, on){
+  const f = allFavs();
+  if(f[pid] && !!f[pid].on === !!on) return;
+  f[pid] = { on: !!on, at: Date.now() };
+  persistFavs();
+  syncQueue();
+}
+function toggleFav(pid){ setFav(pid, !isFav(pid)); return isFav(pid); }
+function favIds(){ const f = allFavs(); return Object.keys(f).filter(p => f[p] && f[p].on); }
+
+function favStarHTML(pid){
+  const on = isFav(pid);
+  return `<button class="favstar${on?' on':''}" data-fav-pid="${pid}" title="${on?'Remove from watchlist':'Add to watchlist'}" aria-label="watchlist">${on?'★':'☆'}</button>`;
+}
+/* One delegated listener for the whole page rather than a handler per star. Stars appear inside
+   almost every render path in this file, several of which rebuild their markup on a timer; binding
+   per element would mean every one of those paths had to remember to re-bind, and the first one to
+   forget would ship a star that silently does nothing. Delegation cannot be forgotten. */
+let FAV_DELEGATE_BOUND = false;
+function bindFavStars(){
+  if(FAV_DELEGATE_BOUND) return;
+  FAV_DELEGATE_BOUND = true;
+  document.addEventListener('click', e => {
+    const b = e.target.closest ? e.target.closest('[data-fav-pid]') : null;
+    if(!b) return;
+    e.preventDefault(); e.stopPropagation();
+    const on = toggleFav(b.dataset.favPid);
+    /* Every star for this player on screen, not just the one clicked: the same player can appear
+       in a roster card, a trade target and the watchlist at once. */
+    document.querySelectorAll(`[data-fav-pid="${b.dataset.favPid}"]`).forEach(el => {
+      el.textContent = on ? '\u2605' : '\u2606';
+      el.classList.toggle('on', on);
+      el.title = on ? 'Remove from watchlist' : 'Add to watchlist';
+    });
+    if(typeof refreshWatchlistView === 'function') refreshWatchlistView();
+  }, true);
+}
+
+/* ===================== TWO-PLAYER COMPARE =====================
+   Everything needed to put two players side by side is already computed somewhere in this app; it
+   had simply never been shown in one place. No new data, no new request — a view, not a feature.
+   ============================================================== */
+
+function compareRow(pid, league){
+  const info = playerInfo(pid);
+  const u = playerUsage(pid, league, activeWeek());
+  const m = matchupFor(pid, activeWeek(), league);
+  const mk = TRADE_SCAN && TRADE_SCAN.byPid ? TRADE_SCAN.byPid[pid] : null;
+  const series = VALUE_HISTORY && VALUE_HISTORY[pid] ? VALUE_HISTORY[pid] : null;
+  return {
+    pid,
+    name: info.full_name,
+    pos: info.position, team: info.team, age: info.age,
+    exp: typeof info.years_exp === 'number' ? info.years_exp : null,
+    injury: info.injury_status || null,
+    value: assetValue(pid, league),
+    proj: projPoints(pid, league),
+    role: u ? u.role : null,
+    roleDetail: u && u.measured ? usageDetail(u) : null,
+    share: u && u.measured ? u.share : null,
+    rzShare: u && u.measured ? u.rzShare : null,
+    perGame: u && u.measured ? u.perGame : null,
+    trend: u && u.measured ? u.trend : null,
+    medianPosRank: u && u.measured ? u.medianPosRank : null,
+    seasonPPG: u ? u.seasonPPG : null,
+    matchup: m,
+    tradeVol: mk ? mk.vol : 0,
+    strongNet: mk ? mk.strongNet : 0,
+    valuePoints: series ? series.length : 0,
+    change30: typeof valueChange === 'function' ? valueChange(pid, 30) : null
+  };
+}
+
 /* ---------- Horizon-aware asset value ----------
    DynastyProcess values are a DYNASTY chart: they price a player's worth over the next several
    years, which is the correct basis in dynasty and roughly defensible in keeper. In a redraft
@@ -2384,13 +3506,16 @@ function roleLabel(usage){
    season's points to buy a future you do not have.
 
    So redraft gets its own valuation, built from what actually matters there:
-     - Sleeper's own search_rank as the season-long anchor (it is an in-season consensus rank,
-       redraft-shaped, and it already exists for every player);
+     - what the player has ACTUALLY scored in this league's settings, measured against his
+       position's replacement level, as the anchor (see redraftValue);
+     - the search-rank curve underneath that as a cold-start fallback only, for a player with no
+       production yet — it is Sleeper's search-box ordering, not a consensus rank, and an earlier
+       version of this comment claimed otherwise while the code anchored on it;
      - this week's league-scored projection as a current-form adjustment, measured against the
        live positional baseline rather than a hardcoded PPR assumption;
      - a hard discount for players who cannot play, since an injured player in redraft has no
        residual value to hold for.
-   Rank dominates and form adjusts, rather than the reverse: one week's projection is a noisy
+   Production dominates and form adjusts, rather than the reverse: one week's projection is a noisy
    signal, and letting it swing valuations wholesale would just make the trade evaluator jumpy. */
 
 /* ---------- Production value (offence) ----------
@@ -2704,7 +3829,13 @@ function assetValue(pid, league){
 }
 function assetValueIsLive(pid, league){
   if(isIDPPlayer(playerInfo(pid)) && isIDPLeague(league)) return idpValueFor(pid, league) != null;
-  if(leagueHorizon(league) === 'redraft') return PROJECTIONS != null;
+  /* Per player, not per session. PROJECTIONS being loaded says nothing about how THIS player was
+     priced: redraftValue anchors on production and falls back to the search-rank curve, and the
+     file header defines "(est.)" as "a rank-based estimate was used instead". So the honest test is
+     whether this player had a production basis at all. Gating on the global flag marked a
+     rank-estimated player as live while projections were up, and a production-derived one as an
+     estimate while they were down — exactly backwards. */
+  if(leagueHorizon(league) === 'redraft') return productionValueFor(pid, league) != null;
   return playerValueIsLive(pid, isSuperflex(league));
 }
 /* Role tag. Only rendered when it changes how you should read the row — a starter needs no label,
@@ -2716,7 +3847,10 @@ function roleChip(pid, league){
   const label = roleLabel(u);
   const color = u.role === 'rotational' ? 'var(--gold)' : 'var(--red)';
   const pct = Math.round(u.blended * 100);
-  return ` <span class="chip" style="color:${color};border-color:${color}" title="Produced a startable week in ${u.playedWeeks} of ${u.teamGames} games his team played (${pct}% weighted toward recent form). Value is discounted accordingly.">${label}</span>`;
+  const why = u.measured
+    ? usageDetail(u) + '. Value is discounted accordingly.'
+    : `Produced a startable week in ${u.playedWeeks} of ${u.teamGames} games his team played (${pct}% weighted toward recent form). Value is discounted accordingly.`;
+  return ` <span class="chip" style="color:${color};border-color:${color}" title="${why}">${label}</span>`;
 }
 
 /* The dynasty rank/value chip is meaningless in redraft; there it shows this week's projection,
@@ -2915,6 +4049,19 @@ function fallbackPickValue(round, superflex, season){
 function computePickSlotFactors(league, rosters){
   const factors = {};
   if(!Array.isArray(rosters) || !rosters.length) return factors;
+
+  /* If the season simulation has run for this league, its finish distribution is a strictly better
+     basis than the rank blend below: it has played the remaining schedule out hundreds of times,
+     so it carries both the fixtures still to come and the spread of plausible outcomes. The blend
+     stays as the fallback for leagues whose Strategy tab has not been opened yet. */
+  const simmed = SLOT_PROJECTION[league.league_id];
+  if(simmed && Object.keys(simmed).length){
+    rosters.forEach(r => {
+      const p = simmed[r.roster_id];
+      if(p) factors[r.roster_id] = slotFactorFor(p.exp, p.teams);
+    });
+    if(Object.keys(factors).length === rosters.length) return factors;
+  }
   const { rankById: powerRank } = computePowerRankings(league, rosters);
   const standings = [...rosters].sort((a,b) =>
     (b.settings?.wins??0)-(a.settings?.wins??0) || (b.settings?.fpts??0)-(a.settings?.fpts??0));
@@ -2946,9 +4093,18 @@ function pickValueForOwner(season, round, superflex, originalOwnerId, slotFactor
   const f = slotFactors && originalOwnerId != null ? slotFactors[originalOwnerId] : null;
   return f ? Math.round(base * f) : base;
 }
-function pickSlotLabel(season, originalOwnerId, slotFactors, leagueSeason){
+function pickSlotLabel(season, originalOwnerId, slotFactors, leagueSeason, leagueId, round){
   const nextSeason = String((parseInt(leagueSeason,10) || 0) + 1);
   if(String(season) !== nextSeason) return '';
+  /* With a simulated distribution the tag can name the pick instead of describing it, and say how
+     wide the plausible range is. */
+  const p = leagueId ? projectedSlotFor(leagueId, originalOwnerId) : null;
+  if(p){
+    const cls = p.exp <= p.teams/3 ? 'slot-early' : (p.exp > p.teams*2/3 ? 'slot-late' : 'slot-mid');
+    const lbl = pickSlotName(round || 1, p.exp);
+    const rng = pickSlotName(round || 1, p.p10) + '–' + pickSlotName(round || 1, p.p90);
+    return ` <span class="slot-tag ${cls}" title="Projected ${lbl}; between ${rng} in 80% of simulated seasons. Assumes draft order is the reverse of the final regular-season standings.">proj. ${lbl}</span>`;
+  }
   const f = slotFactors ? slotFactors[originalOwnerId] : null;
   if(!f) return '';
   if(f >= 1.20) return ' <span class="slot-tag slot-early">proj. early</span>';
@@ -3011,7 +4167,9 @@ function playerHead(p, sf, league){
   /* Age belongs on every market surface: in dynasty it is often the single most important fact
      about an asset, and even in redraft it frames whether a breakout is real or a last hurrah. */
   const age = p.age ? ` · ${p.age}y` : '';
-  return `<div class="p-head"><span class="p-name">${p.full_name}</span><span class="p-meta">${p.position} · ${p.team}${age}</span>${league ? roleChip(p.player_id, league) : ''}${league ? valueChip(p.player_id, league) : dynastyChip(p.player_id, sf)}${league ? valueTrendChip(p.player_id, 30) : ''}</div>`;
+  /* The star and the matchup chip ride along with every player header in the app, so a player can
+     be watched, and his week read, from wherever he happens to be on screen. */
+  return `<div class="p-head">${favStarHTML(p.player_id)}<span class="p-name">${p.full_name}</span><span class="p-meta">${p.position} · ${p.team}${age}</span>${league ? roleChip(p.player_id, league) : ''}${league ? valueChip(p.player_id, league) : dynastyChip(p.player_id, sf)}${league ? valueTrendChip(p.player_id, 30) : ''}${league ? matchupChipHTML(p.player_id, activeWeek(), league) : ''}</div>`;
 }
 function listItem(headHTML, sideText){
   return `<div class="p-row"><div>${headHTML}</div><div class="p-side">${sideText}</div></div>`;
@@ -3391,13 +4549,13 @@ function renderDashboard(){
     <div class="section">
       <div class="card bad" style="border-left-width:4px">
         <h2 class="sec" style="color:var(--red);margin-bottom:8px">⚠ Heads up — ${lineupAlerts.length} league${lineupAlerts.length>1?'s':''} need${lineupAlerts.length>1?'':'s'} a lineup look</h2>
-        <p class="sec-note" style="margin-bottom:16px">Looks like a bench player might be a better call than who's starting somewhere, or someone's banged up. Tap a league to check it out and fix it in Sleeper.</p>
+        <p class="sec-note" style="margin-bottom:16px">Looks like a bench player might be a better call than who's starting somewhere, or someone's banged up or on a bye. Tap a league to check it out and fix it in Sleeper.</p>
         ${lineupAlerts.map(a => `
           <div class="p-row alert-row" data-lgid="${a.league.league_id}" style="cursor:pointer">
             <div>
               <span class="p-name">${a.league.name}</span>
               <div style="margin-top:6px">
-                ${a.suggestions.slice(0,2).map(s => `<div class="p-meta" style="margin-top:3px">${slotLabel(s.slot)}: start ${s.best.full_name}${s.injuryFlag ? ` <span class="badge inj">${s.current.injury_status}</span>` : ''} over ${s.current ? s.current.full_name : 'an empty slot'}</div>`).join('')}
+                ${a.suggestions.slice(0,2).map(s => `<div class="p-meta" style="margin-top:3px">${slotLabel(s.slot)}: start ${s.best.full_name} over ${s.current ? `${s.current.full_name}${s.injuryFlag ? ` <span class="badge inj">${s.current.injury_status}</span>` : s.byeFlag ? ` <span class="badge inj">BYE</span>` : ''}` : 'an empty slot'}</div>`).join('')}
                 ${a.suggestions.length > 2 ? `<div class="p-meta" style="margin-top:3px">+${a.suggestions.length-2} more</div>` : ''}
               </div>
             </div>
@@ -3413,7 +4571,7 @@ function renderDashboard(){
     <div class="section">
       <div class="card good" style="border-left-width:4px;border-left-color:var(--green)">
         <h2 class="sec" style="color:var(--green);margin-bottom:8px">✓ You're all good</h2>
-        <p class="sec-note" style="margin:0">Nothing weird in your lineups across any league right now — no bad injuries, no obvious bench upgrades sitting there. Everything's fine, keep going.</p>
+        <p class="sec-note" style="margin:0">Nothing weird in your lineups across any league right now — no bad injuries, nobody starting on a bye, no obvious bench upgrades sitting there. Everything's fine, keep going.</p>
       </div>
     </div>
   `;
@@ -3458,6 +4616,8 @@ function renderDashboard(){
       </div>
     </div>
 
+    <div class="section" id="watchlistHost"></div>
+
     <div class="section">
       <h2 class="sec">Search a Player Across All Leagues</h2>
       <p class="sec-note">Quickly see which of your teams a player is on, and whether he's starting.</p>
@@ -3465,6 +4625,8 @@ function renderDashboard(){
       <div class="card" id="searchResults" style="margin-top:14px"></div>
     </div>
   `;
+
+  refreshWatchlistView();
 
   content.querySelectorAll('.ios-row.tappable[data-lgid], tr.clickable[data-lgid], .cc-card[data-lgid]').forEach(row => {
     row.addEventListener('click', () => selectLeague(row.dataset.lgid));
@@ -3522,9 +4684,11 @@ async function selectLeague(leagueId, tabOverride){
     if(tabOverride){
       /* Callers still ask for a specific panel (e.g. the overview alert wants the lineup check).
          Map that panel to the group that now contains it, then select the sub-tab inside it. */
-      const GROUP_OF = { confronto:'week', elenco:'team', raiox:'team', trocas:'market',
+      const GROUP_OF = { confronto:'week', matchups:'week', elenco:'team', raiox:'team', trocas:'market',
                          evaluator:'market', tradelab:'market', waiver:'market', picks:'market',
-                         strategy:'league', movs:'league' };
+                         market:'market', compare:'market', idp:'market', history:'market',
+                         playoffs:'team', strategy:'league', movs:'league', h2h:'league',
+                         managers:'league' };
       const group = GROUP_OF[tabOverride] || tabOverride;
       const tabSelect = document.getElementById('leagueTabSelect');
       if(tabSelect){
@@ -3647,7 +4811,13 @@ function myByeCollisions(players, league){
       if(wk != null) (byWeek[wk] = byWeek[wk] || []).push(p);
     });
     Object.entries(byWeek).forEach(([wk, group]) => {
-      if(group.length >= 2 && group.length >= arr.length - 1){
+      /* The floor is "2, or the whole group if the group is smaller than 2" — not a flat 2. A flat 2
+         silently exempted the worst case the comment above promises to catch: a position carried
+         one deep, whose single player is on bye, leaves the slot with nobody at all, and that was
+         the one shape that could never reach the >= 2 test. Rostering exactly one TE (or one QB in
+         a 1QB league) is ordinary, so the Bye Week Fill-Ins card said nothing at all about the one
+         week that position is empty. */
+      if(group.length >= Math.min(2, arr.length) && group.length >= arr.length - 1){
         warnings.push({ pos, week: Number(wk), players: group, total: arr.length });
       }
     });
@@ -3666,6 +4836,22 @@ function renderLeague(data){
 
   const allRosteredIds = new Set();
   rosters.forEach(r => (r.players||[]).forEach(pid => allRosteredIds.add(pid)));
+
+  /* Two module globals hold data that belongs to ONE league, and both are refreshed further down
+     only inside the async block below — after the synchronous first paint. Opening a second league
+     therefore drew that first paint from the previous league's numbers, which is worse than drawing
+     it from nothing: a trend chip read "+14%" off another league's series, and roles and values came
+     from another league's scoring. Reset them here, so anything rendered before the refetch lands
+     says "not measured yet" rather than quoting a number from somewhere else. */
+  if(PLAYER_WEEKLY_LEAGUE_ID !== league.league_id){
+    PLAYER_WEEKLY = null;
+    PLAYER_WEEKLY_LEAGUE_ID = null;
+    clearUsageCache();
+  }
+  /* Value history is stored per league; load this league's own series synchronously so the tabs
+     that render before recordValueSnapshot runs (Waiver, This Week, Trade Lab, Full Roster) show
+     this league's history instead of whichever league was snapshotted last. */
+  VALUE_HISTORY = loadValueHistory(league.league_id);
 
   const players = (myRoster.players || []).map(playerInfo);
   const starterIds = new Set(myRoster.starters || []);
@@ -3753,7 +4939,12 @@ function renderLeague(data){
     </div>
 
     <div class="groupwrap show" id="group-week">
+      <div class="subtabs">
+        <button class="subtab active" data-sub="confronto">Matchup</button>
+        <button class="subtab" data-sub="matchups">Defence vs Position</button>
+      </div>
       <div class="tabpanel show" id="panel-confronto"></div>
+      <div class="tabpanel" id="panel-matchups"></div>
     </div>
 
     <div class="groupwrap" id="group-team">
@@ -3773,6 +4964,8 @@ function renderLeague(data){
         <button class="subtab" data-sub="evaluator">Evaluator</button>
         <button class="subtab" data-sub="tradelab">Compare Rosters</button>
         <button class="subtab" data-sub="waiver">Waiver Wire</button>
+        <button class="subtab" data-sub="market">Trade Market</button>
+        <button class="subtab" data-sub="compare">Compare</button>
         ${hasPickMarket(league) ? '<button class="subtab" data-sub="picks">Draft Capital</button>' : ''}
         ${isIDPLeague(league) ? '<button class="subtab" data-sub="idp">IDP Rankings</button>' : ''}
         <button class="subtab" data-sub="history">Value History</button>
@@ -3781,6 +4974,8 @@ function renderLeague(data){
       <div class="tabpanel" id="panel-evaluator"></div>
       <div class="tabpanel" id="panel-tradelab"></div>
       <div class="tabpanel" id="panel-waiver"></div>
+      <div class="tabpanel" id="panel-market"></div>
+      <div class="tabpanel" id="panel-compare"></div>
       <div class="tabpanel" id="panel-picks"></div>
       <div class="tabpanel" id="panel-idp"></div>
       <div class="tabpanel" id="panel-history"></div>
@@ -3790,9 +4985,13 @@ function renderLeague(data){
       <div class="subtabs">
         <button class="subtab active" data-sub="strategy">Strategy</button>
         <button class="subtab" data-sub="movs">Transactions</button>
+        <button class="subtab" data-sub="h2h">Head to Head</button>
+        <button class="subtab" data-sub="managers">Managers</button>
       </div>
       <div class="tabpanel" id="panel-strategy"></div>
       <div class="tabpanel" id="panel-movs"></div>
+      <div class="tabpanel" id="panel-h2h"></div>
+      <div class="tabpanel" id="panel-managers"></div>
     </div>
   `;
 
@@ -3810,7 +5009,9 @@ function renderLeague(data){
   /* Ten destinations collapsed into four groups. The dropdown picks a group; sub-tabs move within
      it. Panels that are expensive to build (simulations, extra fetches) still render lazily on
      first view, so grouping does not cost load time. */
-  const LAZY = { movs: renderMovs, picks: renderPicks, strategy: renderLeagueStrategy, evaluator: renderTradeEvaluator };
+  const LAZY = { movs: renderMovs, picks: renderPicks, strategy: renderLeagueStrategy, evaluator: renderTradeEvaluator,
+                 market: renderTradeMarket, matchups: renderMatchups, h2h: renderHeadToHead,
+                 managers: renderManagers, compare: renderCompare };
   const rendered = new Set();
   function showSub(groupEl, sub){
     groupEl.querySelectorAll(':scope > .tabpanel').forEach(x=>x.classList.remove('show'));
@@ -3854,7 +5055,11 @@ function renderLeague(data){
   const effWindow = effectiveWindow(league.league_id, headlineAnalysis.windowLabel);
   (async () => {
     try {
-      if(!PLAYER_WEEKLY || !Object.keys(PLAYER_WEEKLY).length){
+      /* Keyed on the league, not merely on "is it populated". The previous guard fetched once per
+         session, so every league after the first was valued off the FIRST league's weekly points —
+         wrong scoring, and no entry at all for players only rostered here, which sent them down the
+         search-rank fallback. */
+      if(PLAYER_WEEKLY_LEAGUE_ID !== league.league_id || !PLAYER_WEEKLY || !Object.keys(PLAYER_WEEKLY).length){
         await fetchSeasonPPG(league, activeWeek());
       }
     } catch(e){ /* optional data: the panels below degrade on their own */ }
@@ -4160,7 +5365,12 @@ function simulateSeasonOdds(league, rosters, schedule, currentWeek, iterations){
   });
 
   const playoffCount = {}, finalistCount = {}, champCount = {}, topSeedCount = {}, bottom3Count = {}, byeCount = {}, winsSum = {};
-  rosterIds.forEach(id => { playoffCount[id]=0; finalistCount[id]=0; champCount[id]=0; topSeedCount[id]=0; bottom3Count[id]=0; byeCount[id]=0; winsSum[id]=0; });
+  /* Where each team finished, every run. The simulation was already producing this ordering and
+     discarding everything between the playoff cut and the bottom three; keeping it is what makes a
+     projected draft slot possible, and it costs one array write per team per iteration. */
+  const finishCount = {};
+  rosterIds.forEach(id => { playoffCount[id]=0; finalistCount[id]=0; champCount[id]=0; topSeedCount[id]=0; bottom3Count[id]=0; byeCount[id]=0; winsSum[id]=0;
+                            finishCount[id] = new Array(rosterIds.length + 1).fill(0); });
 
   /* Margin spread for this league, derived from its own scoring level rather than assumed. Uses
      the mean team power across the weeks being simulated, which is already expressed in this
@@ -4219,6 +5429,7 @@ function simulateSeasonOdds(league, rosters, schedule, currentWeek, iterations){
     field.forEach(id => playoffCount[id]++);
     if(standings[0]) topSeedCount[standings[0]]++;
     standings.slice(-Math.min(3, rosterIds.length)).forEach(id => bottom3Count[id]++);
+    standings.forEach((id, i) => { finishCount[id][i+1]++; });
     if(byeSlots > 0) standings.slice(0, byeSlots).forEach(id => byeCount[id]++);
     rosterIds.forEach(id => { winsSum[id] += wins[id]; });
 
@@ -4243,6 +5454,8 @@ function simulateSeasonOdds(league, rosters, schedule, currentWeek, iterations){
       marginSd,
       top3pick: Math.round((bottom3Count[id]/n)*100),
       bye: byeSlots > 0 ? Math.round((byeCount[id]/n)*100) : null,
+      finishDist: finishCount[id],
+      expFinish: finishCount[id].reduce((s,c,i) => s + i*c, 0) / n,
       projWins: winsSum[id]/n,
       projLosses: Math.max(0, totalGames[id] - winsSum[id]/n),
       byeSlots
@@ -4263,10 +5476,16 @@ function simulateSeasonOdds(league, rosters, schedule, currentWeek, iterations){
    which is a waiver-wire signal. Rostered stars essentially never trend on that list, so the
    sections almost never surfaced the players they are named after. */
 let PLAYER_WEEKLY = null;   // { [player_id]: { [week]: points } }
+/* Which league PLAYER_WEEKLY currently holds. It HAS to be tracked: players_points is computed by
+   Sleeper in the requesting league's own scoring settings and only covers players rostered there,
+   so the same store read under a second league is both mis-scored and full of holes. */
+let PLAYER_WEEKLY_LEAGUE_ID = null;
 
 async function fetchSeasonPPG(league, uptoWeek){
   const byRoster = {};
   PLAYER_WEEKLY = {};
+  PLAYER_WEEKLY_SCORED_WEEKS = new Set();
+  PLAYER_WEEKLY_LEAGUE_ID = league ? league.league_id : null;
   if(!uptoWeek || uptoWeek < 1) return byRoster;
   const weeks = [];
   for(let w=1; w<=uptoWeek; w++) weeks.push(w);
@@ -4279,6 +5498,8 @@ async function fetchSeasonPPG(league, uptoWeek){
       const id = entry.roster_id;
       const starters = entry.points;
       if(starters == null || starters <= 0) return;   // week not played yet
+      /* This week produced real scoring, so playerUsage may count it as a game played. */
+      PLAYER_WEEKLY_SCORED_WEEKS.add(wkNum);
       const pp = entry.players_points || {};
       Object.keys(pp).forEach(pid => {
         if(typeof pp[pid] !== 'number') return;
@@ -4432,15 +5653,23 @@ function faabState(league, myRoster, rosters){
     total, mine, maxRival, medRival,
     pctLeft: mine/total,
     /* Do you have the biggest wallet left in the league? That decides whether you can simply win
-       any auction you care about, or have to bid carefully around someone richer. */
-    strongest: mine >= maxRival
+       any auction you care about, or have to bid carefully around someone richer. An empty wallet
+       is not the biggest one, whatever the comparison says: when every budget in the league is
+       spent this was true of $0 vs $0, and the Waiver card — which reads this flag before it reads
+       pctLeft — told a manager with nothing left that nobody could outbid him and he should bid to
+       win. The same card had already stopped printing $0-$0 bid bands for exactly this case. */
+    strongest: mine > 0 && mine >= maxRival
   };
 }
 
 /* A suggested bid band for a given waiver target, as a percentage of the ORIGINAL budget — the
-   unit league-mates actually think in — scaled by how much of the season is left to spend it on. */
+   unit league-mates actually think in — scaled by how much of the season is left to spend it on.
+   Returns null when there is nothing left to bid: every band is clamped to what you actually hold,
+   so an exhausted budget used to render "immediate starter $0–$0 · depth $0–$0 · flier $0–$0" —
+   three confident instructions to bid nothing. By this point in a season an empty wallet is common,
+   and the card's own message already says the honest thing. */
 function faabGuidance(fa, league, weeksLeft){
-  if(!fa) return null;
+  if(!fa || !(fa.mine > 0)) return null;
   const urgency = weeksLeft != null && weeksLeft <= 4 ? 1.6 : weeksLeft != null && weeksLeft <= 7 ? 1.25 : 1;
   const band = (loPct, hiPct) => {
     const lo = Math.max(1, Math.round(fa.total * loPct * urgency));
@@ -4530,8 +5759,12 @@ function loadValueHistory(leagueId){
     return (parsed && typeof parsed === 'object') ? parsed : {};
   } catch(e){ return {}; }
 }
+/* Returns the object that ACTUALLY reached storage, or null if nothing could be written. The
+   caller needs the real thing rather than a boolean: on the halve-and-retry path what was stored is
+   the trimmed copy, so a `true` return let the in-memory history keep points that are not on disk
+   and would silently disappear on the next reload. */
 function saveValueHistory(leagueId, hist){
-  try { localStorage.setItem(VALUE_HISTORY_KEY(leagueId), JSON.stringify(hist)); return true; }
+  try { localStorage.setItem(VALUE_HISTORY_KEY(leagueId), JSON.stringify(hist)); return hist; }
   catch(e){
     /* Almost certainly a quota error. Rather than silently losing everything, halve each series —
        the oldest points are the least useful — and try once more. */
@@ -4539,8 +5772,9 @@ function saveValueHistory(leagueId, hist){
       const trimmed = {};
       Object.keys(hist).forEach(pid => { trimmed[pid] = hist[pid].slice(-Math.ceil(VALUE_HISTORY_MAX_POINTS/2)); });
       localStorage.setItem(VALUE_HISTORY_KEY(leagueId), JSON.stringify(trimmed));
-      return true;
-    } catch(e2){ return false; }
+      console.warn('Value history over quota — stored a halved copy');
+      return trimmed;
+    } catch(e2){ console.warn('Value history could not be stored', e2); return null; }
   }
 }
 function todayStamp(){
@@ -4566,12 +5800,22 @@ function recordValueSnapshot(league, rosters){
     if(series.length > VALUE_HISTORY_MAX_POINTS) hist[pid] = series.slice(-VALUE_HISTORY_MAX_POINTS);
   }));
 
-  saveValueHistory(league.league_id, hist);
-  VALUE_HISTORY = hist;
-  return { players: Object.keys(hist).length, newPoints: written };
+  /* VALUE_HISTORY has to mirror what is on disk, not what was assembled in memory. The retry path
+     stores a trimmed copy and a total failure stores nothing at all; assigning `hist` regardless
+     meant the panel below drew a trend from points that were never persisted, and the whole series
+     vanished on the next reload with nothing having said so. */
+  const stored = saveValueHistory(league.league_id, hist);
+  VALUE_HISTORY_PERSISTED = stored != null;
+  VALUE_HISTORY = stored || loadValueHistory(league.league_id);
+  return { players: Object.keys(VALUE_HISTORY).length,
+           newPoints: VALUE_HISTORY_PERSISTED ? written : 0,
+           persisted: VALUE_HISTORY_PERSISTED };
 }
 
 let VALUE_HISTORY = {};
+/* Whether this league's last snapshot write succeeded. Read by renderValueHistory so a browser
+   that refuses the write says so instead of advertising a history it is not keeping. */
+let VALUE_HISTORY_PERSISTED = true;
 
 /* Change over roughly the last `days` days, using the oldest point still inside that window.
    Returns null when there is not yet a second observation — a flat zero would read as "no movement"
@@ -4648,15 +5892,24 @@ function renderValueHistory(league, rosters, myRoster, allRosteredIds, rosterNam
   const myIds = new Set(myRoster?.players || []);
   const tracked = Object.keys(VALUE_HISTORY).filter(pid => (VALUE_HISTORY[pid]||[]).length >= 2);
 
+  /* Both messages below promise a history that accumulates. When the write was refused nothing
+     accumulates, and showing the numbers as though they were kept is the one outcome worse than an
+     empty panel — the user finds out days later, when the trend they were waiting for is gone. */
+  const storageWarn = VALUE_HISTORY_PERSISTED ? '' : `
+        <div class="card bad">
+          <h3 class="cc-title" style="margin-top:0">History is not being saved</h3>
+          <p class="cc-body">This browser refused to store today's snapshot — almost always because its storage for this site is full, and always the case in private browsing. The values below are on screen but will be gone when you reload, so the trend will not build up. <strong>Download a backup</strong> on the Sync panel keeps what is here; clearing some site data lets it resume.</p>
+        </div>`;
+
   if(!tracked.length){
     /* First run. Saying "no data" would suggest something is broken; the honest message is that
        history is being collected from now on. */
     const seeded = Object.keys(VALUE_HISTORY).length;
     panel.innerHTML = `
       <div class="section">
-        <h2 class="sec">Value History</h2>
+        <h2 class="sec">Value History</h2>${storageWarn}
         <div class="card note">
-          <p class="cc-body" style="margin:0">Today's values for ${seeded} player(s) have been recorded. There is no historical feed to import — no free source carries past values for every league's own scoring — so this builds up from the snapshots taken each day you open the app. Come back after a few days and this becomes a trend; a week or two in, the risers and fallers below become the most useful screen in the app for timing a trade.</p>
+          <p class="cc-body" style="margin:0">${VALUE_HISTORY_PERSISTED ? `Today's values for ${seeded} player(s) have been recorded.` : `Today's values for ${seeded} player(s) could not be recorded — see above.`} There is no historical feed to import — no free source carries past values for every league's own scoring — so this builds up from the snapshots taken each day you open the app. Come back after a few days and this becomes a trend; a week or two in, the risers and fallers below become the most useful screen in the app for timing a trade.</p>
         </div>
       </div>`;
     return;
@@ -4686,8 +5939,8 @@ function renderValueHistory(league, rosters, myRoster, allRosteredIds, rosterNam
 
   panel.innerHTML = `
     <div class="section">
-      <h2 class="sec">Value History</h2>
-      <p class="sec-note">Built from snapshots taken each day you open this league — ${rows.length} player(s) with at least two observations, the longest running ${Math.max(...rows.map(r=>r.points))} points. Movement is measured against the oldest snapshot inside the window, so a player who has only been tracked for three days shows a three-day change rather than a fabricated month. Stored in this browser only; it does not sync between devices.</p>
+      <h2 class="sec">Value History</h2>${storageWarn}
+      <p class="sec-note">Built from snapshots taken each day you open this league — ${rows.length} player(s) with at least two observations, the longest running ${Math.max(...rows.map(r=>r.points))} points. Movement is measured against the oldest snapshot inside the window, so a player who has only been tracked for three days shows a three-day change rather than a fabricated month. Kept in this browser, and included in the sync document — if you have sync set up, this history travels with your notes to your other devices.</p>
 
       ${risers.length ? `
       <h3 class="sec" style="font-size:13px;margin-top:4px">Rising</h3>
@@ -4816,7 +6069,10 @@ async function renderPlayoffOutlook(players, starterIds, league){
     const pctile = d.rank / d.of;                       // rank 1 = most generous
     const cls = pctile <= 0.34 ? 'green' : pctile >= 0.67 ? 'red' : '';
     const label = pctile <= 0.34 ? 'GOOD' : pctile >= 0.67 ? 'TOUGH' : 'NEUTRAL';
-    return { label, cls, opp:oppTxt, note:`${d.avg.toFixed(1)} ${pos} PPG allowed (#${d.rank} of ${d.of})` };
+    /* Not "PPG allowed": the average is per rostered player-game, not per game, because the sample
+       is one row per player appearance from this league's rosters. The ranking it feeds is sound;
+       the old label implied a whole-position-per-game figure several times larger. */
+    return { label, cls, opp:oppTxt, note:`${d.avg.toFixed(1)} pts per ${pos} faced (#${d.rank} of ${d.of})` };
   };
 
   /* Count the tough draws per player so the summary can name who is most exposed. */
@@ -4863,7 +6119,7 @@ function renderRaioX(analysis, posNeeds, league){
   panel.innerHTML = `
     <div class="section">
       <h2 class="sec">Strengths &amp; Weaknesses</h2>
-      <p class="sec-note">Elite positions and reliable depth, based on Sleeper's internal market rank. For your competitive-window read (Contender / Rebuilder / etc), see the "Franchise Trajectory" card up top, or the League Strategy tab for the full league-wide comparison and playoff odds.</p>
+      <p class="sec-note">Elite positions and reliable depth, based on each player's value in this league (the same number the trade surfaces use) rather than on how often his name is searched. For your competitive-window read (Contender / Rebuilder / etc), see the "Franchise Trajectory" card up top, or the League Strategy tab for the full league-wide comparison and playoff odds.</p>
       <div class="grid2">
         <div class="card good">
           <ul class="plist">
@@ -5050,6 +6306,9 @@ async function renderLeagueStrategy(data){
     let schedule = [];
     try{ schedule = await fetchRemainingSchedule(league); }catch(e){ schedule = []; }
     const odds = schedule.length ? simulateSeasonOdds(league, rosters, schedule, currentWeek, 500) : null;
+    /* Feeds projected draft slots. Done here because this is the only place the simulation runs,
+       and every pick price in the league wants the answer. */
+    if(odds) recordSlotProjection(league.league_id, odds, rosters);
 
     let ppg = {};
     try{ ppg = await fetchSeasonPPG(league, currentWeek); }catch(e){ ppg = {}; }
@@ -5782,7 +7041,7 @@ function renderTrocas(players, league, allRosteredIds, data, windowLabel){
   const panel = document.getElementById('panel-trocas');
   panel.innerHTML = `
     ${deadlineBannerHTML(league)}
-    ${infoBoxHTML(`<strong style="color:var(--gold)">Dyn #rank · value</strong> chips next to each player below are pulled automatically and for free from DynastyProcess.com (${sf?'Superflex':'1QB'} scale for this league). Players and picks not in that dataset get a rank-based estimate instead, marked <strong>(est.)</strong>, so nothing shows as valueless. For weekly/ROS opinions, there is no free automatable source yet — use these reference links instead. Positions where your bye weeks leave you thin, plus free-agent fill-ins, now live on the Waiver Wire tab.`)}
+    ${infoBoxHTML(`<strong style="color:var(--gold)">Dyn #rank · value</strong> chips next to each player below are pulled automatically and for free from DynastyProcess.com (${sf?'Superflex':'1QB'} scale for this league). Anyone not in that dataset is priced from his actual production in this league's scoring instead, falling back to a rank-based estimate only where there is no production yet; picks outside it use a round-based approximation. Either way the number is marked <strong>(est.)</strong>, so nothing shows as valueless. For weekly/ROS opinions, there is no free automatable source yet — use these reference links instead. Positions where your bye weeks leave you thin, plus free-agent fill-ins, now live on the Waiver Wire tab.`)}
 
     <div class="section">
       <h2 class="sec">Sell High</h2>
@@ -5863,7 +7122,13 @@ function renderWaiver(players, league, posNeeds, allRosteredIds, windowLabel, da
     candidates = [...candidates].sort((a,b) => (projPoints(b.player_id, league) ?? -1) - (projPoints(a.player_id, league) ?? -1));
     waiverSortNote = 'Ordered by this week\u2019s projected points first — you\u2019re contending, so immediate help wins.';
   } else if(rebuilding){
-    candidates = [...candidates].sort((a,b) => playerValueOrEstimate(b.player_id, sf) - playerValueOrEstimate(a.player_id, sf));
+    /* assetValue, not playerValueOrEstimate: the latter is the deliberately unadjusted market
+       number, and its own contract says anything making a decision goes through assetValue. Which
+       waiver target is listed first IS a decision, and the raw chart number carries none of the
+       role discount — so a benched former first-rounder with a low search_rank sorted to the top of
+       the rebuild list, the exact case roleMultiplier exists to price down. In IDP it was worse:
+       defenders are absent from the chart, so every one of them sorted on search_rank alone. */
+    candidates = [...candidates].sort((a,b) => assetValue(b.player_id, league) - assetValue(a.player_id, league));
     waiverSortNote = 'Ordered by long-term dynasty value first — you\u2019re rebuilding, so future assets beat a one-week bump.';
   } else if(horizon === 'redraft'){
     /* Not contending, but redraft — so there is still no such thing as a long-term add. Weekly
@@ -5873,12 +7138,23 @@ function renderWaiver(players, league, posNeeds, allRosteredIds, windowLabel, da
     waiverSortNote = 'Ordered by this week\u2019s projected points — redraft, so there is no long-term add to make. From outside the cut, favour the high-ceiling names on this list over the safe ones: you need to jump teams, not protect a floor.';
   }
 
-  /* Reuse the same bye-collision detection as the Bye Week Watch card, then suggest free agents
-     at that position who do NOT share the same bye week — actually useful the week it matters. */
-  const byeGaps = myByeCollisions(players, league);
+  /* The same bye-collision detection the Franchise cards use, narrowed to byes that have NOT
+     already happened, then free agents at that position who do NOT share the bye week.
+     myByeCollisions is week-agnostic by design (the Bye Week Watch card it was written for showed
+     the whole season), so without this filter the card spent the back half of the season
+     recommending pickups to cover a week played a month ago, under the line "no Wk 6 projection
+     yet". The week it matters is this week or later. */
+  const nowWeek = activeWeek();
+  const byeGaps = myByeCollisions(players, league)
+    .filter(g => nowWeek == null || g.week >= nowWeek);
   const byeFillIns = byeGaps.map(gap => {
     const fillIns = Object.values(PLAYERS)
-      .filter(p => p.player_id && p.position === gap.pos && !allRosteredIds.has(p.player_id) && p.search_rank && p.search_rank > 0 && p.search_rank <= 400)
+      /* Match on the rosterable bucket, not the raw position — the same key positionGroups used to
+         detect the gap in the first place. gap.pos for an IDP league is DL/LB/DB, while Sleeper's
+         raw positions are DE/DT/NT, OLB/ILB/MLB and CB/S/FS/SS, so a raw comparison matched almost
+         nobody: a DL or DB gap found zero fill-ins, the gap was then dropped for having none, and
+         the card said nothing at all about a defensive group that was entirely on bye. */
+      .filter(p => p.player_id && (idpGroupFor(p) || p.position) === gap.pos && !allRosteredIds.has(p.player_id) && p.search_rank && p.search_rank > 0 && p.search_rank <= 400)
       .filter(p => isRosterable(playerInfo(p.player_id)))
       .filter(p => byeWeekFor(p.team, league.season) !== gap.week)
       /* Ordered by what they are actually worth in this league, not by how searched they are —
@@ -5901,7 +7177,7 @@ function renderWaiver(players, league, posNeeds, allRosteredIds, windowLabel, da
           fa.strongest
             ? `You hold the biggest remaining budget in the league. Nobody can outbid you on a player you actually want — so bid to win on the one target that matters rather than spreading it thin.`
             : fa.pctLeft < 0.15
-            ? `You are nearly out, with $${fa.maxRival} still sitting across the table. Assume you lose any contested claim; prioritise players likely to go unclaimed over the obvious names.`
+            ? `You are ${fa.mine > 0 ? 'nearly out' : 'out of FAAB'}, with $${fa.maxRival} still sitting across the table. Assume you lose any contested claim; ${fa.mine > 0 ? 'prioritise players likely to go unclaimed over the obvious names' : 'only players nobody else claims can reach your roster now, so watch for the ones that clear waivers unclaimed'}.`
             : `Someone can still outbid you by $${Math.max(0, fa.maxRival - fa.mine)}. On a target you genuinely need, bid above the round number — most league-mates anchor on $10, $20, $25.`
         }</p>
         ${bids ? `<div class="p-meta">Suggested bands this week — <strong>immediate starter</strong> $${bids.starter.lo}–$${bids.starter.hi} · <strong>depth</strong> $${bids.depth.lo}–$${bids.depth.hi} · <strong>flier</strong> $${bids.flier.lo}–$${bids.flier.hi}${weeksLeft!=null&&weeksLeft<=4?` (widened — only ${weeksLeft} week${weeksLeft===1?'':'s'} left to spend it)`:''}</div>` : ''}
@@ -5955,13 +7231,26 @@ function slotLabel(slot){ return slot.replace(/_/g,' '); }
 function computeLineupCheck(league, myRoster){
   const rp = (league.roster_positions||[]).filter(p=>!['BN','TAXI','IR'].includes(p));
   const starters = myRoster.starters || [];
+  /* Same slot map and the same idpGroupFor() matching as computeTeamPower and
+     projectedStarterPoints. This was the third copy of the optimiser and the one never updated:
+     with no defensive slots, and matching on the raw position string, every IDP slot resolved to an
+     eligibility list of its own name, matched nobody, and was skipped — so the lineup check never
+     flagged an empty defensive slot or an Out/IR defensive starter, while the projected score shown
+     beside it (from computeTeamPower) counted that same slot. */
   const eligibility = {
     FLEX:['RB','WR','TE'],
     WRRB_FLEX:['RB','WR'],
     REC_FLEX:['WR','TE'],
-    SUPER_FLEX:['QB','RB','WR','TE']
+    SUPER_FLEX:['QB','RB','WR','TE'],
+    DL:['DL'], LB:['LB'], DB:['DB'], IDP_FLEX:['DL','LB','DB'], IDP:['DL','LB','DB'],
+    DE:['DL'], DT:['DL'], CB:['DB'], S:['DB'], EDGE:['DL']
   };
-  const allPlayers = (myRoster.players||[]).map(playerInfo);
+  /* A player whose NFL team is on bye cannot score, so he is never the optimal start — the same
+     exclusion computeTeamPower applies. Without it, a week with no projections loaded ranked
+     everyone by search_rank and could recommend starting a well-known player who has no game. */
+  const byeWk = activeWeek();
+  const allPlayers = (myRoster.players||[]).map(playerInfo)
+    .filter(p => !(byeWk != null && byeWeekFor(p.team, league.season) === byeWk));
   const byId = {}; allPlayers.forEach(p => byId[p.player_id] = p);
 
   /* Sleeper represents an unfilled starting slot as the string "0" — treat that (and any other
@@ -5978,7 +7267,8 @@ function computeLineupCheck(league, myRoster){
   };
 
   /* Rank players: this week's projection first (higher is better) when we have one, falling back
-     to season-long search rank for anyone without a projection (byes, deep bench). */
+     to season-long search rank for anyone without a projection (deep bench — players on bye are
+     already out of the pool). */
   function sortKey(p){
     const proj = projPoints(p.player_id, league);
     return proj != null ? -proj : (1000 + p.search_rank);
@@ -5992,7 +7282,7 @@ function computeLineupCheck(league, myRoster){
   const used = new Set();
   const bestFor = {};
   fillOrder.forEach(s => {
-    const cands = allPlayers.filter(p => !used.has(p.player_id) && s.eligible.includes(p.position))
+    const cands = allPlayers.filter(p => !used.has(p.player_id) && s.eligible.includes(idpGroupFor(p) || p.position))
                              .sort((a,b) => sortKey(a) - sortKey(b));
     if(cands.length){ bestFor[s.idx] = cands[0]; used.add(cands[0].player_id); }
   });
@@ -6017,8 +7307,17 @@ function computeLineupCheck(league, myRoster){
     const bestProj = projPoints(best.player_id, league);
     const curProj = current ? projPoints(current.player_id, league) : null;
     const injuryFlag = !!(current && current.injury_status && badInjury.includes(current.injury_status));
+    /* A starter whose NFL team is on bye cannot score, so he is never a defensible start while an
+       eligible bench player has a game — the same reasoning that keeps bye players out of the
+       candidate pool above, applied to the man already in the slot. It has to be its own flag
+       rather than falling out of the comparison below: Sleeper publishes no projection for a player
+       with no game, so curProj is null and the comparison dropped through to search rank, where a
+       star on bye (#5) outranks his replacement (#40) by 35 and was never flagged. The Lineup Check
+       then printed "lineup looks fine" over a slot guaranteed to score zero, and the dashboard said
+       "You're all good" across every league at once. */
+    const byeFlag = !!(current && byeWk != null && byeWeekFor(current.team, league.season) === byeWk);
 
-    let flagged = !current || injuryFlag; // empty slot or hurt starter is always worth flagging
+    let flagged = !current || injuryFlag || byeFlag; // empty slot, hurt starter, or a starter with no game
     if(current){
       if(bestProj!=null && curProj!=null){
         if(bestProj - curProj > 3) flagged = true;
@@ -6027,7 +7326,7 @@ function computeLineupCheck(league, myRoster){
       }
     }
     if(flagged){
-      suggestions.push({ slot, current, best, injuryFlag, bestProj, curProj });
+      suggestions.push({ slot, current, best, injuryFlag, byeFlag, bestProj, curProj });
     }
   });
   return suggestions;
@@ -6047,15 +7346,18 @@ function renderConfronto(data){
       </div>` : ''}
 ${noteInfo(
    'Possible lineup upgrades, injuries and empty slots.',
-   `Flags a bench player projected (or, lacking a projection, season-ranked) clearly ahead of the starter in a specific slot, an empty slot, or a starter carrying a serious injury tag — always compared within that slot's own eligible positions. ${PROJECTIONS ? "Uses this week's Sleeper point projections where available." : "This week's projections are unavailable this session, so it is falling back to season-long rank."} Treat it as a sanity check, not a start/sit call. Sleeper's API is read-only, so the change itself happens in Sleeper — copy the moves above or <a href="${sleeperLeagueURL(league.league_id)}" target="_blank" rel="noopener" style="color:var(--gold)">open this league there</a>.`
+   `Flags a bench player projected (or, lacking a projection, season-ranked) clearly ahead of the starter in a specific slot, an empty slot, a starter carrying a serious injury tag, or a starter whose NFL team is on bye this week — always compared within that slot's own eligible positions. ${PROJECTIONS ? "Uses this week's Sleeper point projections where available." : "This week's projections are unavailable this session, so it is falling back to season-long rank."} Treat it as a sanity check, not a start/sit call. Sleeper's API is read-only, so the change itself happens in Sleeper — copy the moves above or <a href="${sleeperLeagueURL(league.league_id)}" target="_blank" rel="noopener" style="color:var(--gold)">open this league there</a>.`
  )}
       <div class="card">
         ${suggestions.length ? suggestions.map(s => {
           const useProj = s.bestProj!=null && s.curProj!=null;
-          const bestTag = useProj ? `proj ${s.bestProj.toFixed(1)}` : `#${s.best.search_rank}`;
-          const curTag = (s.current && !s.injuryFlag) ? (useProj ? `proj ${s.curProj.toFixed(1)}` : `#${s.current.search_rank}`) : null;
+          /* A badged starter (hurt, or no game at all) prints no comparison tag of his own, so there
+             is nothing for the bench player's tag to agree with — show his projection where we have
+             one instead of withholding it because the man he replaces has none. */
+          const curTag = (s.current && !s.injuryFlag && !s.byeFlag) ? (useProj ? `proj ${s.curProj.toFixed(1)}` : `#${s.current.search_rank}`) : null;
+          const bestTag = ((curTag == null || useProj) && s.bestProj!=null) ? `proj ${s.bestProj.toFixed(1)}` : `#${s.best.search_rank}`;
           return `<div class="p-row">
-            <div><span style="font-weight:600">${slotLabel(s.slot)}:</span> <span class="p-meta">bench</span> ${s.best.full_name} (${bestTag}) <span style="color:var(--chalk-faint)">over</span> ${s.current ? `<span class="p-meta">starting</span> ${s.current.full_name}${s.injuryFlag ? ` <span class="badge inj">${s.current.injury_status}</span>` : ` (${curTag})`}` : `<span class="p-meta">an empty slot</span>`}</div>
+            <div><span style="font-weight:600">${slotLabel(s.slot)}:</span> <span class="p-meta">bench</span> ${s.best.full_name} (${bestTag}) <span style="color:var(--chalk-faint)">over</span> ${s.current ? `<span class="p-meta">starting</span> ${s.current.full_name}${s.injuryFlag ? ` <span class="badge inj">${s.current.injury_status}</span>` : s.byeFlag ? ` <span class="badge inj">BYE</span>` : ` (${curTag})`}` : `<span class="p-meta">an empty slot</span>`}</div>
           </div>`;
         }).join('') : '<div class="empty">Your bench does not clearly outrank any starter right now — lineup looks fine.</div>'}
       </div>
@@ -6386,7 +7688,14 @@ async function renderMovs(data){
             s + pickValueForOwner(pk.season, pk.round, sf, pk.from ?? r.roster_id, slot, data.league.season), 0);
         });
       }
-    } catch(e){ /* picks are optional: the grade falls back to players only */ }
+    } catch(e){
+      /* Reset BOTH, or the fallback is not players-only. pickValueOf is assigned before the await,
+         so a failure here used to leave it installed while pickValueByRosterId stayed empty —
+         gradeTrade then added __pickDelta to zero and handed computeDynastyRankings a NEGATIVE pick
+         total for whichever team received a pick, overstating how much the trade improved them. */
+      pickValueOf = null;
+      pickValueByRosterId = {};
+    }
     try {
       const totalTeams = data.rosters.length;
       const playoffTeams = data.league.settings?.playoff_teams || Math.ceil(totalTeams/2);
@@ -6563,7 +7872,7 @@ async function renderPicks(data){
     const teamRows = data.rosters.map(ro => {
       const picks = (teamPicks[ro.roster_id] || []).map(p => ({ ...p,
         value: pickValueForOwner(p.season, p.round, sf, p.from ?? ro.roster_id, slotFactors, data.league.season),
-        slotTag: pickSlotLabel(p.season, p.from ?? ro.roster_id, slotFactors, data.league.season),
+        slotTag: pickSlotLabel(p.season, p.from ?? ro.roster_id, slotFactors, data.league.season, data.league.league_id, p.round),
         isLive: pickIsLiveValue(p.season, p.round, sf) }));
       picks.sort((a,b) => (b.value||0) - (a.value||0));
       const totalValue = picks.reduce((s,p) => s + (p.value||0), 0);
@@ -6682,9 +7991,14 @@ async function renderTradeEvaluator(data){
     body.innerHTML = '<div class="empty"><span class="spinner"></span>Loading assets...</div>';
 
     let capital = EVAL_CAPITAL_CACHE[league.league_id];
+    let capitalError = null;
     if(dynasty && !capital){
+      /* Said nothing at all when this failed: the picks columns simply did not render, so in a
+         dynasty league the user saw a roster with no draft capital and no way to tell whether the
+         league has no picks or the fetch died. renderLeagueStrategy handles the identical failure by
+         telling the user, and this now matches it. */
       try{ capital = await fetchDraftCapital(data); EVAL_CAPITAL_CACHE[league.league_id] = capital; }
-      catch(err){ capital = null; }
+      catch(err){ capital = null; capitalError = err.message || String(err); console.warn('Draft capital (pick ownership) fetch failed', err); }
     }
 
     const rival = rosters.find(r => r.roster_id === rid);
@@ -6736,6 +8050,7 @@ async function renderTradeEvaluator(data){
     };
 
     body.innerHTML = `
+      ${capitalError ? `<p class="p-meta" style="margin:0 0 12px;color:var(--red)">Pick ownership data failed to load this session (${capitalError}) — only players can be put in this trade, and draft picks are missing from both sides.</p>` : ''}
       <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px">
         ${col('You give', myAssets, 'give')}
         ${col('You get from ' + (nameById[rid]||('Team #'+rid)), theirAssets, 'get')}
@@ -6788,7 +8103,11 @@ function evaluateTradeHTML({ league, data, rival, give, get, dynasty }){
 
   /* A deal that looks fine on value but leaves you unable to field a position is worth flagging. */
   const myPosAfter = positionGroups(myIdsAfter.map(playerInfo));
-  const holes = ['QB','RB','WR','TE'].filter(pos => (league.roster_positions||[]).includes(pos) && (myPosAfter[pos]||[]).length === 0);
+  /* leaguePositions, not a hardcoded ['QB','RB','WR','TE'] — that list is what made IDP invisible
+     everywhere else in the app, and it meant a trade that emptied your whole LB room drew no
+     warning here while the Analysis tab was already saying "No LB on the roster at all". */
+  const holes = leaguePositions(league).filter(pos => (myPosAfter[pos]||[]).length === 0
+    && ((league.roster_positions||[]).includes(pos) || idpGroupsInLeague(league).includes(pos)));
 
   let verdict, vClass;
   if(pct == null){ verdict = 'You send nothing — not a real offer'; vClass = 'red'; }
@@ -6802,7 +8121,14 @@ function evaluateTradeHTML({ league, data, rival, give, get, dynasty }){
      their ratio is the inverse. Filling a position they are thin at makes a yes materially likelier. */
   const theirPct = getValue > 0 ? Math.round((giveValue/getValue)*100) : null;
   const theirNS = posNeedSurplus(positionGroups(theirIdsBefore.map(playerInfo)), league);
-  const fillsTheirNeed = givePids.some(pid => theirNS.need.includes(playerInfo(pid).position));
+  /* posNeedSurplus keys its need list by rosterable bucket (DL/LB/DB), so the player has to be
+     folded into the same bucket before the lookup. Comparing the raw position meant an OLB sent to
+     a team that needs LB never counted as filling a need, and the acceptance read came out
+     systematically pessimistic on exactly the defensive deals the Trade Targets tab recommends. */
+  const fillsTheirNeed = givePids.some(pid => {
+    const info = playerInfo(pid);
+    return theirNS.need.includes(idpGroupFor(info) || info.position);
+  });
   const needNote = fillsTheirNeed ? ', and it fills a position they are thin at' : '';
   let accept, acceptClass, acceptTag;
   if(theirPct == null){ accept = 'They give up nothing, so there is nothing here for you.'; acceptClass='red'; acceptTag='N/A'; }
@@ -6852,9 +8178,614 @@ function evaluateTradeHTML({ league, data, rival, give, get, dynasty }){
     <div class="card">
       <h3 style="margin:0 0 10px;font-size:13px;color:var(--gold)">Would they accept?</h3>
       <p style="margin:0;font-size:13.5px;line-height:1.7;color:var(--chalk-dim)"><span class="pill ${acceptClass}">${acceptTag}</span> ${accept}</p>
-      ${dynasty?'<p class="p-meta" style="margin:10px 0 0">Anything marked (est.) is a rank-based approximation rather than live market data.</p>':''}
+      ${dynasty?'<p class="p-meta" style="margin:10px 0 0">Anything marked (est.) is priced from production here, or from a rank-based approximation where there is none yet, rather than from live market data.</p>':''}
     </div>
   `;
+}
+
+/* ===================== TRADE MARKET PANEL ===================== */
+
+let TRADE_MARKET_VIEW = { window: 30, pos: 'ALL', sort: 'vol', openPid: null };
+
+function tradeMarketPanelId(){ return 'panel-market'; }
+
+async function renderTradeMarket(data){
+  const panel = document.getElementById('panel-market');
+  if(!panel) return;
+  const wk = activeWeek() || 1;
+
+  if(TRADE_SCAN_STATUS === 'idle'){
+    panel.innerHTML = `<div class="section"><h2 class="sec">Trade Market</h2>
+      <div class="card note"><p class="cc-body" id="tmProgress"><span class="spinner"></span>Reading every trade in all ${LEAGUES.length} of your leagues…</p></div></div>`;
+    await buildTradeScan(wk, (i, total, name) => {
+      const el = document.getElementById('tmProgress');
+      if(el) el.innerHTML = `<span class="spinner"></span>Reading trades — league ${i+1} of ${total}: ${name}`;
+    });
+  }
+  paintTradeMarket();
+}
+
+function paintTradeMarket(){
+  const panel = document.getElementById('panel-market');
+  if(!panel) return;
+
+  if(TRADE_SCAN_STATUS === 'error'){
+    panel.innerHTML = `<div class="section"><h2 class="sec">Trade Market</h2>
+      <div class="card bad"><p class="cc-body">Could not read your leagues' transactions: ${TRADE_SCAN_ERROR||'unknown error'}.</p></div></div>`;
+    return;
+  }
+  if(!TRADE_SCAN || TRADE_SCAN_STATUS === 'empty'){
+    panel.innerHTML = `<div class="section"><h2 class="sec">Trade Market</h2>
+      <div class="card note"><p class="cc-body">No completed trades found across your leagues yet this season. This board fills in as your leagues trade — it is built entirely from what actually happened in them, so it needs your leaguemates to make the first move.</p></div></div>`;
+    return;
+  }
+
+  const v = TRADE_MARKET_VIEW;
+  const all = Object.values(TRADE_SCAN.byPid);
+  const rows = all.filter(e => {
+    const info = playerInfo(e.pid);
+    if(!info || !info.position) return false;
+    if(v.pos !== 'ALL' && info.position !== v.pos) return false;
+    return v.window === 0 ? e.vol > 0 : (e.windows[v.window] && e.windows[v.window].vol > 0);
+  }).map(e => {
+    const w = v.window === 0 ? { vol: e.vol, net: e.strongNet } : e.windows[v.window];
+    return { ...e, shownVol: w.vol, shownNet: w.net };
+  });
+
+  rows.sort((a,b) => v.sort === 'net'
+    ? (b.shownNet - a.shownNet) || (b.shownVol - a.shownVol)
+    : (b.shownVol - a.shownVol) || (b.shownNet - a.shownNet));
+
+  const top = rows.slice(0, 60);
+  const buys  = [...rows].sort((a,b) => b.shownNet - a.shownNet).filter(r => r.shownNet > 0).slice(0,6);
+  const sells = [...rows].sort((a,b) => a.shownNet - b.shownNet).filter(r => r.shownNet < 0).slice(0,6);
+
+  const chipRow = (list, dir) => list.length ? list.map(r => {
+    const info = playerInfo(r.pid);
+    return `<button class="tm-mini ${dir}" data-tm-pid="${r.pid}">${dir==='up'?'▲':'▼'} ${info.full_name} <b>${r.shownNet>0?'+':''}${r.shownNet}</b></button>`;
+  }).join('') : '<span class="cell-meta">Nothing yet in this window.</span>';
+
+  const line = r => {
+    const info = playerInfo(r.pid);
+    const tone = r.shownNet > 0 ? 'good' : (r.shownNet < 0 ? 'bad' : 'neutral');
+    return `<tr class="clickable" data-tm-pid="${r.pid}">
+      <td class="cell-id"><div class="cell-name">${favStarHTML(r.pid)}${info.full_name}</div>
+        <div class="cell-meta">${info.position} · ${info.team||'FA'}${info.age?` · ${info.age}y`:''}</div></td>
+      <td><b>${r.shownVol}</b></td>
+      <td class="tm-${tone}">${r.shownNet>0?'+':''}${r.shownNet}</td>
+      <td class="cell-meta">${r.comps.length ? r.comps.length + ' comp' + (r.comps.length===1?'':'s') : '—'}</td>
+    </tr>`;
+  };
+
+  const openPid = v.openPid;
+  const detail = openPid ? compsHTML(openPid) : '';
+
+  panel.innerHTML = `
+    <div class="section">
+      <h2 class="sec">Trade Market</h2>
+      <div class="card note">
+        <h3 class="cc-title" style="margin-top:0">Your leagues, not the internet</h3>
+        <p class="cc-body">Every completed trade in all ${TRADE_SCAN.leagues.length} of your leagues this season — ${TRADE_SCAN.trades.length} of them — read as one market. <strong>Traded</strong> counts how often a player changed hands; it has no direction, because every trade is a buy and a sell at the same time. <strong>Net</strong> does have one: it counts only the <em>strongest third of rosters by value</em> in each league, so a positive number means the best teams in your leagues have been accumulating him and a negative one means they have been moving him on. That is a measurable thing — the strongest roster, not the sharpest manager, which is not something this app can observe.</p>
+      </div>
+
+      <div class="tm-head">
+        <div class="tm-side"><div class="tm-cap">BEING ACCUMULATED</div>${chipRow(buys,'up')}</div>
+        <div class="tm-side"><div class="tm-cap">BEING MOVED ON</div>${chipRow(sells,'down')}</div>
+      </div>
+
+      <div class="tm-controls">
+        <span class="tm-cap">WINDOW</span>
+        ${[7,14,30,0].map(d => `<button class="ghost tmbtn${v.window===d?' active':''}" data-tm-win="${d}">${d===0?'Season':d+' days'}</button>`).join('')}
+        <span class="tm-cap" style="margin-left:10px">POSITION</span>
+        ${['ALL','QB','RB','WR','TE'].map(p => `<button class="ghost tmbtn${v.pos===p?' active':''}" data-tm-pos="${p}">${p}</button>`).join('')}
+        <span class="tm-cap" style="margin-left:10px">SORT</span>
+        ${[['vol','Most traded'],['net','Net']].map(([k,l]) => `<button class="ghost tmbtn${v.sort===k?' active':''}" data-tm-sort="${k}">${l}</button>`).join('')}
+      </div>
+
+      ${top.length ? `<div class="tablewrap"><table class="roster">
+        <thead><tr><th>Player</th><th>Traded</th><th>Net (strong rosters)</th><th>Returns on file</th></tr></thead>
+        <tbody>${top.map(line).join('')}</tbody></table></div>`
+        : '<div class="empty">No trades in this window for that filter.</div>'}
+
+      <div id="tmDetail">${detail}</div>
+    </div>`;
+
+  panel.querySelectorAll('[data-tm-win]').forEach(b => b.addEventListener('click', () => { TRADE_MARKET_VIEW.window = Number(b.dataset.tmWin); paintTradeMarket(); }));
+  panel.querySelectorAll('[data-tm-pos]').forEach(b => b.addEventListener('click', () => { TRADE_MARKET_VIEW.pos = b.dataset.tmPos; paintTradeMarket(); }));
+  panel.querySelectorAll('[data-tm-sort]').forEach(b => b.addEventListener('click', () => { TRADE_MARKET_VIEW.sort = b.dataset.tmSort; paintTradeMarket(); }));
+  panel.querySelectorAll('[data-tm-pid]').forEach(el => el.addEventListener('click', e => {
+    if(e.target.closest('[data-fav-pid]')) return;      // the star is its own control
+    TRADE_MARKET_VIEW.openPid = el.dataset.tmPid; paintTradeMarket();
+    const d = document.getElementById('tmDetail'); if(d) d.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }));
+  bindFavStars(panel);
+}
+
+/* What it actually cost to get him, trade by trade. This is the part a value chart cannot give
+   you: a number says what he is worth, a comp says what somebody paid. */
+function compsHTML(pid){
+  const e = TRADE_SCAN && TRADE_SCAN.byPid ? TRADE_SCAN.byPid[pid] : null;
+  const info = playerInfo(pid);
+  if(!e || !e.comps.length){
+    return `<div class="card"><h3 class="cc-title">${info.full_name}</h3>
+      <p class="cc-body">He has been involved in ${e ? e.vol : 0} trade(s), but none where this app can see the full return.</p></div>`;
+  }
+  const nm = ids => ids.length ? ids.map(p => playerInfo(p).full_name).join(' + ') : '';
+  const pk = picks => picks.length ? picks.map(p => `${p.season} ${ordinal(p.round)}`).join(' + ') : '';
+  const rows = e.comps.slice(0, 15).map(c => {
+    const cost = [nm(c.cost), pk(c.costPicks)].filter(Boolean).join(' + ') || 'nothing recorded';
+    const along = c.alongside.length ? ` <span class="cell-meta">(with ${nm(c.alongside)})</span>` : '';
+    const when = c.days == null ? '' : (c.days < 1 ? 'today' : Math.round(c.days) + 'd ago');
+    return `<tr>
+      <td class="cell-id"><div class="cell-name">${cost}</div>${along}</td>
+      <td class="cell-meta">${c.to || '—'}</td>
+      <td class="cell-meta">${c.league}</td>
+      <td class="cell-meta">${when} · wk ${c.week}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="section">
+    <h2 class="sec">What ${info.full_name} has cost</h2>
+    <p class="cc-body" style="margin:0 0 12px">${e.vol} trade(s) across your leagues. Each row is what the acquiring side gave up.</p>
+    <div class="tablewrap"><table class="roster">
+      <thead><tr><th>Given up for him</th><th>Acquired by</th><th>League</th><th>When</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+  </div>`;
+}
+
+/* ===================== MATCHUPS (DEFENCE VS POSITION) ===================== */
+
+function renderMatchups(data){
+  const panel = document.getElementById('panel-matchups');
+  if(!panel) return;
+  const league = data.league, wk = activeWeek();
+
+  if(!DVP){
+    panel.innerHTML = `<div class="section"><h2 class="sec">Matchups</h2>
+      <div class="card note"><p class="cc-body">The NFL usage feed is not available this session, so points-allowed figures cannot be built. Everything else on this page is unaffected.</p></div></div>`;
+    return;
+  }
+
+  const key = dvpScoringKey(league);
+  const fmtName = key === 'ppr' ? 'full PPR' : key === 'half' ? 'half PPR' : 'standard';
+  const myIds = (data.myRoster && data.myRoster.players) || [];
+  const starters = new Set((data.myRoster && data.myRoster.starters) || []);
+
+  /* Your own players first: this is a start/sit page before it is a reference table. */
+  const mine = myIds.map(pid => ({ pid, info: playerInfo(pid), m: matchupFor(pid, wk, league), start: starters.has(pid) }))
+    .filter(r => r.m && r.m.rank)
+    .sort((a,b) => (b.start - a.start) || (a.m.rank - b.m.rank));
+
+  const mineRows = mine.map(r => {
+    const tone = matchupTone(r.m.rank, r.m.total);
+    return `<tr>
+      <td class="cell-id"><div class="cell-name">${favStarHTML(r.pid)}${r.info.full_name}${r.start?' <span class="pt-you">starting</span>':''}</div>
+        <div class="cell-meta">${r.info.position} · ${r.info.team||'FA'}</div></td>
+      <td>${r.m.home?'vs ':'@ '}${r.m.opp}</td>
+      <td class="tm-${tone==='good'?'good':tone==='bad'?'bad':'neutral'}">${ordinal(r.m.rank)} of ${r.m.total}</td>
+      <td>${r.m.ppg.toFixed(1)}</td>
+      <td class="cell-meta">${r.m.games}g</td>
+    </tr>`;
+  }).join('');
+
+  const posTable = pos => {
+    const defs = Object.keys(DVP[key]).filter(d => DVP[key][d][pos] && DVP[key][d][pos].games)
+      .map(d => ({ d, ...DVP[key][d][pos] })).sort((a,b) => a.rank - b.rank);
+    const best = defs.slice(0,5), worst = defs.slice(-5).reverse();
+    const cell = x => `<span class="dvp-row"><b>${x.d}</b> <span class="cell-meta">${x.ppg.toFixed(1)}</span></span>`;
+    return `<div class="dvp-card">
+      <div class="tm-cap">${pos}</div>
+      <div class="dvp-split">
+        <div><div class="dvp-lbl good">Softest</div>${best.map(cell).join('')}</div>
+        <div><div class="dvp-lbl bad">Toughest</div>${worst.map(cell).join('')}</div>
+      </div>
+    </div>`;
+  };
+
+  panel.innerHTML = `
+    <div class="section">
+      <h2 class="sec">Matchups — Week ${wk}</h2>
+      <div class="card note">
+        <p class="cc-body">Fantasy points each defence has allowed per game by position, in <strong>${fmtName}</strong> to match this league, from ${NFL_USAGE_WEEKS.length} week(s) of real box scores. Rank 1 is the most generous defence — the one you want your player facing. Ten-ish games is enough to be worth knowing and not enough to be certain, so this is a thumb on the scale, not a verdict: a clear projection edge still wins.</p>
+      </div>
+      ${mine.length ? `<h3 class="cc-title">Your players this week</h3>
+        <div class="tablewrap"><table class="roster">
+          <thead><tr><th>Player</th><th>Opponent</th><th>Defence rank vs pos</th><th>Pts allowed/g</th><th>Sample</th></tr></thead>
+          <tbody>${mineRows}</tbody></table></div>`
+        : '<div class="empty">No matchup data for your roster this week — most likely a bye-heavy week or the schedule feed is unavailable.</div>'}
+
+      <h3 class="cc-title" style="margin-top:26px">League-wide</h3>
+      <div class="dvp-grid">${['QB','RB','WR','TE'].map(posTable).join('')}</div>
+    </div>`;
+  bindFavStars(panel);
+}
+
+/* ===================== HEAD TO HEAD ===================== */
+
+async function renderHeadToHead(data){
+  const panel = document.getElementById('panel-h2h');
+  if(!panel) return;
+  if(H2H_STATUS === 'idle'){
+    panel.innerHTML = `<div class="section"><h2 class="sec">Head to Head</h2>
+      <div class="card note"><p class="cc-body" id="h2hProgress"><span class="spinner"></span>Reading every matchup you have played this season…</p></div></div>`;
+    await buildHeadToHead(activeWeek() || 1, false, (i,t,name) => {
+      const el = document.getElementById('h2hProgress');
+      if(el) el.innerHTML = `<span class="spinner"></span>Reading matchups — league ${i+1} of ${t}: ${name}`;
+    });
+  }
+  paintHeadToHead();
+}
+
+function paintHeadToHead(){
+  const panel = document.getElementById('panel-h2h');
+  if(!panel) return;
+  if(!H2H || H2H_STATUS === 'empty' || H2H_STATUS === 'error'){
+    panel.innerHTML = `<div class="section"><h2 class="sec">Head to Head</h2>
+      <div class="empty">No completed matchups found yet.</div></div>`;
+    return;
+  }
+  const thisWeek = opponentsThisWeek();
+  const rows = Object.values(H2H.byOpponent).sort((a,b) => (b.played - a.played) || (b.winPct - a.winPct));
+  const totals = rows.reduce((s,r) => ({ w:s.w+r.w, l:s.l+r.l, t:s.t+r.t }), {w:0,l:0,t:0});
+
+  const row = r => {
+    const up = thisWeek[r.userId];
+    const tone = r.winPct > 0.55 ? 'good' : (r.winPct < 0.45 ? 'bad' : 'neutral');
+    return `<tr class="${up?'h2h-live':''}">
+      <td class="cell-id"><div class="cell-name">${r.name}${up?` <span class="pt-you">this week ×${up.leagues.length}</span>`:''}</div>
+        <div class="cell-meta">${r.leagues.slice(0,3).join(', ')}${r.leagues.length>3?` +${r.leagues.length-3}`:''}${r.seasons.length>1?` · ${r.seasons.length} seasons`:''}</div></td>
+      <td class="tm-${tone}"><b>${r.w}-${r.l}${r.t?'-'+r.t:''}</b></td>
+      <td>${(r.winPct*100).toFixed(0)}%</td>
+      <td>${r.avgFor.toFixed(1)}</td>
+      <td>${r.avgAgainst.toFixed(1)}</td>
+      <td class="tm-${r.margin>0?'good':r.margin<0?'bad':'neutral'}">${r.margin>0?'+':''}${r.margin.toFixed(1)}</td>
+    </tr>`;
+  };
+
+  panel.innerHTML = `
+    <div class="section">
+      <h2 class="sec">Head to Head</h2>
+      <div class="card note">
+        <p class="cc-body">Your record against every manager you share a league with${H2H_INCLUDES_HISTORY?', across every season Sleeper still has':' this season'}. Overall: <strong>${totals.w}-${totals.l}${totals.t?'-'+totals.t:''}</strong> across ${H2H.leagues.length} league(s). The people you are playing <em>this week</em> are marked — in a portfolio this size the same manager often turns up in two or three matchups at once.</p>
+        ${H2H_INCLUDES_HISTORY ? '' : `<button class="ghost" id="h2hHistoryBtn" style="margin-top:12px">Include past seasons</button>
+        <span class="cell-meta" style="margin-left:8px">Walks each league back through its previous seasons. A few seconds and a lot of requests, so it is opt-in.</span>`}
+      </div>
+      <div class="tablewrap"><table class="roster">
+        <thead><tr><th>Manager</th><th>Record</th><th>Win %</th><th>Your avg</th><th>Their avg</th><th>Margin</th></tr></thead>
+        <tbody>${rows.map(row).join('')}</tbody></table></div>
+    </div>`;
+
+  const btn = document.getElementById('h2hHistoryBtn');
+  if(btn) btn.addEventListener('click', async () => {
+    btn.disabled = true; btn.textContent = 'Reading past seasons…';
+    H2H_STATUS = 'idle';
+    await buildHeadToHead(activeWeek() || 1, true, (i,t,name) => { btn.textContent = `Reading ${name} (${i+1}/${t})…`; });
+    paintHeadToHead();
+  });
+}
+
+/* ===================== MANAGERS ===================== */
+
+async function renderManagers(data){
+  const panel = document.getElementById('panel-managers');
+  if(!panel) return;
+  if(TRADE_SCAN_STATUS === 'idle'){
+    panel.innerHTML = `<div class="section"><h2 class="sec">Managers</h2>
+      <div class="card note"><p class="cc-body" id="mgProgress"><span class="spinner"></span>Reading transaction history…</p></div></div>`;
+    await buildTradeScan(activeWeek() || 1, (i,t,name) => {
+      const el = document.getElementById('mgProgress');
+      if(el) el.innerHTML = `<span class="spinner"></span>Reading transactions — league ${i+1} of ${t}: ${name}`;
+    });
+  }
+  const panel2 = document.getElementById('panel-managers');
+  if(!panel2) return;
+  if(!TRADE_SCAN || !Object.keys(TRADE_SCAN.byUser).length){
+    panel2.innerHTML = `<div class="section"><h2 class="sec">Managers</h2>
+      <div class="empty">No transaction history to profile yet.</div></div>`;
+    return;
+  }
+
+  /* This league's managers first — that is who the reader is about to make an offer to — with the
+     wider portfolio behind them, because the same person often appears in several leagues. */
+  const here = new Set((data.rosters||[]).map(r => r.owner_id).filter(Boolean));
+  const all = Object.values(TRADE_SCAN.byUser);
+  const mine = USER ? USER.user_id : null;
+  const ordered = [...all.filter(p => here.has(p.userId) && p.userId !== mine),
+                   ...all.filter(p => !here.has(p.userId) && p.userId !== mine)];
+
+  const card = p => {
+    const t = managerTendencies(p);
+    const recep = managerReceptiveness(p);
+    const bar = Math.round(recep * 100);
+    const inThis = here.has(p.userId);
+    return `<div class="card mg-card${inThis?' mg-here':''}">
+      <h3 class="cc-title" style="margin-top:0">${p.name || 'Manager'}${inThis?' <span class="pt-you">this league</span>':''}</h3>
+      <div class="mg-bar"><div class="mg-fill" style="width:${bar}%"></div></div>
+      <div class="cell-meta" style="margin-bottom:10px">Likely to engage: ${bar}% — from how often and how recently he has actually traded</div>
+      ${t.map(x => `<div class="mg-line ${x.tone}">${x.text}</div>`).join('')}
+      <div class="cell-meta" style="margin-top:10px">In: ${['QB','RB','WR','TE'].map(k=>`${k} ${p.got[k]}`).join(' · ')}${p.gotPicks?` · ${p.gotPicks} picks`:''}</div>
+      <div class="cell-meta">Out: ${['QB','RB','WR','TE'].map(k=>`${k} ${p.gave[k]}`).join(' · ')}${p.gavePicks?` · ${p.gavePicks} picks`:''}</div>
+      <div class="cell-meta" style="margin-top:6px">${p.leagues.length} shared league(s)</div>
+    </div>`;
+  };
+
+  panel2.innerHTML = `
+    <div class="section">
+      <h2 class="sec">Managers</h2>
+      <div class="card note">
+        <p class="cc-body">Who actually trades, built from what they have done across all your leagues this season rather than from reputation. A perfectly fair offer to somebody who has not made a trade all year is a wasted afternoon; this is the page that tells you which it is before you spend one. Every line is tied to a count, so you can check it.</p>
+      </div>
+      <div class="mg-grid">${ordered.map(card).join('')}</div>
+    </div>`;
+}
+
+/* ===================== WATCHLIST ===================== */
+
+function watchlistHTML(){
+  const ids = favIds();
+  if(!ids.length){
+    return `<div class="card note"><h3 class="cc-title" style="margin-top:0">Watchlist</h3>
+      <p class="cc-body">Nothing starred yet. The ☆ next to any player adds him here — across every league, and on every device you have sync turned on for.</p></div>`;
+  }
+  const lg = ACTIVE_LEAGUE_ID ? (LEAGUE_CACHE[ACTIVE_LEAGUE_ID] || {}).league : null;
+  const wk = activeWeek();
+  const rows = ids.map(pid => {
+    const info = playerInfo(pid);
+    const ch = typeof valueChange === 'function' ? valueChange(pid, 30) : null;
+    const mk = TRADE_SCAN && TRADE_SCAN.byPid ? TRADE_SCAN.byPid[pid] : null;
+    const u = lg ? playerUsage(pid, lg, wk) : null;
+    return { pid, info, ch, mk, u };
+  }).sort((a,b) => (a.info.full_name||'').localeCompare(b.info.full_name||''));
+
+  return `<div class="card">
+    <h3 class="cc-title" style="margin-top:0">Watchlist <span class="cell-meta">(${rows.length})</span></h3>
+    <div class="tablewrap"><table class="roster">
+      <thead><tr><th>Player</th><th>Role</th><th>30d value</th><th>Market</th>${lg?'<th>This week</th>':''}</tr></thead>
+      <tbody>${rows.map(r => `<tr>
+        <td class="cell-id"><div class="cell-name">${favStarHTML(r.pid)}${r.info.full_name}</div>
+          <div class="cell-meta">${r.info.position} · ${r.info.team||'FA'}${r.info.injury_status?` · <span class="badge inj">${r.info.injury_status}</span>`:''}</div></td>
+        <td class="cell-meta">${r.u ? (roleLabel(r.u)||'STARTER') : '—'}</td>
+        <td class="${r.ch ? (r.ch.delta>0?'tm-good':r.ch.delta<0?'tm-bad':'') : ''}">${r.ch ? (r.ch.delta>0?'+':'')+r.ch.pct.toFixed(0)+'%' : '—'}</td>
+        <td class="cell-meta">${r.mk ? `${r.mk.vol} trade(s)${r.mk.strongNet?` · net ${r.mk.strongNet>0?'+':''}${r.mk.strongNet}`:''}` : '—'}</td>
+        ${lg?`<td>${matchupChipHTML(r.pid, wk, lg) || '<span class="cell-meta">—</span>'}</td>`:''}
+      </tr>`).join('')}</tbody></table></div>
+  </div>`;
+}
+
+function refreshWatchlistView(){
+  const host = document.getElementById('watchlistHost');
+  if(!host) return;
+  host.innerHTML = watchlistHTML();
+  bindFavStars(host);
+}
+
+/* ===================== COMPARE TWO PLAYERS ===================== */
+
+let COMPARE_PICK = [null, null];
+
+function renderCompare(data){
+  const panel = document.getElementById('panel-compare');
+  if(!panel) return;
+  const league = data.league;
+  const pool = [];
+  (data.rosters || []).forEach(r => (r.players || []).forEach(pid => pool.push(pid)));
+  favIds().forEach(pid => { if(!pool.includes(pid)) pool.push(pid); });
+  const opts = pool.map(pid => ({ pid, name: playerInfo(pid).full_name, pos: playerInfo(pid).position }))
+    .filter(o => o.name && o.pos)
+    .sort((a,b) => a.name.localeCompare(b.name));
+
+  const sel = i => `<select class="cmp-sel" data-cmp="${i}">
+      <option value="">Pick a player…</option>
+      ${opts.map(o => `<option value="${o.pid}"${COMPARE_PICK[i]===o.pid?' selected':''}>${o.name} (${o.pos})</option>`).join('')}
+    </select>`;
+
+  const a = COMPARE_PICK[0] ? compareRow(COMPARE_PICK[0], league) : null;
+  const b = COMPARE_PICK[1] ? compareRow(COMPARE_PICK[1], league) : null;
+
+  const metric = (label, fa, fb, better) => {
+    if(!a || !b) return '';
+    const va = fa(a), vb = fb(b);
+    let ta = '', tb = '';
+    if(better && va != null && vb != null && va !== vb){
+      const aWins = better === 'high' ? va > vb : va < vb;
+      ta = aWins ? 'cmp-win' : ''; tb = aWins ? '' : 'cmp-win';
+    }
+    const show = v => v == null ? '—' : v;
+    return `<tr><td class="${ta}">${show(typeof va === 'number' ? (Number.isInteger(va)?va:va.toFixed(2)) : va)}</td>
+      <th>${label}</th><td class="${tb}">${show(typeof vb === 'number' ? (Number.isInteger(vb)?vb:vb.toFixed(2)) : vb)}</td></tr>`;
+  };
+
+  const pct = x => x == null ? null : (x*100).toFixed(0) + '%';
+  const body = (a && b) ? `
+    <table class="cmp">
+      <thead><tr><th>${a.name}</th><th></th><th>${b.name}</th></tr></thead>
+      <tbody>
+        ${metric('Position / team', r=>`${r.pos} · ${r.team||'FA'}`, r=>`${r.pos} · ${r.team||'FA'}`)}
+        ${metric('Age', r=>r.age, r=>r.age, 'low')}
+        ${metric('Value in this league', r=>r.value, r=>r.value, 'high')}
+        ${metric('Role', r=>r.role||'—', r=>r.role||'—')}
+        ${metric('Opportunity / game', r=>r.perGame, r=>r.perGame, 'high')}
+        ${metric('Share of team', r=>pct(r.share), r=>pct(r.share))}
+        ${metric('Red-zone share', r=>pct(r.rzShare), r=>pct(r.rzShare))}
+        ${metric('Last 4wk trend', r=>r.trend==null?null:(r.trend>0?'+':'')+pct(r.trend), r=>r.trend==null?null:(r.trend>0?'+':'')+pct(r.trend))}
+        ${metric('Median weekly finish', r=>r.medianPosRank, r=>r.medianPosRank, 'low')}
+        ${metric('Points per game', r=>r.seasonPPG, r=>r.seasonPPG, 'high')}
+        ${metric('Projected this week', r=>r.proj, r=>r.proj, 'high')}
+        ${metric('This week', r=>r.matchup?`${r.matchup.home?'vs ':'@ '}${r.matchup.opp}${r.matchup.rank?` (${ordinal(r.matchup.rank)})`:''}`:'—',
+                                r=>r.matchup?`${r.matchup.home?'vs ':'@ '}${r.matchup.opp}${r.matchup.rank?` (${ordinal(r.matchup.rank)})`:''}`:'—')}
+        ${metric('Times traded (your leagues)', r=>r.tradeVol, r=>r.tradeVol)}
+        ${metric('Net on strong rosters', r=>r.strongNet, r=>r.strongNet, 'high')}
+        ${metric('30-day value change', r=>r.change30?`${r.change30.delta>0?'+':''}${r.change30.pct.toFixed(0)}%`:'—',
+                                        r=>r.change30?`${r.change30.delta>0?'+':''}${r.change30.pct.toFixed(0)}%`:'—')}
+      </tbody>
+    </table>
+    <p class="cc-body" style="margin-top:14px">Highlighted side is the better of the two on that row, where "better" is unambiguous. Rows without a highlight are context rather than a contest.</p>`
+    : '<div class="empty">Pick two players to compare.</div>';
+
+  panel.innerHTML = `
+    <div class="section">
+      <h2 class="sec">Compare</h2>
+      <div class="cmp-pickers">${sel(0)}<span class="tm-cap">vs</span>${sel(1)}</div>
+      ${body}
+    </div>`;
+
+  panel.querySelectorAll('[data-cmp]').forEach(s => s.addEventListener('change', () => {
+    COMPARE_PICK[Number(s.dataset.cmp)] = s.value || null;
+    renderCompare(data);
+  }));
+}
+
+/* ===================== THREE- AND FOUR-TEAM TRADES =====================
+   Two rosters often cannot trade even when both want to. You have a surplus receiver, they have a
+   surplus back, and neither of you needs what the other is selling — so the conversation dies. A
+   third team breaks that deadlock: you send the receiver to the team that wants one, that team
+   sends its spare back to the team that needs a back, and that team sends you the quarterback you
+   were after. Nobody traded with the person they wanted something from, and everybody got better.
+
+   That is the whole idea, and the reason it is rare in practice is bookkeeping, not insight — it
+   is hard to hold three rosters' needs in your head at once. The app already knows every roster's
+   surpluses, needs and window, so it can simply enumerate the possibilities.
+
+   HOW IT IS BUILT
+   A rotation is a cycle: each team gives to the next and receives from the previous. For every
+   ordering of the chosen teams, the best gift along each leg is the most valuable player the giver
+   can spare at a position the receiver actually needs — never one of the giver's three best
+   players, which is the same guard the two-team generator uses. Each leg is then priced in the
+   RECEIVER's terms, because a rebuilding team and a contender do not value the same player
+   equally, and that difference is exactly what makes a three-way work.
+
+   A rotation is only shown when every team comes out even or ahead on its own terms. "Even" is a
+   tolerance, not an identity: these are opening positions for a conversation, and a proposal that
+   is perfectly balanced to three decimal places is no likelier to be accepted than one that is
+   close. Balance for each team is reported next to the proposal rather than hidden, so the person
+   sending it knows which team has to be talked into it.
+   ====================================================================== */
+
+const MULTI_TEAM_TOLERANCE = 0.88;   // a team must receive at least this share of what it gives
+
+/* Coarse window for a roster this app has not run a full analysis on. The full classifier lives
+   inside analyzeRoster and needs more context than a rival roster offers, so this mirrors its
+   rank-and-age shape at the level the trade pricing actually uses: contend, rebuild or neutral. */
+function rivalWindowFor(league, rosters, roster){
+  if(!league || !Array.isArray(rosters) || !roster) return 'PLAYOFF CHASER';
+  const standings = [...rosters].sort((a,b) =>
+    (b.settings?.wins??0)-(a.settings?.wins??0) || (b.settings?.fpts??0)-(a.settings?.fpts??0));
+  const rank = standings.findIndex(r => r.roster_id === roster.roster_id) + 1;
+  const cutoff = league.settings?.playoff_teams || Math.ceil(rosters.length/2);
+  if(rank <= cutoff) return 'CONTENDER';
+  if(rank <= cutoff + 2) return 'PLAYOFF CHASER';
+  /* In a league with a future, a bad team is rebuilding; in redraft it is simply bad, and the
+     distinction matters because only one of them pays a premium for youth. */
+  return hasFutureValue(league) ? 'REBUILDER' : 'BOTTOM FEEDER';
+}
+
+/* Every cyclic ordering of the teams, with the first held fixed — rotating a cycle produces the
+   same trade, so only the distinct orderings are enumerated. Three teams give 2, four give 6. */
+function rotationsOf(list){
+  if(list.length < 3) return [];
+  const [first, ...rest] = list;
+  const out = [];
+  const permute = (arr, acc) => {
+    if(!arr.length){ out.push([first, ...acc]); return; }
+    arr.forEach((x,i) => permute(arr.slice(0,i).concat(arr.slice(i+1)), acc.concat([x])));
+  };
+  permute(rest, []);
+  return out;
+}
+
+/* The best player `giver` can spare that `receiver` genuinely needs. Returns null when there is no
+   sensible gift along this leg, which is what kills most rotations. */
+function bestGiftBetween(giver, receiver, league){
+  const giverByPos = positionGroups(giver.players);
+  const recvByPos = positionGroups(receiver.players);
+  const g = posNeedSurplus(giverByPos, league);
+  const r = posNeedSurplus(recvByPos, league);
+  const shared = g.surplus.filter(pos => r.need.includes(pos));
+  if(!shared.length) return null;
+
+  /* Untouchables: nobody opens a three-way by giving up one of their three best players. */
+  const ranked = [...giver.players].sort((a,b) => (assetValue(b.player_id, league)||0) - (assetValue(a.player_id, league)||0));
+  const untouchable = new Set(ranked.slice(0,3).map(p => p.player_id));
+
+  let best = null;
+  shared.forEach(pos => {
+    (giverByPos[pos] || []).forEach(p => {
+      if(untouchable.has(p.player_id)) return;
+      const v = assetValue(p.player_id, league) || 0;
+      if(v <= 0) return;
+      if(!best || v > best.value) best = { player: p, position: pos, value: v };
+    });
+  });
+  return best;
+}
+
+function buildMultiTeamTrades(teams, league){
+  if(!Array.isArray(teams) || teams.length < 3) return [];
+  const results = [];
+
+  rotationsOf(teams).forEach(order => {
+    const legs = [];
+    for(let i = 0; i < order.length; i++){
+      const giver = order[i], receiver = order[(i+1) % order.length];
+      const gift = bestGiftBetween(giver, receiver, league);
+      if(!gift) return;                       // a broken leg kills the whole rotation
+      legs.push({ from: giver, to: receiver, ...gift });
+    }
+
+    /* Price each leg in the receiving team's own terms, then check that every team comes out at
+       least close to even on what it gave versus what it got. */
+    const ledger = {};
+    order.forEach(t => { ledger[t.rosterId] = { team: t, gave: 0, got: 0 }; });
+    legs.forEach(leg => {
+      const item = { kind:'player', value: leg.value, position: leg.position, age: leg.player.age };
+      const toThem = perceivedValue(item, leg.to.window, league);
+      ledger[leg.to.rosterId].got  += toThem;
+      /* What it costs the giver is what he is giving up at his own valuation — the chart price,
+         since he already owns it and is not paying a premium to acquire it. */
+      ledger[leg.from.rosterId].gave += leg.value;
+    });
+
+    const balances = order.map(t => {
+      const l = ledger[t.rosterId];
+      return { team: t, gave: l.gave, got: l.got, ratio: l.gave > 0 ? l.got / l.gave : 1 };
+    });
+    if(balances.some(b => b.ratio < MULTI_TEAM_TOLERANCE)) return;
+
+    /* Prefer rotations that are even for everyone over ones that are lopsided in my favour: a
+       proposal nobody will accept is worth less than one that might actually get signed. */
+    const spread = Math.max(...balances.map(b => b.ratio)) - Math.min(...balances.map(b => b.ratio));
+    const mine = balances.find(b => b.team.isMe);
+    results.push({ order, legs, balances, spread, myRatio: mine ? mine.ratio : 1 });
+  });
+
+  results.sort((a,b) => (b.myRatio - a.myRatio) || (a.spread - b.spread));
+  return results.slice(0, 4);
+}
+
+function multiTeamHTML(proposals, league){
+  if(!proposals.length){
+    return `<div class="card note"><p class="cc-body">No rotation works between these teams right now. That is the normal outcome — a three-way needs each team to have a surplus the next one actually needs, all the way round the circle. Try a different combination, or a team with a clearly different window from yours.</p></div>`;
+  }
+  return proposals.map((p, i) => {
+    const legs = p.legs.map(l => `
+      <div class="mt-leg">
+        <span class="mt-from">${l.from.name}</span>
+        <span class="mt-arrow">→</span>
+        <span class="mt-player">${l.player.full_name} <span class="cell-meta">${l.position} · ${formatK(l.value)}</span></span>
+        <span class="mt-arrow">→</span>
+        <span class="mt-to">${l.to.name}</span>
+      </div>`).join('');
+    const bal = p.balances.map(b => {
+      const pctv = Math.round(b.ratio * 100);
+      const tone = b.ratio >= 1 ? 'good' : (b.ratio >= 0.95 ? 'neutral' : 'bad');
+      return `<span class="mt-bal tm-${tone}">${b.team.name}${b.team.isMe?' (you)':''}: ${pctv}%</span>`;
+    }).join('');
+    return `<div class="card mt-card">
+      <h3 class="cc-title" style="margin-top:0">Rotation ${i+1} — ${p.order.length} teams</h3>
+      ${legs}
+      <div class="mt-bals">${bal}</div>
+      <p class="cc-body" style="margin-top:10px;font-size:12.5px">Each percentage is what that team receives measured against what it gives, priced the way that team values players given its own window. Above 100% means it profits on its own terms. ${p.order.map(t=>`${t.name} is ${t.window.toLowerCase()}`).join('; ')}.</p>
+    </div>`;
+  }).join('');
 }
 
 function renderTradeLab(data, myPlayers){
@@ -6863,24 +8794,73 @@ function renderTradeLab(data, myPlayers){
   const panel = document.getElementById('panel-tradelab');
   const rivals = rosters.filter(r => r.roster_id !== myRoster.roster_id);
 
+  /* Rivals are listed with how likely each is to engage at all, where the transaction scan has
+     been run. A perfectly fair offer to somebody who has not traded all season is wasted effort,
+     and that is knowable before the offer is written. */
+  const recepOf = r => {
+    if(!TRADE_SCAN || !TRADE_SCAN.byUser) return null;
+    const p = TRADE_SCAN.byUser[r.owner_id];
+    return p ? Math.round(managerReceptiveness(p)*100) : null;
+  };
+  const rivalOption = r => {
+    const pc = recepOf(r);
+    return `<option value="${r.roster_id}">${rosterNameById[r.roster_id]}${pc!=null?` — ${pc}% likely to engage`:''}</option>`;
+  };
+  const ordered = [...rivals].sort((a,b) => (recepOf(b) ?? 50) - (recepOf(a) ?? 50));
+
   panel.innerHTML = `
     ${deadlineBannerHTML(data.league)}
     <h2 class="sec">Trade Lab</h2>
-    <p class="sec-note">Pick an opponent in this league to compare rosters and see where a trade makes sense for both sides.</p>
+    <p class="sec-note">Pick an opponent to compare rosters and see where a two-sided trade makes sense. Add a second and third team to look for a rotation — a trade that works precisely because none of you wanted what the other was selling.</p>
     <select class="selinput" id="rivalSelect">
       <option value="">Select a team...</option>
-      ${rivals.map(r => `<option value="${r.roster_id}">${rosterNameById[r.roster_id]}</option>`).join('')}
+      ${ordered.map(rivalOption).join('')}
     </select>
+    <div class="mt-extra">
+      <select class="selinput" id="rivalSelect2">
+        <option value="">Add a second team (optional)…</option>
+        ${ordered.map(rivalOption).join('')}
+      </select>
+      <select class="selinput" id="rivalSelect3">
+        <option value="">Add a third team (optional)…</option>
+        ${ordered.map(rivalOption).join('')}
+      </select>
+    </div>
     <div id="tradeLabResult" style="margin-top:20px"></div>
+    <div id="tradeLabMulti" style="margin-top:20px"></div>
   `;
 
-  document.getElementById('rivalSelect').addEventListener('change', (e) => {
-    const rid = e.target.value;
+  const teamFor = (rid, isMe) => {
+    const r = rosters.find(x => x.roster_id === Number(rid));
+    if(!r) return null;
+    return { rosterId: r.roster_id, name: isMe ? 'You' : rosterNameById[r.roster_id],
+             players: (r.players||[]).map(playerInfo), isMe: !!isMe,
+             window: isMe ? effectiveWindow(league.league_id, 'PLAYOFF CHASER') : rivalWindowFor(league, rosters, r) };
+  };
+
+  function repaintLab(){
+    const rid = document.getElementById('rivalSelect').value;
+    const rid2 = document.getElementById('rivalSelect2').value;
+    const rid3 = document.getElementById('rivalSelect3').value;
     const resultBox = document.getElementById('tradeLabResult');
-    if(!rid){ resultBox.innerHTML=''; return; }
+    const multiBox = document.getElementById('tradeLabMulti');
+
+    if(!rid){ resultBox.innerHTML=''; multiBox.innerHTML=''; return; }
     const rival = rosters.find(r => r.roster_id === Number(rid));
     const rivalPlayers = (rival.players||[]).map(playerInfo);
     resultBox.innerHTML = buildTradeLabHTML(myPlayers, rivalPlayers, rosterNameById[rid], sf, league);
+
+    const picked = [teamFor(myRoster.roster_id, true), teamFor(rid)];
+    if(rid2 && rid2 !== rid) picked.push(teamFor(rid2));
+    if(rid3 && rid3 !== rid && rid3 !== rid2) picked.push(teamFor(rid3));
+    const teams = picked.filter(Boolean);
+    if(teams.length < 3){ multiBox.innerHTML = ''; return; }
+    multiBox.innerHTML = '<h2 class="sec">Rotations</h2>' + multiTeamHTML(buildMultiTeamTrades(teams, league), league);
+  }
+
+  ['rivalSelect','rivalSelect2','rivalSelect3'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('change', repaintLab);
   });
 }
 
@@ -6895,8 +8875,12 @@ function posNeedSurplus(byPos, league){
     const elite = league
       ? arr.filter(p=>assetValue(p.player_id, league) >= 3000).length
       : arr.filter(p=>posTier(p.search_rank)<=2).length;
+    /* Exclusive, like analyzeRoster's buckets. Two independent ifs let five non-elite WRs count as
+       both a need and a surplus, so buildReciprocalTradeProposals would offer a WR away and ask for
+       a WR back at the same position, and the Evaluator's acceptance read contradicted the Analysis
+       tab on the same roster. A position you are thin at in quality is not one to trade from. */
     if(arr.length <= 1 || elite === 0) need.push(pos);
-    if(arr.length >= 4 || elite >= 2) surplus.push(pos);
+    else if(arr.length >= 4 || elite >= 2) surplus.push(pos);
   });
   return { need, surplus };
 }
@@ -7157,6 +9141,7 @@ function renderElenco(players, starterIds, myRoster, league){
    --------------------------------------------------------------------------- */
 renderSyncPanel();
 startSyncWatch();
+bindFavStars();
 </script>
 </body>
 </html>
